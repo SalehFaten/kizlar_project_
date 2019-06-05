@@ -42,61 +42,20 @@ public class Person {
 	final public static int DEFAULT_PORT = 5555;
 	////*******************************************////
 	
-	public String getFirstName() {
-		return FirstName;
-	}
-	public void setFirstName(String firstName) {
-		FirstName = firstName;
-	}
-	public String getLastName() {
-		return LastName;
-	}
-	public void setLastName(String lastName) {
-		LastName = lastName;
-	}
-	public String getTel() {
-		return Tel;
-	}
-	public void setTel(String tel) {
-		Tel = tel;
-	}
-	public String getEmail() {
-		return Email;
-	}
-	public void setEmail(String email) {
-		Email = email;
-	}
-	public String getvisa() {
-		return visa;
-	}
-	public void setvisa(String Visa) {
-		visa =Visa;
-	}
-	public String getcvv() {
-		return cvv;
-	}
-	public void setcvv(String CVV) {
-		visa =CVV;
-	}
-	public String getdate() {
-		return date;
-	}
-	public void setdate(String Date) {
-		date =Date;
-	}
-	public String getid() {
-		return visa;
-	}
-	public void setid(String Id) {
-		id =Id;
-	}
-	public boolean isRegestered() {
-		return Regestered;
-	}
-	public void setRegestered(boolean regestered) {
-		Regestered = regestered;
-	}
-	
+	/*
+	 * public String getFirstName() { return FirstName; } public void
+	 * setFirstName(String firstName) { FirstName = firstName; } public String
+	 * getLastName() { return LastName; } public void setLastName(String lastName) {
+	 * LastName = lastName; } public String getTel() { return Tel; } public void
+	 * setTel(String tel) { Tel = tel; } public String getEmail() { return Email; }
+	 * public void setEmail(String email) { Email = email; } public String getvisa()
+	 * { return visa; } public void setvisa(String Visa) { visa =Visa; } public
+	 * String getcvv() { return cvv; } public void setcvv(String CVV) { visa =CVV; }
+	 * public String getdate() { return date; } public void setdate(String Date) {
+	 * date =Date; } public String getid() { return visa; } public void setid(String
+	 * Id) { id =Id; } public boolean isRegestered() { return Regestered; } public
+	 * void setRegestered(boolean regestered) { Regestered = regestered; }
+	 */
 	
 	public static  boolean register(String firstname, String lastname, String tel, String email,String pass, String visa,String cvv,String date,String id){
 		Connection conn = null;

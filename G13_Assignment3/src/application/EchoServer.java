@@ -164,13 +164,23 @@ public class EchoServer extends AbstractServer {
 			case "PublicSearch":
 				break;
 			case "Create":
+				String CityName=detail[1];
+				String CityId=detail[2];
+				String MapId=detail[3];
+				String VersionNum=detail[4];
+				String description=detail[5];
+				String path=detail[6];
+				if(City.CreateCity(CityName,CityId,MapId, VersionNum, description,path)==true)
+					{
+					this.handleMessageFromServerUI("Created");
+					}
 				break;
 			case "AddMap":
-				String CityId=detail[1];
-				String MapId=detail[2];
-				String VersionNum=detail[3];
-				String description=detail[4];
-				String path=detail[5];
+				 CityId=detail[1];
+				 MapId=detail[2];
+				 VersionNum=detail[3];
+				 description=detail[4];
+				 path=detail[5];
 				if(Map.AddMapToCity(CityId, MapId, VersionNum, description, path)==true)
 					{
 					this.handleMessageFromServerUI("AddMap");

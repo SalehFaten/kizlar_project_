@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -55,13 +56,9 @@ public class CreateCity {
     void Create(ActionEvent event) throws IOException {
     	String message="Create,"+CityName.getText()+","+CityId.getText()+","+MapId.getText()+","+VersionNum.getText()+","+description.getText()+","+path.getText();
         Connect.client.handleMessageFromClientUI(message);
-        System.out.println(Connect.client.servermsg);
-        if (Connect.client.servermsg.equals("Create")) {
-    	   Parent pane= FXMLLoader.load(getClass().getResource("employeeHomePage.fxml"));
-           Scene log=new Scene(pane);
-           Stage app_Stage=(Stage)((Node)event.getSource()).getScene().getWindow();
-           app_Stage.setScene(log);
-           app_Stage.show();
+        if (Connect.client.servermsg.equals("Created")) {
+			JOptionPane.showMessageDialog(null,  "City Created Successfully!! ");
+
         }
 
     }
