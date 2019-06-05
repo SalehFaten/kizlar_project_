@@ -28,8 +28,6 @@ public class AddMapToCity {
     @FXML // fx:id="path"
     private TextField path; // Value injected by FXMLLoader
 
-    @FXML // fx:id="VersionNum"
-    private TextField VersionNum; // Value injected by FXMLLoader
 
     @FXML // fx:id="CityId"
     private TextField CityId; // Value injected by FXMLLoader
@@ -45,7 +43,7 @@ public class AddMapToCity {
 
     @FXML
     void add(ActionEvent event) throws IOException {
-     	String message="AddMap,"+CityId.getText()+","+MapId.getText()+","+VersionNum.getText()+","+description.getText()+","+path.getText();
+     	String message="AddMap,"+CityId.getText()+","+MapId.getText()+","+description.getText()+","+path.getText();
         Connect.client.handleMessageFromClientUI(message);
         if (Connect.client.servermsg.equals("AddMap")) {
         	JOptionPane.showMessageDialog(null, "Adding Map Finished Successfully");

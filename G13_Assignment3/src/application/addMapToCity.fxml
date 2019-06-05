@@ -32,24 +32,20 @@
          <font>
             <Font name="Comic Sans MS Bold Italic" size="12.0" />
          </font></TextField>
-      <TextField fx:id="VersionNum" alignment="CENTER" layoutX="301.0" layoutY="311.0" prefHeight="32.0" prefWidth="225.0" promptText="Enter Version Num ">
-         <font>
-            <Font name="Comic Sans MS Bold Italic" size="11.0" />
-         </font></TextField>
-      <TextField fx:id="description" alignment="CENTER" layoutX="301.0" layoutY="260.0" prefHeight="32.0" prefWidth="225.0" promptText="Enter Description To The New Map">
+      <TextField fx:id="description" alignment="CENTER" layoutX="301.0" layoutY="268.0" prefHeight="32.0" prefWidth="225.0" promptText="Enter Description To The New Map">
          <font>
             <Font name="Comic Sans MS Bold Italic" size="12.0" />
          </font></TextField>
-      <Button fx:id="addMapToCity" layoutX="389.0" layoutY="482.0" mnemonicParsing="false" onAction="#add" text="Add">
+      <Button fx:id="addMapToCity" layoutX="389.0" layoutY="436.0" mnemonicParsing="false" onAction="#add" text="Add">
          <font>
             <Font name="Comic Sans MS Bold Italic" size="15.0" />
          </font>
       </Button>
-      <TextField fx:id="path" alignment="CENTER" layoutX="301.0" layoutY="415.0" prefHeight="32.0" prefWidth="225.0" promptText="map location ">
+      <TextField fx:id="path" alignment="CENTER" layoutX="301.0" layoutY="373.0" prefHeight="32.0" prefWidth="225.0" promptText="map location ">
          <font>
             <Font name="Comic Sans MS Bold Italic" size="12.0" />
          </font></TextField>
-      <Button fx:id="Path" layoutX="301.0" layoutY="365.0" mnemonicParsing="false" onAction="#Path_dir" prefHeight="32.0" prefWidth="225.0" text="Select To Enter Path">
+      <Button fx:id="Path" layoutX="301.0" layoutY="318.0" mnemonicParsing="false" onAction="#Path_dir" prefHeight="32.0" prefWidth="225.0" text="Select To Enter Path">
          <font>
             <Font name="Comic Sans MS Bold Italic" size="12.0" />
          </font></Button>

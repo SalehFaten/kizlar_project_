@@ -27,15 +27,14 @@ public class City {
 	 */
 	final public static int DEFAULT_PORT = 5555;
 	////*******************************************////
-	private String CityName;
-	private String CountryName;
-	private int CityId;
-	private Vector<Path> CityPaths;
-	private Vector<InterestingPlace> CityInterestingPlace;
-	private Vector<Map> CityMaps;
+	/*
+	 * private String CityName; private String CountryName; private int CityId;
+	 * private Vector<Path> CityPaths; private Vector<InterestingPlace>
+	 * CityInterestingPlace; private Vector<Map> CityMaps;
+	 */
 	
 	
-	public static boolean CreateCity(String CityName,String CityId,String MapId,String VersionNum,String desc,String path) {
+	public static boolean CreateCity(String CityName,String CityId,String MapId,String desc,String path) {
 					Connection conn = null;
 		    Statement stmt = null;
             String CityID=null;
@@ -47,7 +46,7 @@ public class City {
 				stmt = conn.createStatement();
 
 		          /****write sql here****/
-				if(CityName==null|| CityId==null|| MapId==null|| VersionNum==null||desc==null || path==null)
+				if(CityName==null|| CityId==null|| MapId==null||desc==null || path==null)
 				{
 					JOptionPane.showMessageDialog(null, "One or more files are empty!! ");
 					return false;
@@ -61,49 +60,39 @@ public class City {
 					}
 					/****check if the city exist****/
 					if (CityID==null) {
-						/****check if the map is exist ****/
-						 sql = "SELECT * FROM Map WHERE MapId="+MapId;
-						 rs = stmt.executeQuery(sql);
-						while (rs.next()) {
-							MapID=rs.getString("MapId");
-						}
-						if (MapID==null)
-						{
-							JOptionPane.showMessageDialog(null, "Map  not exist!! ");
-							return false;
-						}
-						else {
-					/****insert new city to city table****/
-						PreparedStatement prep_stmt = conn.prepareStatement(
-							"INSERT INTO City "+ " VALUES( ?, ?)");
-					prep_stmt.setString(1, CityId);
-					prep_stmt.setString(2, CityName);
-					prep_stmt.executeUpdate();
-					
-					/****create new city table in database****/
-					stmt = conn.createStatement();
-					String createTableGifts = "CREATE TABLE "+CityName +
-					"(CityId VARCHAR(40), MapId VARCHAR(40),image VARCHAR(400))";
-					//execute create statement
-					stmt.executeUpdate(createTableGifts);
-					
-					/****put date in new city****/
-					prep_stmt = conn.prepareStatement(
-							"INSERT INTO "+CityName + " VALUES(?, ?, ?,?)");
-					prep_stmt.setString(1, CityId);
-					prep_stmt.setString(2, MapId);
-					prep_stmt.setString(3,path);
-					prep_stmt.setString(4,desc);
-					prep_stmt.executeUpdate();
 
-					/****put the image in maps****/
-					prep_stmt = conn.prepareStatement(
-							"UPDATE Map "+"SET image =? "+"WHERE MapId= ? ");
-					prep_stmt.setString(1, path);
-					prep_stmt.setString(2,MapId);
-					prep_stmt.executeUpdate();
-					return true;
-					}
+							/****insert new city to city table****/
+							PreparedStatement prep_stmt = conn.prepareStatement(
+								"INSERT INTO City "+ " VALUES( ?, ?)");
+						prep_stmt.setString(1, CityId);
+						prep_stmt.setString(2, CityName);
+						prep_stmt.executeUpdate();
+						
+						/****create new city table in database****/
+						stmt = conn.createStatement();
+						String createTableGifts = "CREATE TABLE "+CityName +
+						"(CityId VARCHAR(40), MapId VARCHAR(40),image VARCHAR(400))";
+						//execute create statement
+						stmt.executeUpdate(createTableGifts);
+						
+						/****put date in new city****/
+						prep_stmt = conn.prepareStatement(
+								"INSERT INTO "+CityName + " VALUES(?, ?, ?)");
+						prep_stmt.setString(1, CityId);
+						prep_stmt.setString(2, MapId);
+						prep_stmt.setString(3,path);
+						prep_stmt.executeUpdate();
+
+							/****put the image in maps****/
+							prep_stmt = conn.prepareStatement(
+									"INSERT INTO Map " + " VALUES(?, ?, ?, ?)");
+							prep_stmt.setString(1, MapId);
+							prep_stmt.setString(2,path);
+							prep_stmt.setString(3,desc);
+							prep_stmt.setInt(4,0);
+							prep_stmt.executeUpdate();
+							return true;
+
 					}
 					else {
 						JOptionPane.showMessageDialog(null, "City exists!! ");
