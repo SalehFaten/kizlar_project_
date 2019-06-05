@@ -14,7 +14,6 @@
             <Image url="@../../../world-map-background-copy.jpg" />
          </image>
       </ImageView>
-      <ImageView fx:id="MapImage" fitHeight="299.0" fitWidth="420.0" layoutX="245.0" layoutY="234.0" onDragDetected="#MapImage" pickOnBounds="true" preserveRatio="true" />
       <TextField fx:id="SearchMapId" layoutX="364.0" layoutY="171.0" onAction="#SearchMapId" prefHeight="31.0" prefWidth="196.0" promptText="Search Map Id" />
       <Text fontSmoothingType="LCD" layoutX="236.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Employee See Maps" textAlignment="CENTER" wrappingWidth="438.13671875">
          <font>
@@ -26,7 +25,7 @@
             <Font name="Comic Sans MS Bold Italic" size="15.0" />
          </font>
       </Button>
+      <Pane fx:id="PaneView" layoutX="198.0" layoutY="260.0" prefHeight="212.0" prefWidth="446.0" />
          </children>
       
       </AnchorPane>
-      
