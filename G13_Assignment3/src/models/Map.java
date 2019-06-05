@@ -12,6 +12,7 @@ import java.util.Vector;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -34,16 +35,15 @@ public class Map {
 	final public static int DEFAULT_PORT = 5555;
 	////*******************************************////
 	
-	private String MapId;
-	private int CityId;
-	private String Description;
-	private Vector<Path> MapPaths;
-	private Vector<InterestingPlace> MapInterestingPlace;
-	private Vector<Version> MapVersions;
+	/*
+	 * private String MapId; private int CityId; private String Description; private
+	 * Vector<Path> MapPaths; private Vector<InterestingPlace> MapInterestingPlace;
+	 * private Vector<Version> MapVersions;
+	 */
 
 	
 	@SuppressWarnings("resource")
-	public static boolean AddMapToCity(String CityId ,String MapId,String VersionNum, String description,String path)
+	public static boolean AddMapToCity(String CityId ,String MapId, String description,String path)
 	{	
 	
 		Connection conn = null;
@@ -55,7 +55,7 @@ public class Map {
 			Class.forName(JDBC_DRIVER);
 			conn = DriverManager.getConnection(DB_URL, USER, PASS);
 	//**whire sql here**//
-			if(CityId ==null || MapId==null ||VersionNum==null|| description==null||path==null)
+			if(CityId ==null || MapId==null || description==null||path==null)
 			{
 				return false;
 			}
@@ -69,35 +69,24 @@ public class Map {
 			}
 			if(CityName!=null)
 			{
-				 prep_stmt = conn.prepareStatement("SELECT * FROM Map WHERE MapId=?");
-				prep_stmt.setString(1, MapId);
-				rs = prep_stmt.executeQuery();
-				while (rs.next()) {
-				Mapid = rs.getString("MapId");
-				}
-				if (Mapid==null)
-				{
-					return false;
-				}
-				else
-				{
+
 					prep_stmt = conn.prepareStatement(
-						"INSERT INTO "+CityName + " VALUES(?, ?, ?,?)");
-				prep_stmt.setString(1, CityId);
-				prep_stmt.setString(2, MapId);
-				prep_stmt.setString(3,path);
-				prep_stmt.setString(4,description);
+							"INSERT INTO "+CityName + " VALUES(?, ?, ?)");
+					prep_stmt.setString(1, CityId);
+					prep_stmt.setString(2, MapId);
+					prep_stmt.setString(3,path);
+					prep_stmt.executeUpdate();
 
-				prep_stmt.executeUpdate();
+					/****put the image in maps****/
+					prep_stmt = conn.prepareStatement(
+							"INSERT INTO Map " + " VALUES(?, ?, ?,?)");
+					prep_stmt.setString(1, MapId);
+					prep_stmt.setString(2,path);
+					prep_stmt.setString(3,description);
+					prep_stmt.setInt(4,0);
+					prep_stmt.executeUpdate();
+					return true;
 
-				/****put the image in maps****/
-				prep_stmt = conn.prepareStatement(
-						"UPDATE Map "+"SET image =? "+"WHERE MapId= ? ");
-				prep_stmt.setString(1, path);
-				prep_stmt.setString(2,MapId);
-				prep_stmt.executeUpdate();
-
-				}				return true;
 					
 					
 				}

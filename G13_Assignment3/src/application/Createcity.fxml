@@ -14,7 +14,7 @@
             <Image url="@../../../world-map-background-copy.jpg" />
          </image>
       </ImageView>
-      <TextField fx:id="CityId" alignment="CENTER" layoutX="154.0" layoutY="236.0" prefHeight="32.0" prefWidth="225.0" promptText="Enter City Id">
+      <TextField fx:id="CityId" alignment="CENTER" layoutX="154.0" layoutY="252.0" prefHeight="32.0" prefWidth="225.0" promptText="Enter City Id">
          <font>
             <Font name="Comic Sans MS Bold Italic" size="12.0" />
          </font>
@@ -24,14 +24,9 @@
             <Font name="Comic Sans MS Bold Italic" size="15.0" />
          </font>
       </Button>
-      <TextField fx:id="MapId" alignment="CENTER" layoutX="154.0" layoutY="281.0" prefHeight="32.0" prefWidth="225.0" promptText="Enter Map Id">
+      <TextField fx:id="MapId" alignment="CENTER" layoutX="154.0" layoutY="297.0" prefHeight="32.0" prefWidth="225.0" promptText="Enter Map Id">
          <font>
             <Font name="Comic Sans MS Bold Italic" size="12.0" />
-         </font>
-      </TextField>
-      <TextField fx:id="VersionNum" alignment="CENTER" layoutX="154.0" layoutY="329.0" prefHeight="32.0" prefWidth="225.0" promptText="Enter Version Num ">
-         <font>
-            <Font name="Comic Sans MS Bold Italic" size="11.0" />
          </font>
       </TextField>
       <TextField fx:id="description" alignment="CENTER" layoutX="459.0" layoutY="203.0" prefHeight="32.0" prefWidth="225.0" promptText="Enter Description To The New Map">
@@ -54,7 +49,7 @@
             <Font name="Comic Sans MS Bold Italic" size="12.0" />
          </font>
       </Button>
-      <TextField fx:id="CityName" alignment="CENTER" layoutX="154.0" layoutY="187.0" prefHeight="32.0" prefWidth="225.0" promptText="Enter City Name">
+      <TextField fx:id="CityName" alignment="CENTER" layoutX="154.0" layoutY="203.0" prefHeight="32.0" prefWidth="225.0" promptText="Enter City Name">
          <font>
             <Font name="Comic Sans MS Bold Italic" size="12.0" />
          </font>

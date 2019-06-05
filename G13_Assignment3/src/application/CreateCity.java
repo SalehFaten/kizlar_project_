@@ -34,9 +34,6 @@ public class CreateCity {
     @FXML // fx:id="CityId"
     private TextField CityId; // Value injected by FXMLLoader
 
-    @FXML // fx:id="VersionNum"
-    private TextField VersionNum; // Value injected by FXMLLoader
-
     @FXML // fx:id="description"
     private TextField description; // Value injected by FXMLLoader
 
@@ -54,7 +51,7 @@ public class CreateCity {
 
     @FXML
     void Create(ActionEvent event) throws IOException {
-    	String message="Create,"+CityName.getText()+","+CityId.getText()+","+MapId.getText()+","+VersionNum.getText()+","+description.getText()+","+path.getText();
+    	String message="Create,"+CityName.getText()+","+CityId.getText()+","+MapId.getText()+","+description.getText()+","+path.getText();
         Connect.client.handleMessageFromClientUI(message);
         if (Connect.client.servermsg.equals("Created")) {
 			JOptionPane.showMessageDialog(null,  "City Created Successfully!! ");
