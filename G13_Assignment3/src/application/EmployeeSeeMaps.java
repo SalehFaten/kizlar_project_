@@ -22,9 +22,10 @@ public class EmployeeSeeMaps {
 
     @FXML // fx:id="SearchMapId"
     private TextField SearchMapId; // Value injected by FXMLLoader
+    @FXML // fx:id="imageview"
+    private ImageView imageview; // Value injected by FXMLLoader
 
-    @FXML // fx:id="PaneView"
-    private Pane PaneView; // Value injected by FXMLLoader
+    
 
     @FXML
     void SearchMapId(ActionEvent event) throws IOException {
@@ -32,12 +33,8 @@ public class EmployeeSeeMaps {
         Connect.client.handleMessageFromClientUI(message);
        String[] input= Connect.client.servermsg.split(",");
         if (input[0].equals("Path")) {
-        	PaneView.getChildren().clear();
     	Image image=new Image("file:"+input[1]);
-		javafx.scene.image.ImageView imageview=new javafx.scene.image.ImageView(image);
-		imageview.setFitWidth(300);
-		imageview.setFitHeight(300);
-		PaneView.getChildren().add(imageview);
+    	imageview.setImage(image);
         }
 
     }

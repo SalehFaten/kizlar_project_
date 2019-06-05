@@ -17,7 +17,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class Map {
-	static JLabel label;
 	 /////*******databasee******////
 	static private final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
 
@@ -82,21 +81,21 @@ public class Map {
 				}
 				else
 				{
-//					FileInputStream input=null;
 					prep_stmt = conn.prepareStatement(
-						"INSERT INTO "+CityName + " VALUES(?, ?, ?)");
+						"INSERT INTO "+CityName + " VALUES(?, ?, ?,?)");
 				prep_stmt.setString(1, CityId);
 				prep_stmt.setString(2, MapId);
 				prep_stmt.setString(3,path);
+				prep_stmt.setString(4,description);
+
 				prep_stmt.executeUpdate();
 
-				
-				///****if we want blob *****////
-//				File file= new File(path);
-//				input= new FileInputStream(file);
-//				prep_stmt.setBlob(3, input);
-//				prep_stmt.executeUpdate();
-
+				/****put the image in maps****/
+				prep_stmt = conn.prepareStatement(
+						"UPDATE Map "+"SET image =? "+"WHERE MapId= ? ");
+				prep_stmt.setString(1, path);
+				prep_stmt.setString(2,MapId);
+				prep_stmt.executeUpdate();
 
 				}				return true;
 					
@@ -155,43 +154,20 @@ public class Map {
 		return im;
 		
 	}
-//	public String getMapId() {
-//		return MapId;
-//	}
-//	public void setMapId(String mapId) {
-//		MapId = mapId;
-//	}
-//	public int getCityId() {
-//		return CityId;
-//	}
-//	public void setCityId(int cityId) {
-//		CityId = cityId;
-//	}
-//	public String getDescription() {
-//		return Description;
-//	}
-//	public void setDescription(String description) {
-//		Description = description;
-//	}
-//	public Vector<Path> getMapPaths() {
-//		return MapPaths;
-//	}
-//	public void setMapPaths(Vector<Path> mapPaths) {
-//		MapPaths = mapPaths;
-//	}
-//	public Vector<InterestingPlace> getMapInterestingPlace() {
-//		return MapInterestingPlace;
-//	}
-//	public void setMapInterestingPlace(Vector<InterestingPlace> mapInterestingPlace) {
-//		MapInterestingPlace = mapInterestingPlace;
-//	}
-//	public Vector<Version> getMapVersions() {
-//		return MapVersions;
-//	}
-//	public void setMapVersions(Vector<Version> mapVersions) {
-//		MapVersions = mapVersions;
-//	}
-//	
+	/*
+	 * public String getMapId() { return MapId; } public void setMapId(String mapId)
+	 * { MapId = mapId; } public int getCityId() { return CityId; } public void
+	 * setCityId(int cityId) { CityId = cityId; } public String getDescription() {
+	 * return Description; } public void setDescription(String description) {
+	 * Description = description; } public Vector<Path> getMapPaths() { return
+	 * MapPaths; } public void setMapPaths(Vector<Path> mapPaths) { MapPaths =
+	 * mapPaths; } public Vector<InterestingPlace> getMapInterestingPlace() { return
+	 * MapInterestingPlace; } public void
+	 * setMapInterestingPlace(Vector<InterestingPlace> mapInterestingPlace) {
+	 * MapInterestingPlace = mapInterestingPlace; } public Vector<Version>
+	 * getMapVersions() { return MapVersions; } public void
+	 * setMapVersions(Vector<Version> mapVersions) { MapVersions = mapVersions; }
+	 */	
 	
 
 }
