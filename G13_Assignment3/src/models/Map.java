@@ -10,7 +10,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Vector;
 
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 public class Map {
+	static JLabel label;
 	 /////*******databasee******////
 	static private final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
 
@@ -36,11 +43,11 @@ public class Map {
 	private Vector<Version> MapVersions;
 
 	
-	
-	
 	@SuppressWarnings("resource")
 	public static boolean AddMapToCity(String CityId ,String MapId,String VersionNum, String description,String path)
-	{	Connection conn = null;
+	{	
+	
+		Connection conn = null;
 	    Statement stmt = null;
 	    String CityName=null;
 	    String Mapid=null;
@@ -75,22 +82,27 @@ public class Map {
 				}
 				else
 				{
-					FileInputStream input=null;
+//					FileInputStream input=null;
 					prep_stmt = conn.prepareStatement(
 						"INSERT INTO "+CityName + " VALUES(?, ?, ?)");
 				prep_stmt.setString(1, CityId);
 				prep_stmt.setString(2, MapId);
-//				prep_stmt.setString(3, path);
-				File file= new File(path);
-				input= new FileInputStream(file);
-				prep_stmt.setBlob(3, input);
+				prep_stmt.setString(3,path);
 				prep_stmt.executeUpdate();
+
 				
-				return true;
+				///****if we want blob *****////
+//				File file= new File(path);
+//				input= new FileInputStream(file);
+//				prep_stmt.setBlob(3, input);
+//				prep_stmt.executeUpdate();
+
+
+				}				return true;
 					
 					
 				}
-			}
+			
 			}
 			
 		} catch (SQLException se) {
@@ -105,7 +117,44 @@ public class Map {
 		return false;
 		
 	}
+	public static String showmap(String MapId)
+	{
+		Connection conn = null;
+	    Statement stmt = null;
+	    String im=null;
 
+		try {
+			Class.forName(JDBC_DRIVER);
+			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+	//**whire sql here**//
+			if(MapId==null)
+			{
+				return null ;
+			}
+			else
+			{
+			PreparedStatement prep_stmt = conn.prepareStatement("SELECT * FROM Map WHERE MapId=?");
+			prep_stmt.setString(1, MapId);
+			ResultSet rs = prep_stmt.executeQuery();
+			while (rs.next()) {
+			 im= rs.getString("image");
+			}
+		return im;	
+			
+			}
+			
+		} catch (SQLException se) {
+			se.printStackTrace();
+			System.out.println("SQLException: " + se.getMessage());
+			System.out.println("SQLState: " + se.getSQLState());
+			System.out.println("VendorError: " + se.getErrorCode());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return im;
+		
+	}
 //	public String getMapId() {
 //		return MapId;
 //	}

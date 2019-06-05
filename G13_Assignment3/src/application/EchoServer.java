@@ -196,6 +196,13 @@ public class EchoServer extends AbstractServer {
 			case "EditPlacelocation":
 				break;
 			case "EmployeeSeeMapId":
+				 MapId=detail[1];
+				 String mypath="Path,"+Map.showmap(MapId);
+				if(mypath!=null)
+					{
+					this.handleMessageFromServerUI(mypath);
+
+					}
 				break;
 				
 			
