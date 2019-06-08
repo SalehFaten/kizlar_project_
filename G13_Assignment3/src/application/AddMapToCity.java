@@ -45,21 +45,22 @@ public class AddMapToCity {
     void add(ActionEvent event) throws IOException {
      	String message="AddMap,"+CityId.getText()+","+MapId.getText()+","+description.getText()+","+path.getText();
         Connect.client.handleMessageFromClientUI(message);
-        if (Connect.client.servermsg.equals("AddMap")) {
-        	JOptionPane.showMessageDialog(null, "Adding Map Finished Successfully");
-    	   Parent pane= FXMLLoader.load(getClass().getResource("employeeHomePage.fxml"));
-           Scene log=new Scene(pane);
-           Stage app_Stage=(Stage)((Node)event.getSource()).getScene().getWindow();
-           app_Stage.setScene(log);
-           app_Stage.show();
-        }
+//        if ("AddMap".equals(Connect.client.servermsg)) {
+//        	JOptionPane.showMessageDialog(null, "Adding Map Finished Successfully");
+//        }
+//    	   Parent pane= FXMLLoader.load(getClass().getResource("employeeHomePage.fxml"));
+//           Scene log=new Scene(pane);
+//           Stage app_Stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+//           app_Stage.setScene(log);
+//           app_Stage.show();
+//        }
 
 
     }
 
     @FXML
     void back(ActionEvent event) throws IOException {
-    	  Parent pane= FXMLLoader.load(getClass().getResource("employeeHomePage.fxml"));
+    	  Parent pane= FXMLLoader.load(getClass().getResource("EmployeeHomePage.fxml"));
           Scene log=new Scene(pane);
           Stage app_Stage=(Stage)((Node)event.getSource()).getScene().getWindow();
           app_Stage.setScene(log);

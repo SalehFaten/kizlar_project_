@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.web.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
@@ -9,11 +13,11 @@
 
 <AnchorPane prefHeight="562.0" prefWidth="884.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Psearch">
    <children>
-      <ScrollPane layoutX="-21.0" layoutY="-6.0" prefHeight="568.0" prefWidth="919.0">
+      <ScrollPane prefHeight="563.0" prefWidth="898.0">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="652.0" prefWidth="919.0">
                <children>
-                  <ImageView fitHeight="651.0" fitWidth="1094.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView depthTest="DISABLE" fitHeight="651.0" fitWidth="1094.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../שנה%204/סמסטר%20ב/הנדסת%20תוכנה/world-map-background-copy.jpg" />
                      </image>
@@ -23,7 +27,14 @@
                         <Font name="Comic Sans MS Bold Italic" size="15.0" />
                      </font>
                   </Button>
-                  <Label fx:id="Text" layoutX="12.0" layoutY="85.0" prefHeight="562.0" prefWidth="997.0" />
+                  <TextArea fx:id="area" disable="true" layoutX="-2.0" layoutY="161.0" nodeOrientation="INHERIT" prefHeight="485.0" prefWidth="942.0">
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor>
+                     <font>
+                        <Font name="System Bold Italic" size="14.0" />
+                     </font>
+                  </TextArea>
                </children>
             </AnchorPane>
         </content>

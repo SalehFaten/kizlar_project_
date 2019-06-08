@@ -18,10 +18,10 @@ public class City {
 	// website:
 	// https://remotemysql.com/
 	// in future get those hardcoede string into separated config file.
-	static private final String DB = "gVwEbvpoL3";
+	static private final String DB = "0ajpgfocAS";
 	static private final String DB_URL = "jdbc:mysql://remotemysql.com/" + DB + "?useSSL=false";
-	static private final String USER = "gVwEbvpoL3";
-	static private final String PASS = "PyIl4PPKot";
+	static private final String USER = "0ajpgfocAS";
+	static private final String PASS = "bxsdfZ2BQu";
 	/**
 	 * The default port to listen on.
 	 */
@@ -58,6 +58,8 @@ public class City {
 					while (rs.next()) {
 						CityID=rs.getString("CityId");
 					}
+					rs.close();
+					stmt.close();
 					/****check if the city exist****/
 					if (CityID==null) {
 
@@ -67,14 +69,14 @@ public class City {
 						prep_stmt.setString(1, CityId);
 						prep_stmt.setString(2, CityName);
 						prep_stmt.executeUpdate();
-						
+						prep_stmt.close();
 						/****create new city table in database****/
 						stmt = conn.createStatement();
 						String createTableGifts = "CREATE TABLE "+CityName +
-						"(CityId VARCHAR(40), MapId VARCHAR(40),image VARCHAR(400))";
+						"(CityId VARCHAR(40), MapId VARCHAR(40),image VARCHAR(400),PRIMARY KEY (MapId))";
 						//execute create statement
 						stmt.executeUpdate(createTableGifts);
-						
+						stmt.close();
 						/****put date in new city****/
 						prep_stmt = conn.prepareStatement(
 								"INSERT INTO "+CityName + " VALUES(?, ?, ?)");
@@ -82,15 +84,17 @@ public class City {
 						prep_stmt.setString(2, MapId);
 						prep_stmt.setString(3,path);
 						prep_stmt.executeUpdate();
-
+prep_stmt.close();
 							/****put the image in maps****/
 							prep_stmt = conn.prepareStatement(
-									"INSERT INTO Map " + " VALUES(?, ?, ?, ?)");
+									"INSERT INTO Map " + " VALUES(?, ?, ?, ?,?)");
 							prep_stmt.setString(1, MapId);
 							prep_stmt.setString(2,path);
 							prep_stmt.setString(3,desc);
 							prep_stmt.setInt(4,0);
+							prep_stmt.setString(5,CityId);
 							prep_stmt.executeUpdate();
+							prep_stmt.close();
 							return true;
 
 					}
@@ -108,6 +112,16 @@ public class City {
 				System.out.println("VendorError: " + se.getErrorCode());
 			} catch (Exception e) {
 				e.printStackTrace();
+			}
+			finally {
+				try {
+					if (stmt != null)
+						stmt.close();
+					if (conn != null)
+						conn.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
 			}
 		return false;
 			

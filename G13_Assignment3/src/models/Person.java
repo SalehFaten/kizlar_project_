@@ -12,19 +12,7 @@ import java.util.Vector;
 
 import javax.swing.JOptionPane;
 
-public class Person {
-	
-	private String FirstName;
-	private String LastName;
-	private String Tel;
-	private String Email;
-	private String visa;
-	private String cvv;
-	private String date;
-	private String id;
-	private String password;
-	private boolean Regestered;
-	
+public class Person {	
 	 /////*******databasee******////
 	static private final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
 
@@ -32,30 +20,15 @@ public class Person {
 	// website:
 	// https://remotemysql.com/
 	// in future get those hardcoede string into separated config file.
-	static private final String DB = "gVwEbvpoL3";
+	static private final String DB = "0ajpgfocAS";
 	static private final String DB_URL = "jdbc:mysql://remotemysql.com/" + DB + "?useSSL=false";
-	static private final String USER = "gVwEbvpoL3";
-	static private final String PASS = "PyIl4PPKot";
+	static private final String USER = "0ajpgfocAS";
+	static private final String PASS = "bxsdfZ2BQu";
 	/**
 	 * The default port to listen on.
 	 */
 	final public static int DEFAULT_PORT = 5555;
 	////*******************************************////
-	
-	/*
-	 * public String getFirstName() { return FirstName; } public void
-	 * setFirstName(String firstName) { FirstName = firstName; } public String
-	 * getLastName() { return LastName; } public void setLastName(String lastName) {
-	 * LastName = lastName; } public String getTel() { return Tel; } public void
-	 * setTel(String tel) { Tel = tel; } public String getEmail() { return Email; }
-	 * public void setEmail(String email) { Email = email; } public String getvisa()
-	 * { return visa; } public void setvisa(String Visa) { visa =Visa; } public
-	 * String getcvv() { return cvv; } public void setcvv(String CVV) { visa =CVV; }
-	 * public String getdate() { return date; } public void setdate(String Date) {
-	 * date =Date; } public String getid() { return visa; } public void setid(String
-	 * Id) { id =Id; } public boolean isRegestered() { return Regestered; } public
-	 * void setRegestered(boolean regestered) { Regestered = regestered; }
-	 */
 	
 	public static  boolean register(String firstname, String lastname, String tel, String email,String pass, String visa,String cvv,String date,String id){
 		Connection conn = null;
@@ -85,7 +58,7 @@ public class Person {
 				JOptionPane.showMessageDialog(null, "Please enter correct mail ");
 				return false;
 
-			} else if (tel.length() != 10 || (!tel.matches("[0-9]+"))) {
+			} else if (tel.length() != 10 ||!(tel.matches("(05[0-9]+)"))) {
 				JOptionPane.showMessageDialog(null, "Please enter correct phone number ");
 				return false;
 
@@ -107,7 +80,7 @@ public class Person {
 
 			} else {
 				PreparedStatement prep_stmt = conn.prepareStatement(
-						"INSERT INTO CustomerCard " + "VALUES(?, ?, ?,?, ?, ?, ?, ?, ?, '1')");
+						"INSERT INTO CustomerCard " + "VALUES(?, ?, ?,?, ?, ?, ?, ?, ?)");
 				prep_stmt.setString(1, email);
 				prep_stmt.setString(2, pass);
 				prep_stmt.setString(3, firstname);
@@ -130,6 +103,16 @@ public class Person {
 			System.out.println("VendorError: " + se.getErrorCode());
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+		finally {
+			try {
+				if (stmt != null)
+					stmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+			}
 		}
 		return false;
 	}

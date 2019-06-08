@@ -17,45 +17,22 @@ public class Client extends Person {
 		// website:
 		// https://remotemysql.com/
 		// in future get those hardcoede string into separated config file.
-		static private final String DB = "gVwEbvpoL3";
+		static private final String DB = "0ajpgfocAS";
 		static private final String DB_URL = "jdbc:mysql://remotemysql.com/" + DB + "?useSSL=false";
-		static private final String USER = "gVwEbvpoL3";
-		static private final String PASS = "PyIl4PPKot";
+		static private final String USER = "0ajpgfocAS";
+		static private final String PASS = "bxsdfZ2BQu";
 		/**
 		 * The default port to listen on.
 		 */
 		final public static int DEFAULT_PORT = 5555;
 		////*******************************************////
-	private String UserName;
-	private String Password;
-	private int UserType;
-	public String getUserName() {
-		return UserName;
-	}
-	public void setUserName(String userName) {
-		UserName = userName;
-	}
-	public String getPassword() {
-		return Password;
-	}
-	public void setPassword(String password) {
-		Password = password;
-	}
-	public int getUserType() {
-		return UserType;
-	}
-	public void setUserType(int userType) {
-		UserType = userType;
-	}
-	/*
-	public Version purchaceMap(int UserType, String cityName) {
-		
-	}*/
+
 	public static  boolean SignIn(String email,String pass) {
 		Connection conn = null;
 		Statement stmt = null;
 		String useremail = null;
 		String userpass = null;
+		int access=0;
 		///***sql***///
 		try {
 			Class.forName(JDBC_DRIVER);
@@ -68,6 +45,8 @@ public class Client extends Person {
 				useremail = rs.getString("Email");
 				userpass = rs.getString("password");
 			}
+			rs.close();
+			prep_stmt.close();
 			if (email == null || pass == null) {
 				JOptionPane.showMessageDialog(null, "One or more files are empty!! ");
 				return false;
@@ -80,7 +59,20 @@ public class Client extends Person {
 					JOptionPane.showMessageDialog(null, "You entered uncorrect password !!");
                        return false;
 				} else {
+					if(access==0) {
+					PreparedStatement prep_stmt1 = conn.prepareStatement("UPDATE CustomerCard SET Checkaccess = ? WHERE Email=?");
+					prep_stmt1.setInt(1, 1);
+					prep_stmt1.setString(2, useremail);
+					prep_stmt1.executeUpdate();
+					prep_stmt1.close();
+					conn.close();
+
                      return true;
+					}
+					else {
+					JOptionPane.showMessageDialog(null, "You are connected from another device !!");
+					return false;
+					}
 				}
 			}
 		} catch (SQLException se) {
@@ -91,8 +83,70 @@ public class Client extends Person {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		finally {
+			try {
+				if (stmt != null)
+					stmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+			}
+		}
 		return false;
 		
 	}
+
+
+
+public static  boolean Signout(String email) {
+	Connection conn = null;
+	Statement stmt = null;
+	String useremail = null;
+	int access=0;
+	///***sql***///
+	try {
+		Class.forName(JDBC_DRIVER);
+		conn = DriverManager.getConnection(DB_URL, USER, PASS);
+//**whire sql here**//
+		PreparedStatement prep_stmt = conn.prepareStatement("SELECT * FROM CustomerCard WHERE Email=?");
+		prep_stmt.setString(1, email);
+		ResultSet rs = prep_stmt.executeQuery();
+		while (rs.next()) {
+			useremail = rs.getString("Email");
+			access=rs.getInt("Checkaccess");
+		}
+		rs.close();
+		prep_stmt.close();
+				if(access==1) {
+				PreparedStatement prep_stmt1 = conn.prepareStatement("UPDATE CustomerCard SET Checkaccess = ? WHERE Email=?");
+				prep_stmt1.setInt(1, 0);
+				prep_stmt1.setString(2, useremail);
+				prep_stmt1.executeUpdate();
+				prep_stmt1.close();
+				conn.close();
+                 return true;
+				}	
+	} catch (SQLException se) {
+		se.printStackTrace();
+		System.out.println("SQLException: " + se.getMessage());
+		System.out.println("SQLState: " + se.getSQLState());
+		System.out.println("VendorError: " + se.getErrorCode());
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+	finally {
+		try {
+			if (stmt != null)
+				stmt.close();
+			if (conn != null)
+				conn.close();
+		} catch (SQLException se) {
+			se.printStackTrace();
+		}
+	}
+	return false;
+	
+}
 
 }

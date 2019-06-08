@@ -16,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import client .*;
 import common.ChatIF;
@@ -46,9 +47,26 @@ public  class Controller  {
     
     
     @FXML
-    void Search(ActionEvent event) {
+    void Search(ActionEvent event) throws IOException {
     	String message="PublicSearch,"+search.getText();
-       Connect.client.handleMessageFromClientUI(message);  
+       Connect.client.handleMessageFromClientUI(message); 
+       if(Connect.client.servermsg!= null) {
+       String[] result=Connect.client.servermsg.split("@");
+FXMLLoader loader = new FXMLLoader(getClass().getResource( "Psearch.fxml" ));
+AnchorPane root = (AnchorPane)loader.load();
+       Psearch psearch1=loader.getController();
+       if("PublicSearch".equals(result[0])) {
+    	   for(int i=0;i<result.length;i++) {
+    	       psearch1.set(result[i]);
+    	       }
+    	   
+       Scene regist=new Scene(root);
+       Stage app_stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+       app_stage.setScene(regist);
+       app_stage.show();
+
+       }
+       }    
     }
 
     @FXML

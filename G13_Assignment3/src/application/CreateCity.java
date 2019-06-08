@@ -42,7 +42,7 @@ public class CreateCity {
 
     @FXML
     void back(ActionEvent event) throws IOException {
-    	   Parent pane= FXMLLoader.load(getClass().getResource("employeeHomePage.fxml"));
+    	   Parent pane= FXMLLoader.load(getClass().getResource("EmployeeHomePage.fxml"));
            Scene log=new Scene(pane);
            Stage app_Stage=(Stage)((Node)event.getSource()).getScene().getWindow();
            app_Stage.setScene(log);
@@ -53,10 +53,10 @@ public class CreateCity {
     void Create(ActionEvent event) throws IOException {
     	String message="Create,"+CityName.getText()+","+CityId.getText()+","+MapId.getText()+","+description.getText()+","+path.getText();
         Connect.client.handleMessageFromClientUI(message);
-        if (Connect.client.servermsg.equals("Created")) {
-			JOptionPane.showMessageDialog(null,  "City Created Successfully!! ");
-
-        }
+//        if ("Created".equals(Connect.client.servermsg)) {
+//			JOptionPane.showMessageDialog(null,  "City Created Successfully!! ");
+//
+//        }
 
     }
 

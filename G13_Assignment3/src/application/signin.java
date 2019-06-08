@@ -17,6 +17,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import common .*;
 
@@ -33,15 +34,19 @@ public class signin  {
     	String message="SignIn,"+email.getText()+","+password.getText();
     	if (!email.getText().equals("")&&!password.getText().equals("")) {
         Connect.client.handleMessageFromClientUI(message);
-        System.out.println(Connect.client.servermsg);
-        if (Connect.client.servermsg.equals("SignIn")) {
+        if ("SignIn".equals(Connect.client.servermsg)) {
+        	Connect.client.servermsg=null;
         	if(email.getText().contains("@map.co.il"))
         	{
-           	 Parent pane= FXMLLoader.load(getClass().getResource("employeeHomePage.fxml"));
-             Scene log=new Scene(pane);
-             Stage app_Stage=(Stage)((Node)event.getSource()).getScene().getWindow();
-             app_Stage.setScene(log);
-             app_Stage.show();
+					FXMLLoader loader = new FXMLLoader(getClass().getResource("EmployeeHomePage.fxml"));
+					AnchorPane root = (AnchorPane) loader.load();
+					employeeHomePage employee = loader.getController();
+					employee.set(email.getText());
+					Scene regist = new Scene(root);
+					Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+					app_stage.setScene(regist);
+					app_stage.show();
+
         	}
         	else if(email.getText().contains("@mapcd.co.il"))
         	{
@@ -60,7 +65,7 @@ public class signin  {
              app_Stage.show();
         	}
         	else {
-    	 Parent pane= FXMLLoader.load(getClass().getResource("Mymaps.fxml"));
+    	 Parent pane= FXMLLoader.load(getClass().getResource("UserHomePage.fxml"));
          Scene log=new Scene(pane);
          Stage app_Stage=(Stage)((Node)event.getSource()).getScene().getWindow();
          app_Stage.setScene(log);

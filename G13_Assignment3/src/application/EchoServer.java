@@ -32,24 +32,22 @@ import models.Map;
  * @version July 2000
  */
 public class EchoServer extends AbstractServer {
-
+	///// *******databasee******////
 	static private final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
 
 	// update USER, PASS and DB URL according to credentials provided by the
 	// website:
 	// https://remotemysql.com/
 	// in future get those hardcoede string into separated config file.
-	static private final String DB = "gVwEbvpoL3";
+	static private final String DB = "0ajpgfocAS";
 	static private final String DB_URL = "jdbc:mysql://remotemysql.com/" + DB + "?useSSL=false";
-	static private final String USER = "gVwEbvpoL3";
-	static private final String PASS = "PyIl4PPKot";
-
-//Class variables *************************************************
-
+	static private final String USER = "0ajpgfocAS";
+	static private final String PASS = "bxsdfZ2BQu";
 	/**
 	 * The default port to listen on.
 	 */
 	final public static int DEFAULT_PORT = 5555;
+	//// *******************************************////
 
 	/**
 	 * The interface type variable. It allows the implementation of the display
@@ -79,7 +77,7 @@ public class EchoServer extends AbstractServer {
 	public EchoServer(int port, ChatIF serverUI) throws IOException {
 		super(port);
 		this.serverUI = serverUI;
-		///***sql***///
+		/// ***sql***///
 		try {
 			Class.forName(JDBC_DRIVER);
 			conn = DriverManager.getConnection(DB_URL, USER, PASS);
@@ -132,6 +130,13 @@ public class EchoServer extends AbstractServer {
 			String cvv = null;
 			String date = null;
 			String id = null;
+			String CityName = null;
+			String CityId = null;
+			String MapId = null;
+			String description = null;
+			String path = null;
+			String PlaceName = null;
+			String PlaceId = null;
 			String[] detail = ((String) msg).split(",");
 			String command = detail[0];
 			switch (command) {
@@ -145,75 +150,171 @@ public class EchoServer extends AbstractServer {
 				cvv = detail[7];
 				date = detail[8];
 				id = detail[9];
-				boolean result= Person.register(firstname, lastname, tel, email,pass, visa,cvv,date,id);
-				if (result == true) {
-				 this.handleMessageFromServerUI("SignUp");
+
+				if (Person.register(firstname, lastname, tel, email, pass, visa, cvv, date, id) == true) {
 					JOptionPane.showMessageDialog(null, "You SignUp successfully ");
+					break;
+
+				} else {
+					JOptionPane.showMessageDialog(null, "Your SignUp failed !!");
+					break;
+
 				}
 
-
-				break;
 			case "SignIn":
 				email = detail[1];
 				pass = detail[2];
-				if(Client.SignIn(email,pass)==true) {
-				this.handleMessageFromServerUI("SignIn");
+				if (email.contains("@map.co.il") || email.contains("@mapcd.co.il") || email.contains("@mapcdm.co.il")) {
+					if (CDEmployee.SignIn(email, pass) == true) {
+						this.handleMessageFromServerUI("SignIn");
+						break;
+
+					}
+//					else
+//					{
+//						JOptionPane.showMessageDialog(null, "You are connected from another device !!");
+//						break;
+//
+//					}
+				} else {
+					if (Client.SignIn(email, pass) == true) {
+						this.handleMessageFromServerUI("SignIn");
+						break;
+					}
+//				else
+//				{
+//					JOptionPane.showMessageDialog(null, "You are connected from another device !!");
+//					break;
+//
+//				}
+				}
+			case "userlogout":
+				email = detail[1];
+				if (Client.Signout(email) == true) {
+					JOptionPane.showMessageDialog(null, "You are logout ");
+					break;
+
+				}
+				break;
+			case "Employeelogout":
+				email = detail[1];
+				if (CDEmployee.Signout(email) == true) {
+					JOptionPane.showMessageDialog(null, "You are logout ");
+					break;
+
 				}
 
 				break;
 			case "PublicSearch":
+				String search = detail[1];
+				String res = Catalog.search(search);
+				if (res != null) {
+					this.handleMessageFromServerUI(res);
+					break;
+				}
 				break;
 			case "Create":
-				String CityName=detail[1];
-				String CityId=detail[2];
-				String MapId=detail[3];
-				String description=detail[4];
-				String path=detail[5];
-				if(City.CreateCity(CityName,CityId,MapId, description,path)==true)
-					{
-					this.handleMessageFromServerUI("Created");
-					}
-				break;
+				CityName = detail[1];
+				CityId = detail[2];
+				MapId = detail[3];
+				description = detail[4];
+				path = detail[5];
+				if (City.CreateCity(CityName, CityId, MapId, description, path) == true) {
+					JOptionPane.showMessageDialog(null, "City Created Successfully!! ");
+					break;
+
+				} else {
+					JOptionPane.showMessageDialog(null, "City can't created!! ");
+					break;
+
+				}
 			case "AddMap":
-				 CityId=detail[1];
-				 MapId=detail[2];
-				 description=detail[3];
-				 path=detail[4];
-				if(Map.AddMapToCity(CityId, MapId, description, path)==true)
-					{
-					this.handleMessageFromServerUI("AddMap");
+				CityId = detail[1];
+				MapId = detail[2];
+				description = detail[3];
+				path = detail[4];
+				if (Map.AddMapToCity(CityId, MapId, description, path) == true) {
+					JOptionPane.showMessageDialog(null, "Adding Map Finished Successfully");
+					break;
+				} else {
+					JOptionPane.showMessageDialog(null, "cann't add map to city!! ");
+					break;
+
+				}
+			case "EmployeeSeeMapId":
+				MapId = detail[1];
+				String mypath = "MapPath@" + Map.showmap(MapId);
+				this.handleMessageFromServerUI(mypath);
+				break;
+			case "AddPlace":
+				PlaceName = detail[1];
+				PlaceId = detail[2];
+				description = detail[3];
+				MapId = detail[4];
+				CityId = detail[5];
+				path = detail[6];
+				if (InterestingPlace.AddIntersistingPlace(PlaceName, PlaceId, description, MapId, CityId,
+						path) == true) {
+					JOptionPane.showMessageDialog(null, "Adding InterstingPlace Finished Successfully");
+					break;
+
+				} else {
+					JOptionPane.showMessageDialog(null, "cann't add place to map!! ");
+					break;
+
+				}
+			case "EditPlaceDisc":
+				PlaceId = detail[1];
+				description = detail[2];
+				if (InterestingPlace.EditPlaceDesc(description, PlaceId) == true) {
+			JOptionPane.showMessageDialog(null, "Edit Place description Finished Successfully");
+			break;
+
+				} else {
+					JOptionPane.showMessageDialog(null, "cann't edit !! ");
+					break;
+
+				}
+			case "EditPlaceName":
+				PlaceId = detail[1];
+				PlaceName= detail[2];
+				if (InterestingPlace.EditPlaceName(PlaceName, PlaceId) == true) {
+					JOptionPane.showMessageDialog(null, "Edit Place name Finished Successfully");
+					break;
+
+				} else {
+					JOptionPane.showMessageDialog(null, "cann't edit !! ");
+					break;
+
+				}
+			case "EditPlaceId":
+				PlaceId = detail[1];
+			String	Placenewid= detail[2];
+				if (InterestingPlace.EditPlaceName(PlaceId,Placenewid) == true) {
+					JOptionPane.showMessageDialog(null, "Edit Place id Finished Successfully");
+				} else {
+					JOptionPane.showMessageDialog(null, "cann't edit !! ");
+					break;
+
+				}
+			case "RemovePlace":
+				PlaceId = detail[1];
+					if (InterestingPlace.RemovePlace(PlaceId) == true) {
+						JOptionPane.showMessageDialog(null, "Remove Place Finished Successfully");
+						break;
+
+					} else {
+						JOptionPane.showMessageDialog(null, "cann't remove !! ");
+						break;
 
 					}
-				break;
 			case "AddPath":
 				break;
 			case "EditPath":
 				break;
 			case "EditPathdisc":
 				break;
-			case "AddPlace":
-				break;
-			case "EditPlacePath":
-				break;
-			case "EditPlaceDisc":
-				break;
-			case "EditPlaceName":
-				break;
-			case "EditPlacetime":
-				break;
-			case "EditPlacelocation":
-				break;
-			case "EmployeeSeeMapId":
-				 MapId=detail[1];
-				 String mypath="Path,"+Map.showmap(MapId);
-				if(mypath!=null)
-					{
-					this.handleMessageFromServerUI(mypath);
 
-					}
-				break;
-				
-			
 			}
 //			System.out.println("Message received: " + msg + " from \"" + client.getInfo("loginID") + "\" " + client);
 //   this.sendToAllClients(client.getInfo("loginID") + "> " + msg);
@@ -305,9 +406,9 @@ public class EchoServer extends AbstractServer {
 	 */
 	protected void clientConnected(ConnectionToClient client) {
 		// display on server and clients that the client has connected.
-		String msg = "A Client has connected";
-		System.out.println(msg);
-		this.sendToAllClients(msg);
+//		String msg = "A Client has connected";
+//		System.out.println(msg);
+//		this.sendToAllClients(msg);
 	}
 
 	/**

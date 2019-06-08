@@ -23,7 +23,7 @@
             <Font name="Comic Sans MS Bold Italic" size="39.0" />
          </font>
       </Text>
-      <Button layoutX="63.0" layoutY="50.0" mnemonicParsing="false" onAction="#back" text="back">
+      <Button layoutX="35.0" layoutY="29.0" mnemonicParsing="false" onAction="#back" text="back">
          <font>
             <Font name="Comic Sans MS Bold Italic" size="15.0" />
          </font>
@@ -45,7 +45,7 @@
          <font>
             <Font name="Comic Sans MS Bold Italic" size="12.0" />
          </font></TextField>
-      <Button fx:id="Path" layoutX="301.0" layoutY="318.0" mnemonicParsing="false" onAction="#Path_dir" prefHeight="32.0" prefWidth="225.0" text="Select To Enter Path">
+      <Button fx:id="Path" layoutX="301.0" layoutY="319.0" mnemonicParsing="false" onAction="#Path_dir" prefHeight="32.0" prefWidth="225.0" text="Select To Enter Path">
          <font>
             <Font name="Comic Sans MS Bold Italic" size="12.0" />
          </font></Button>
