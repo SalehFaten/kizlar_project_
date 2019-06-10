@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="556.0" prefWidth="786.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Connect">
+   <children>
+      <ImageView fitHeight="615.0" fitWidth="830.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/connection.jpg" />
+         </image>
+         <effect>
+            <ColorAdjust brightness="0.17" contrast="-0.19" hue="-0.02" />
+         </effect>
+      </ImageView>
+      <Button layoutX="31.0" layoutY="166.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="295.0" text=" connect as server">
+         <font>
+            <Font name="Comic Sans MS Bold Italic" size="18.0" />
+         </font>
+      </Button>
+      <Button layoutX="493.0" layoutY="166.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="295.0" text=" connect as Client">
+         <font>
+            <Font name="Comic Sans MS Bold Italic" size="18.0" />
+         </font>
+      </Button>
+      <TextField fx:id="host" layoutX="493.0" layoutY="262.0" prefHeight="25.0" prefWidth="295.0" promptText="write host number">
+         <font>
+            <Font name="Comic Sans MS" size="15.0" />
+         </font></TextField>
+      <TextField fx:id="port" layoutX="31.0" layoutY="262.0" prefHeight="25.0" prefWidth="295.0" promptText="port number: 5555 ">
+         <font>
+            <Font name="Comic Sans MS" size="15.0" />
+         </font>
+      </TextField>
+      <Button layoutX="122.0" layoutY="334.0" mnemonicParsing="false" onAction="#connectserver" text="press to confirm">
+         <font>
+            <Font name="Comic Sans MS Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button layoutX="584.0" layoutY="334.0" mnemonicParsing="false" onAction="#connectclient" text="press to confirm">
+         <font>
+            <Font name="Comic Sans MS Bold" size="12.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
