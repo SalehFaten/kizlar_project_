@@ -40,6 +40,7 @@ public class CDMhomePage implements Initializable{
 	 public void setimage(Image im) {
 			image.setImage(im);
 	    }
+	 
     @FXML
     void CDchangePrice(ActionEvent event) {
 
