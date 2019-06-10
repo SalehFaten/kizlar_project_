@@ -26,11 +26,12 @@ public class Psearch implements Initializable{
 
     @FXML
     void back(ActionEvent event) throws IOException {
-    	Parent pane = FXMLLoader.load(getClass().getResource("Controller.fxml"));
+    	Parent pane = FXMLLoader.load(getClass().getResource("Homepage.fxml"));
 		Scene log = new Scene(pane);
 		Stage app_Stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		app_Stage.setScene(log);
 		app_Stage.show();
+		area.clear();
     }
 
 	public void set(String text) {
@@ -43,6 +44,7 @@ public class Psearch implements Initializable{
 		// TODO Auto-generated method stub
 		
 	}
+	
 
 }
 

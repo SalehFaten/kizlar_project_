@@ -152,46 +152,57 @@ public class EchoServer extends AbstractServer {
 				id = detail[9];
 
 				if (Person.register(firstname, lastname, tel, email, pass, visa, cvv, date, id) == true) {
-					JOptionPane.showMessageDialog(null, "You SignUp successfully ");
+					this.handleMessageFromServerUI("SignUp");
 					break;
 
 				} else {
-					JOptionPane.showMessageDialog(null, "Your SignUp failed !!");
+					this.handleMessageFromServerUI("SignUpFailed");
 					break;
-
 				}
 
 			case "SignIn":
 				email = detail[1];
 				pass = detail[2];
 				if (email.contains("@map.co.il") || email.contains("@mapcd.co.il") || email.contains("@mapcdm.co.il")) {
-					if (CDEmployee.SignIn(email, pass) == true) {
+					if (CDEmployee.SignIn(email, pass) == 0) {
 						this.handleMessageFromServerUI("SignIn");
 						break;
 
+					} else if (CDEmployee.SignIn(email, pass) == 1) {
+						this.handleMessageFromServerUI("NotFoundEmail");
+						break;
+
+					} else if (CDEmployee.SignIn(email, pass) == 2) {
+						this.handleMessageFromServerUI("NotFoundPass");
+						break;
+
+					} else {
+						this.handleMessageFromServerUI("SignFailed");
+						break;
+
 					}
-//					else
-//					{
-//						JOptionPane.showMessageDialog(null, "You are connected from another device !!");
-//						break;
-//
-//					}
 				} else {
-					if (Client.SignIn(email, pass) == true) {
+					if (Client.SignIn(email, pass) == 0) {
 						this.handleMessageFromServerUI("SignIn");
 						break;
+					} else if (Client.SignIn(email, pass) == 1) {
+						this.handleMessageFromServerUI("NotFoundEmail");
+						break;
+
+					} else if (Client.SignIn(email, pass) == 2) {
+						this.handleMessageFromServerUI("NotFoundPass");
+						break;
+
+					} else if (Client.SignIn(email, pass) == 3) {
+						this.handleMessageFromServerUI("SignFailed");
+						break;
+
 					}
-//				else
-//				{
-//					JOptionPane.showMessageDialog(null, "You are connected from another device !!");
-//					break;
-//
-//				}
 				}
 			case "userlogout":
 				email = detail[1];
 				if (Client.Signout(email) == true) {
-					JOptionPane.showMessageDialog(null, "You are logout ");
+					this.handleMessageFromServerUI("userlogout");
 					break;
 
 				}
@@ -199,20 +210,12 @@ public class EchoServer extends AbstractServer {
 			case "Employeelogout":
 				email = detail[1];
 				if (CDEmployee.Signout(email) == true) {
-					JOptionPane.showMessageDialog(null, "You are logout ");
+					this.handleMessageFromServerUI("Employeelogout");
 					break;
-
 				}
 
 				break;
-			case "PublicSearch":
-				String search = detail[1];
-				String res = Catalog.search(search);
-				if (res != null) {
-					this.handleMessageFromServerUI(res);
-					break;
-				}
-				break;
+
 			case "Create":
 				CityName = detail[1];
 				CityId = detail[2];
@@ -220,13 +223,12 @@ public class EchoServer extends AbstractServer {
 				description = detail[4];
 				path = detail[5];
 				if (City.CreateCity(CityName, CityId, MapId, description, path) == true) {
-					JOptionPane.showMessageDialog(null, "City Created Successfully!! ");
-					break;
+					this.handleMessageFromServerUI("Created");
 
+					break;
 				} else {
-					JOptionPane.showMessageDialog(null, "City can't created!! ");
+					this.handleMessageFromServerUI("NotCreated");
 					break;
-
 				}
 			case "AddMap":
 				CityId = detail[1];
@@ -234,18 +236,18 @@ public class EchoServer extends AbstractServer {
 				description = detail[3];
 				path = detail[4];
 				if (Map.AddMapToCity(CityId, MapId, description, path) == true) {
-					JOptionPane.showMessageDialog(null, "Adding Map Finished Successfully");
+					this.handleMessageFromServerUI("AddMap");
 					break;
 				} else {
-					JOptionPane.showMessageDialog(null, "cann't add map to city!! ");
+					this.handleMessageFromServerUI("NotAdd");
 					break;
 
 				}
-			case "EmployeeSeeMapId":
-				MapId = detail[1];
-				String mypath = "MapPath@" + Map.showmap(MapId);
-				this.handleMessageFromServerUI(mypath);
-				break;
+//			case "EmployeeSeeMapId":
+//				MapId = detail[1];
+//				String mypath = "MapPath@" + Map.showmap(MapId);
+//				this.handleMessageFromServerUI(mypath);
+//				break;
 			case "AddPlace":
 				PlaceName = detail[1];
 				PlaceId = detail[2];
@@ -255,59 +257,62 @@ public class EchoServer extends AbstractServer {
 				path = detail[6];
 				if (InterestingPlace.AddIntersistingPlace(PlaceName, PlaceId, description, MapId, CityId,
 						path) == true) {
-					JOptionPane.showMessageDialog(null, "Adding InterstingPlace Finished Successfully");
+					this.handleMessageFromServerUI("AddPlace");
 					break;
 
 				} else {
-					JOptionPane.showMessageDialog(null, "cann't add place to map!! ");
+					this.handleMessageFromServerUI("NotAdd");
 					break;
-
 				}
 			case "EditPlaceDisc":
 				PlaceId = detail[1];
 				description = detail[2];
 				if (InterestingPlace.EditPlaceDesc(description, PlaceId) == true) {
-			JOptionPane.showMessageDialog(null, "Edit Place description Finished Successfully");
-			break;
+					this.handleMessageFromServerUI("EditPlaceDisc");
+					break;
 
 				} else {
-					JOptionPane.showMessageDialog(null, "cann't edit !! ");
+					this.handleMessageFromServerUI("NotEditPlaceDisc");
 					break;
 
 				}
 			case "EditPlaceName":
 				PlaceId = detail[1];
-				PlaceName= detail[2];
+				PlaceName = detail[2];
 				if (InterestingPlace.EditPlaceName(PlaceName, PlaceId) == true) {
-					JOptionPane.showMessageDialog(null, "Edit Place name Finished Successfully");
+					this.handleMessageFromServerUI("EditPlaceName");
+
 					break;
 
 				} else {
-					JOptionPane.showMessageDialog(null, "cann't edit !! ");
+					this.handleMessageFromServerUI("NotEditPlaceName");
+
 					break;
 
 				}
 			case "EditPlaceId":
 				PlaceId = detail[1];
-			String	Placenewid= detail[2];
-				if (InterestingPlace.EditPlaceName(PlaceId,Placenewid) == true) {
-					JOptionPane.showMessageDialog(null, "Edit Place id Finished Successfully");
+				String Placenewid = detail[2];
+				if (InterestingPlace.EditPlaceId(PlaceId, Placenewid) == true) {
+					this.handleMessageFromServerUI("EditPlaceId");
+
 				} else {
-					JOptionPane.showMessageDialog(null, "cann't edit !! ");
+					this.handleMessageFromServerUI("NotEditPlaceId");
+
 					break;
 
 				}
 			case "RemovePlace":
 				PlaceId = detail[1];
-					if (InterestingPlace.RemovePlace(PlaceId) == true) {
-						JOptionPane.showMessageDialog(null, "Remove Place Finished Successfully");
-						break;
+				if (InterestingPlace.RemovePlace(PlaceId) == true) {
+					this.handleMessageFromServerUI("RemovePlace");
+					break;
 
-					} else {
-						JOptionPane.showMessageDialog(null, "cann't remove !! ");
-						break;
+				} else {
+					this.handleMessageFromServerUI("NotRemovePlace");
+					break;
 
-					}
+				}
 			case "AddPath":
 				break;
 			case "EditPath":
@@ -315,6 +320,13 @@ public class EchoServer extends AbstractServer {
 			case "EditPathdisc":
 				break;
 
+			case "saveMap":
+				path = detail[1];
+				if (Client.savemap(path) == true) {
+					JOptionPane.showMessageDialog(null, "download Finished Successfully");
+					break;
+				}
+				break;
 			}
 //			System.out.println("Message received: " + msg + " from \"" + client.getInfo("loginID") + "\" " + client);
 //   this.sendToAllClients(client.getInfo("loginID") + "> " + msg);

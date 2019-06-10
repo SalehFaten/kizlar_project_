@@ -44,6 +44,16 @@ public class AddIneristingPlace {
     void Addbtn(ActionEvent event) {
     	String message="AddPlace,"+enterPlaceName.getText()+","+enterPlaceId.getText()+","+enterDiscription.getText()+","+enterMapId.getText()+","+enterCityId.getText()+","+path.getText();
         Connect.client.handleMessageFromClientUI(message);
+        if ("AddPlace".equals( Connect.client.servermsg))
+        {
+			JOptionPane.showMessageDialog(null, "Adding InterstingPlace Finished Successfully");
+
+        }
+        else  if ("NotAdd".equals( Connect.client.servermsg))
+        {
+			JOptionPane.showMessageDialog(null, "cann't add place to map!! ");
+
+        }
     }
 
     @FXML

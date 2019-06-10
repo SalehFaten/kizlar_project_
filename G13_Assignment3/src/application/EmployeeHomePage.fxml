@@ -54,7 +54,7 @@
             <Font name="Comic Sans MS Bold Italic" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="outEmploeeHome" layoutX="667.0" layoutY="32.0" mnemonicParsing="false" onAction="#LogOut" prefHeight="38.0" prefWidth="72.0" text="LogOut">
+      <Button fx:id="outEmploeeHome" layoutX="671.0" layoutY="29.0" mnemonicParsing="false" onAction="#LogOut" prefHeight="32.0" prefWidth="72.0" text="Logout">
          <font>
             <Font name="Comic Sans MS Bold Italic" size="12.0" />
          </font>

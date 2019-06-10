@@ -1,5 +1,7 @@
 package models;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -85,12 +87,15 @@ public class InterestingPlace {
 				prep_stmt.close();
 				/****put the map****/
 				prep_stmt = conn.prepareStatement(
-						"INSERT INTO Map " + " VALUES(?, ?, ?,?,?)");
+						"INSERT INTO Map " + " VALUES(?, ?, ?,?,?,?)");
 				prep_stmt.setString(1, newMapid);
 				prep_stmt.setString(2,path);
 				prep_stmt.setString(3,mapdesc);
 				prep_stmt.setInt(4,0);
 				prep_stmt.setString(5,CityId);
+				File file=new File(path);
+				FileInputStream fis=new FileInputStream(file);
+				prep_stmt.setBinaryStream(6,fis,(int)file.length());
 				prep_stmt.executeUpdate();
 				prep_stmt.close();
 				conn.close();
@@ -252,9 +257,7 @@ public class InterestingPlace {
 	}
 
 	
-	
-	/////check it doesnt work
-	public static boolean EditPlaceId(String PlaceId,String newid)		
+		public static boolean EditPlaceId(String PlaceId,String newid)		
 	{
 
 		Connection conn = null;
@@ -282,21 +285,21 @@ public class InterestingPlace {
 			prep_stmt.close();
 			if(!PlaceId.equals(placeid))
 			{
-				JOptionPane.showMessageDialog(null, "the place deosn't exists ");
+//				JOptionPane.showMessageDialog(null, "the place deosn't exists ");
 				return false;
 			}else
 			{
-				PreparedStatement prep_stmt1 = conn.prepareStatement("SELECT * FROM InterstingPlace WHERE PlaceId=?");
-				prep_stmt1.setString(1,newid);
-				 rs = prep_stmt1.executeQuery();
-				while (rs.next()) {
-				 placeid = rs.getString("PlaceId");
-				
-				}
-				rs.close();
-				prep_stmt1.close();
-				if(newid.equals(placeid)) {
-					JOptionPane.showMessageDialog(null, "the placeId exists to another place ");
+//				PreparedStatement prep_stmt1 = conn.prepareStatement("SELECT * FROM InterstingPlace WHERE PlaceId=?");
+//				prep_stmt1.setString(1,PlaceId);
+//				 rs = prep_stmt1.executeQuery();
+//				while (rs.next()) {
+//				 placeid = rs.getString("PlaceId");
+//				
+//				}
+//				rs.close();
+//				prep_stmt1.close();
+				if(newid.equals(PlaceId)) {
+//					JOptionPane.showMessageDialog(null, "the placeId exists to another place ");
 					return false;
 				}
 				else

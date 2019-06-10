@@ -53,10 +53,14 @@ public class CreateCity {
     void Create(ActionEvent event) throws IOException {
     	String message="Create,"+CityName.getText()+","+CityId.getText()+","+MapId.getText()+","+description.getText()+","+path.getText();
         Connect.client.handleMessageFromClientUI(message);
-//        if ("Created".equals(Connect.client.servermsg)) {
-//			JOptionPane.showMessageDialog(null,  "City Created Successfully!! ");
-//
-//        }
+        if ("Created".equals(Connect.client.servermsg)) {
+			JOptionPane.showMessageDialog(null,  "City Created Successfully!! ");
+
+        }
+        else if  ("NotCreated".equals(Connect.client.servermsg)) {
+			JOptionPane.showMessageDialog(null, "City can't created!! ");
+
+        }
 
     }
 

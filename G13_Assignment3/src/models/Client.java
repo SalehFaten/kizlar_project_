@@ -1,5 +1,7 @@
 package models;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -8,6 +10,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.swing.JOptionPane;
+
+import com.mysql.cj.jdbc.Blob;
 
 public class Client extends Person {
 	 /////*******databasee******////
@@ -27,7 +31,7 @@ public class Client extends Person {
 		final public static int DEFAULT_PORT = 5555;
 		////*******************************************////
 
-	public static  boolean SignIn(String email,String pass) {
+	public static  int SignIn(String email,String pass) {
 		Connection conn = null;
 		Statement stmt = null;
 		String useremail = null;
@@ -44,20 +48,17 @@ public class Client extends Person {
 			while (rs.next()) {
 				useremail = rs.getString("Email");
 				userpass = rs.getString("password");
+				access=rs.getInt("Checkaccess");
+
 			}
 			rs.close();
 			prep_stmt.close();
-			if (email == null || pass == null) {
-				JOptionPane.showMessageDialog(null, "One or more files are empty!! ");
-				return false;
-			} else if (useremail == null) {
-				JOptionPane.showMessageDialog(null, "You are not registed !!");
-				return false;
+		     if (useremail == null) {
+				return 1;
 
 			} else if (useremail != null) {
 				if (!(userpass.equals(pass))) {
-					JOptionPane.showMessageDialog(null, "You entered uncorrect password !!");
-                       return false;
+                       return 2;
 				} else {
 					if(access==0) {
 					PreparedStatement prep_stmt1 = conn.prepareStatement("UPDATE CustomerCard SET Checkaccess = ? WHERE Email=?");
@@ -67,11 +68,10 @@ public class Client extends Person {
 					prep_stmt1.close();
 					conn.close();
 
-                     return true;
+                     return 0;
 					}
 					else {
-					JOptionPane.showMessageDialog(null, "You are connected from another device !!");
-					return false;
+					return 3;
 					}
 				}
 			}
@@ -93,7 +93,7 @@ public class Client extends Person {
 				se.printStackTrace();
 			}
 		}
-		return false;
+		return 4;
 		
 	}
 
@@ -127,6 +127,57 @@ public static  boolean Signout(String email) {
 				conn.close();
                  return true;
 				}	
+	} catch (SQLException se) {
+		se.printStackTrace();
+		System.out.println("SQLException: " + se.getMessage());
+		System.out.println("SQLState: " + se.getSQLState());
+		System.out.println("VendorError: " + se.getErrorCode());
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+	finally {
+		try {
+			if (stmt != null)
+				stmt.close();
+			if (conn != null)
+				conn.close();
+		} catch (SQLException se) {
+			se.printStackTrace();
+		}
+	}
+	return false;
+	
+}
+public static  boolean savemap(String pathtosave) {
+	Connection conn = null;
+	Statement stmt = null;
+	///***sql***///
+	try {
+		Class.forName(JDBC_DRIVER);
+		conn = DriverManager.getConnection(DB_URL, USER, PASS);
+		int i=0;
+	
+		stmt = conn.createStatement();
+		String sql = "SELECT * FROM Map";
+		ResultSet rs = stmt.executeQuery(sql);
+		
+//		PreparedStatement prep_stmt=conn.prepareStatement("SELECT * FROM Map"); 
+//		prep_stmt.setString(1, MapId);
+//		ResultSet rs=prep_stmt.executeQuery();
+		while(rs.next()){
+			File file=new File(pathtosave+"'\'"+"map"+Integer.toString(i)+".jpg");
+			FileOutputStream fos=new FileOutputStream(file);
+			byte b[];
+			Blob blob;
+			blob=(Blob) rs.getBlob("Im");
+			b=blob.getBytes(1,(int)blob.length());
+			fos.write(b);
+			i++;
+		}
+		rs.close();
+		stmt.close();
+		return true;
+
 	} catch (SQLException se) {
 		se.printStackTrace();
 		System.out.println("SQLException: " + se.getMessage());

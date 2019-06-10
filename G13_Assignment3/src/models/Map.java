@@ -66,7 +66,17 @@ public class Map {
 			prep_stmt.close();
 			if(CityName!=null)
 			{
+				String map=null;
+				stmt = conn.createStatement();
+				String sql = "SELECT * FROM  "+CityName;
+				ResultSet rs1 = stmt.executeQuery(sql);
+				while (rs1.next()) {
+					map=rs1.getString("MapId");
+				}
 
+				rs1.close();
+				stmt.close();
+				if (!MapId.equals(map)) {
 					prep_stmt = conn.prepareStatement(
 							"INSERT INTO "+CityName + " VALUES(?, ?, ?)");
 					prep_stmt.setString(1, CityId);
@@ -77,23 +87,28 @@ public class Map {
 
 					/****put the image in maps****/
 					prep_stmt = conn.prepareStatement(
-							"INSERT INTO Map " + " VALUES(?, ?, ?,?,?)");
+							"INSERT INTO Map " + " VALUES(?, ?, ?,?,?,?)");
 					prep_stmt.setString(1, MapId);
 					prep_stmt.setString(2,path);
 					prep_stmt.setString(3,description);
 					prep_stmt.setInt(4,0);
 					prep_stmt.setString(5,CityId);
+					File file=new File(path);
+					FileInputStream fis=new FileInputStream(file);
+					prep_stmt.setBinaryStream(6,fis,(int)file.length());
 					prep_stmt.executeUpdate();
 					prep_stmt.close();
 					conn.close();
 					return true;
-
-					
-					
+				}
+				else 
+				{
+			return false;
 				}
 			}
 			
-		} catch (SQLException se) {
+		}
+		}catch (SQLException se) {
 			se.printStackTrace();
 			System.out.println("SQLException: " + se.getMessage());
 			System.out.println("SQLState: " + se.getSQLState());

@@ -1,4 +1,5 @@
 /**
+ /**
  * Sample Skeleton for 'ChangePrice.fxml' Controller Class
  */
 
@@ -33,23 +34,18 @@ public class ChangePrice {
     }
 
     @FXML
-    void enterNewPrice(ActionEvent event) {
-
-    }
-
-    @FXML
-    void enterCityId(ActionEvent event) {
-
-    }
-
-    @FXML
     void back(ActionEvent event) throws IOException {
-        Parent pane= FXMLLoader.load(getClass().getResource("ChangePrice.fxml"));
-        Scene log=new Scene(pane);
-        Stage app_Stage=(Stage)((Node)event.getSource()).getScene().getWindow();
-        app_Stage.setScene(log);
-        app_Stage.show();
+     	    Parent pane = FXMLLoader.load(getClass().getResource("Mhomepage.fxml"));
+    		Scene log = new Scene(pane);
+    		Stage app_Stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    		app_Stage.setScene(log);
+    		app_Stage.show();
+    }
 
+    @FXML
+    void showprice(ActionEvent event) {
+      	String message="showprice,"+enterCityId.getText();
+        Connect.client.handleMessageFromClientUI(message);
     }
 
 }

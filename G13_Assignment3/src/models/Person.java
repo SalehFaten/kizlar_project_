@@ -43,44 +43,13 @@ public class Person {
 			while (rs.next()) {
 				Email.add(rs.getString("Email"));
 			}
-			if (email.equals("") || pass.equals("") || firstname.equals("") || lastname.equals("")
-					|| tel.equals("") || visa.equals("") || cvv.equals("") || date.equals("")
-					|| id.equals("")) {
-				JOptionPane.showMessageDialog(null, "One or more files are empty!! ");
-				return false;
 
-			} else if (Email.contains(email)) {
-				JOptionPane.showMessageDialog(null, "You are already registed ");
-				return false;
-
-			} else if (!(email.contains("@hotmail.com")) && !(email.contains("@gmail.com"))) {
-
-				JOptionPane.showMessageDialog(null, "Please enter correct mail ");
-				return false;
-
-			} else if (tel.length() != 10 ||!(tel.matches("(05[0-9]+)"))) {
-				JOptionPane.showMessageDialog(null, "Please enter correct phone number ");
-				return false;
-
-			} else if (visa.length() != 16 || (!visa.matches("[0-9]+"))) {
-				JOptionPane.showMessageDialog(null, "Please enter correct visa number ");
-				return false;
-
-			} else if (cvv.length() != 3 || (!cvv.matches("[0-9]+"))) {
-				JOptionPane.showMessageDialog(null, "Please enter correct cvv number ");
-				return false;
-
-			} else if (id.length() != 9 || (!id.matches("[0-9]+"))) {
-				JOptionPane.showMessageDialog(null, "Please enter correct id ");
-                return false; 
-				
-			} else if (date.length() != 5 || (!date.matches("(1[0-2]|0[1-9])/(2[0-9])"))) {
-				JOptionPane.showMessageDialog(null, "Please enter correct date number ");
+			 if (Email.contains(email)) {
 				return false;
 
 			} else {
 				PreparedStatement prep_stmt = conn.prepareStatement(
-						"INSERT INTO CustomerCard " + "VALUES(?, ?, ?,?, ?, ?, ?, ?, ?)");
+						"INSERT INTO CustomerCard " + "VALUES(?, ?, ?,?, ?, ?, ?, ?, ?,?)");
 				prep_stmt.setString(1, email);
 				prep_stmt.setString(2, pass);
 				prep_stmt.setString(3, firstname);
@@ -90,6 +59,7 @@ public class Person {
 				prep_stmt.setString(7, cvv);
 				prep_stmt.setString(8, date);
 				prep_stmt.setString(9, id);
+				prep_stmt.setInt(10, 0);
 				prep_stmt.executeUpdate();
 				return true;
 			

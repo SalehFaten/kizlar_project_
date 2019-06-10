@@ -36,6 +36,11 @@
             <Font name="Comic Sans MS Bold" size="34.0" />
          </font>
       </Text>
-      <TextField fx:id="search" layoutX="204.0" layoutY="284.0" onAction="#Search" prefHeight="25.0" prefWidth="427.0" promptText="You Can Search Map by City Name , Discription , Location" />
+      <TextField fx:id="search" layoutX="204.0" layoutY="284.0" prefHeight="25.0" prefWidth="427.0" promptText="You Can Search Map by City Name , Discription , Location" />
+      <Button layoutX="604.0" layoutY="283.0" mnemonicParsing="false" onAction="#Search" prefHeight="27.0" prefWidth="54.0" text="search">
+         <font>
+            <Font name="Comic Sans MS" size="12.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

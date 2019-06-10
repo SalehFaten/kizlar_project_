@@ -28,7 +28,7 @@ public class CDEmployee extends Employee{
 	final public static int DEFAULT_PORT = 5555;
 	////*******************************************////
 
-public static  boolean SignIn(String email,String pass) {
+public static  int SignIn(String email,String pass) {
 	Connection conn = null;
 	Statement stmt = null;
 	String useremail = null;
@@ -49,17 +49,12 @@ public static  boolean SignIn(String email,String pass) {
 		}
 		rs.close();
 		prep_stmt.close();
-		if (email == null || pass == null) {
-			JOptionPane.showMessageDialog(null, "One or more files are empty!! ");
-			return false;
-		} else if (useremail == null) {
-			JOptionPane.showMessageDialog(null, "You are not registed !!");
-			return false;
+	    if (useremail == null) {
+			return 1;
 
 		} else if (useremail != null) {
 			if (!(userpass.equals(pass))) {
-				JOptionPane.showMessageDialog(null, "You entered uncorrect password !!");
-                   return false;
+                   return 2;
 			} else {
 				if(access==0) {
 				PreparedStatement prep_stmt1 = conn.prepareStatement("UPDATE EmployeeCard SET Checkaccess = ? WHERE Email=?");
@@ -68,11 +63,11 @@ public static  boolean SignIn(String email,String pass) {
 				prep_stmt1.executeUpdate();
 				prep_stmt1.close();
 				conn.close();
-                 return true;
+                 return 0;
 				}
 				else
 				{
-					return false;
+					return 3;
 				}
 			}
 		}
@@ -94,7 +89,7 @@ public static  boolean SignIn(String email,String pass) {
 			se.printStackTrace();
 		}
 	}
-	return false;
+	return 4;
 	
 }
 

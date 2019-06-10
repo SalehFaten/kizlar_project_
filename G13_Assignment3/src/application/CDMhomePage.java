@@ -49,7 +49,7 @@ public class CDMhomePage {
 
     @FXML
     void EditSettings(ActionEvent event) throws IOException {
-  	   Parent pane= FXMLLoader.load(getClass().getResource("employeeHomePage.fxml"));
+  	   Parent pane= FXMLLoader.load(getClass().getResource("EmployeeHomePage.fxml"));
        Scene log=new Scene(pane);
        Stage app_Stage=(Stage)((Node)event.getSource()).getScene().getWindow();
        app_Stage.setScene(log);

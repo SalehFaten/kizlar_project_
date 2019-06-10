@@ -7,6 +7,8 @@ package application;
 
 import java.io.IOException;
 
+import javax.swing.JOptionPane;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -35,6 +37,16 @@ public class EditInteristingPlace {
     void Editname(ActionEvent event) {
        	String message="EditPlaceName,"+PlaceId.getText()+","+EditPlaceName.getText();
         Connect.client.handleMessageFromClientUI(message);
+        if ("EditPlaceName".equals( Connect.client.servermsg))
+        {
+			JOptionPane.showMessageDialog(null, "Edit Place name Finished Successfully");
+
+        }
+        else  if ("NotEditPlaceName".equals( Connect.client.servermsg))
+        {
+			JOptionPane.showMessageDialog(null, "cann't edit !! ");
+
+        }
 
     }
 
@@ -42,6 +54,16 @@ public class EditInteristingPlace {
     void EditDescription(ActionEvent event) {
      	String message="EditPlaceDisc,"+PlaceId.getText()+","+EditDescription.getText();
         Connect.client.handleMessageFromClientUI(message);
+        if ("EditPlaceDisc".equals( Connect.client.servermsg))
+        {
+			JOptionPane.showMessageDialog(null, "Edit Place description Finished Successfully");
+
+        }
+        else  if ("NotEditPlaceDisc".equals( Connect.client.servermsg))
+        {
+			JOptionPane.showMessageDialog(null, "cann't edit !! ");
+
+        }
     }
 
     @FXML
@@ -54,6 +76,16 @@ public class EditInteristingPlace {
     void EditId(ActionEvent event) {
      	String message="EditPlaceId,"+PlaceId.getText()+","+EditplaceId.getText();
         Connect.client.handleMessageFromClientUI(message);
+        if ("EditPlaceId".equals( Connect.client.servermsg))
+        {
+			JOptionPane.showMessageDialog(null, "Edit Place id Finished Successfully");
+
+        }
+        else  if ("NotEditPlaceId".equals( Connect.client.servermsg))
+        {
+			JOptionPane.showMessageDialog(null, "cann't edit !! ");
+
+        }
     }
 
     @FXML

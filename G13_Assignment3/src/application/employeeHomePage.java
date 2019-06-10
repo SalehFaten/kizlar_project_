@@ -118,13 +118,17 @@ public class employeeHomePage implements Initializable {
 
 	@FXML
 	void LogOut(ActionEvent event) throws IOException {
+		
 		String message = "Employeelogout," + email.getText();
 		Connect.client.handleMessageFromClientUI(message);
+		if(Connect.client.servermsg!=null && Connect.client.servermsg.equals("Employeelogout")) {
+		JOptionPane.showMessageDialog(null, "You are logout ");
 		Parent pane = FXMLLoader.load(getClass().getResource("Homepage.fxml"));
 		Scene log = new Scene(pane);
 		Stage app_Stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		app_Stage.setScene(log);
 		app_Stage.show();
+		}
 	}
 
 	@FXML

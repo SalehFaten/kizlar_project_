@@ -31,13 +31,32 @@ public class signin  {
     
     @FXML
     void SignIn(ActionEvent event) throws IOException {
+    	
+    String Email=email.getText();
+    String pass=password.getText();
     	String message="SignIn,"+email.getText()+","+password.getText();
+    	if (Email == null || pass == null) {
+			JOptionPane.showMessageDialog(null, "One or more files are empty!! ");
+		} 
     	if (!email.getText().equals("")&&!password.getText().equals("")) {
         Connect.client.handleMessageFromClientUI(message);
-        if ("SignIn".equals(Connect.client.servermsg)) {
-        	Connect.client.servermsg=null;
+        if("SignFailed".equals(Connect.client.servermsg))
+        {
+			JOptionPane.showMessageDialog(null, "You are connected from another device !!");
+
+        }
+        else if ("NotFoundEmail".equals(Connect.client.servermsg)) {
+			JOptionPane.showMessageDialog(null, "You are not registed !!");
+
+		} 
+        else if ("NotFoundPass".equals(Connect.client.servermsg)) {
+			JOptionPane.showMessageDialog(null, "You entered uncorrect password !!");
+
+   		} 
+        else if ("SignIn".equals(Connect.client.servermsg)) {
         	if(email.getText().contains("@map.co.il"))
         	{
+        		
 					FXMLLoader loader = new FXMLLoader(getClass().getResource("EmployeeHomePage.fxml"));
 					AnchorPane root = (AnchorPane) loader.load();
 					employeeHomePage employee = loader.getController();
@@ -50,7 +69,7 @@ public class signin  {
         	}
         	else if(email.getText().contains("@mapcd.co.il"))
         	{
-           	 Parent pane= FXMLLoader.load(getClass().getResource("CDMhomePage.fxml"));
+           	 Parent pane= FXMLLoader.load(getClass().getResource("MhomePage.fxml"));
              Scene log=new Scene(pane);
              Stage app_Stage=(Stage)((Node)event.getSource()).getScene().getWindow();
              app_Stage.setScene(log);
@@ -65,18 +84,19 @@ public class signin  {
              app_Stage.show();
         	}
         	else {
-    	 Parent pane= FXMLLoader.load(getClass().getResource("UserHomePage.fxml"));
-         Scene log=new Scene(pane);
-         Stage app_Stage=(Stage)((Node)event.getSource()).getScene().getWindow();
-         app_Stage.setScene(log);
-         app_Stage.show();}
+        		FXMLLoader loader = new FXMLLoader(getClass().getResource("UserHomePage.fxml"));
+				AnchorPane root = (AnchorPane) loader.load();
+				UserHomePage user = loader.getController();
+				user.set(email.getText());
+				Scene regist = new Scene(root);
+				Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+				app_stage.setScene(regist);
+				app_stage.show();
         	}
         }
-    	else
-    	{
-			JOptionPane.showMessageDialog(null, "One or more files are empty!! ");
+ 
     	}
-    	}
+    }
     	
         
     
