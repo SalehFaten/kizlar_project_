@@ -7,7 +7,6 @@
 <?import javafx.scene.text.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane prefHeight="568.0" prefWidth="858.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AddPath">
    <children>
       <ImageView fitHeight="568.0" fitWidth="919.0" layoutX="-10.0" pickOnBounds="true" preserveRatio="true">
@@ -20,19 +19,20 @@
             <Font name="Comic Sans MS Bold Italic" size="40.0" />
          </font>
       </Text>
-      <Button layoutX="378.0" layoutY="404.0" mnemonicParsing="false" onAction="#AddPathbtn" prefHeight="31.0" prefWidth="94.0" text="Add">
+      <Button layoutX="378.0" layoutY="435.0" mnemonicParsing="false" onAction="#AddPathbtn" prefHeight="31.0" prefWidth="94.0" text="Add">
          <font>
             <Font name="Comic Sans MS Bold Italic" size="15.0" />
          </font>
       </Button>
-      <TextField fx:id="enterCityId" layoutX="312.0" layoutY="204.0" prefHeight="31.0" prefWidth="196.0" promptText="Enter cityId" />
-      <TextField fx:id="enterPathToNewPath" layoutX="312.0" layoutY="334.0" prefHeight="31.0" prefWidth="196.0" promptText="Enter path to the new path" />
+      <TextField fx:id="entermapId" layoutX="312.0" layoutY="204.0" prefHeight="31.0" prefWidth="196.0" promptText="Enter MapId" />
+      <TextField fx:id="enterPathToNewPath" layoutX="312.0" layoutY="359.0" prefHeight="31.0" prefWidth="196.0" promptText="path location" />
       <TextField fx:id="enterDiscription" layoutX="312.0" layoutY="269.0" prefHeight="31.0" prefWidth="196.0" promptText="Enter discription" />
-      <TextField fx:id="enterPathName" layoutX="312.0" layoutY="150.0" prefHeight="31.0" prefWidth="196.0" promptText="Enter path name" />
+      <TextField fx:id="enterPathId" layoutX="312.0" layoutY="150.0" prefHeight="31.0" prefWidth="196.0" promptText="Enter path Id" />
       <Button layoutX="73.0" layoutY="60.0" mnemonicParsing="false" onAction="#back" text="back">
          <font>
             <Font name="Comic Sans MS Bold Italic" size="15.0" />
          </font>
       </Button>
+      <Button alignment="CENTER" layoutX="312.0" layoutY="327.0" mnemonicParsing="false" onAction="#maplocation" prefHeight="32.0" prefWidth="196.0" text="Click to get path " />
    </children>
 </AnchorPane>
