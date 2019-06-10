@@ -6,6 +6,8 @@ package application;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -13,15 +15,19 @@ import javax.swing.JOptionPane;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-public class AddMapToCity {
+public class AddMapToCity implements Initializable{
 	@FXML // fx:id="Path"
 	private Button Path; // Value injected by FXMLLoader
 
@@ -40,6 +46,12 @@ public class AddMapToCity {
 	@FXML // fx:id="MapId"
 	private TextField MapId; // Value injected by FXMLLoader
 
+	  @FXML // fx:id="image"
+	    private ImageView image; // Value injected by FXMLLoader
+	  
+	 public void setimage(Image im) {
+			image.setImage(im);
+	    }
 	@FXML
 	void add(ActionEvent event) throws IOException {
 		String message = "AddMap," + CityId.getText() + "," + MapId.getText() + "," + description.getText() + ","
@@ -55,11 +67,22 @@ public class AddMapToCity {
 
 	@FXML
 	void back(ActionEvent event) throws IOException {
-		Parent pane = FXMLLoader.load(getClass().getResource("EmployeeHomePage.fxml"));
-		Scene log = new Scene(pane);
-		Stage app_Stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-		app_Stage.setScene(log);
-		app_Stage.show();
+     	FXMLLoader loader = new FXMLLoader(getClass().getResource("EmployeeHomePage.fxml"));
+		AnchorPane root = (AnchorPane) loader.load();
+		employeeHomePage employee = loader.getController();
+    	Image im= new Image("images/world-map-background-copy.jpg");
+		employee.setimage(im);
+		Scene regist = new Scene(root);
+		Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		app_stage.setScene(regist);
+		app_stage.show();
+		/*
+		 * Parent pane =
+		 * FXMLLoader.load(getClass().getResource("EmployeeHomePage.fxml")); Scene log =
+		 * new Scene(pane); Stage app_Stage = (Stage) ((Node)
+		 * event.getSource()).getScene().getWindow(); app_Stage.setScene(log);
+		 * app_Stage.show();
+		 */
 	}
 
 	@FXML
@@ -85,6 +108,12 @@ public class AddMapToCity {
 //
 //
 //    }
+	}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
