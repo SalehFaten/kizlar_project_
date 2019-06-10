@@ -1,5 +1,7 @@
 package models;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -18,10 +20,10 @@ public class City {
 	// website:
 	// https://remotemysql.com/
 	// in future get those hardcoede string into separated config file.
-	static private final String DB = "gVwEbvpoL3";
+	static private final String DB = "0ajpgfocAS";
 	static private final String DB_URL = "jdbc:mysql://remotemysql.com/" + DB + "?useSSL=false";
-	static private final String USER = "gVwEbvpoL3";
-	static private final String PASS = "PyIl4PPKot";
+	static private final String USER = "0ajpgfocAS";
+	static private final String PASS = "bxsdfZ2BQu";
 	/**
 	 * The default port to listen on.
 	 */
@@ -58,23 +60,27 @@ public class City {
 					while (rs.next()) {
 						CityID=rs.getString("CityId");
 					}
+					rs.close();
+					stmt.close();
 					/****check if the city exist****/
 					if (CityID==null) {
 
 							/****insert new city to city table****/
 							PreparedStatement prep_stmt = conn.prepareStatement(
-								"INSERT INTO City "+ " VALUES( ?, ?)");
+								"INSERT INTO City "+ " VALUES( ?, ?,?,?)");
 						prep_stmt.setString(1, CityId);
 						prep_stmt.setString(2, CityName);
+						prep_stmt.setString(3, "1000");
+						prep_stmt.setString(4, "1000");
 						prep_stmt.executeUpdate();
-						
+						prep_stmt.close();
 						/****create new city table in database****/
 						stmt = conn.createStatement();
 						String createTableGifts = "CREATE TABLE "+CityName +
-						"(CityId VARCHAR(40), MapId VARCHAR(40),image VARCHAR(400))";
+						"(CityId VARCHAR(40), MapId VARCHAR(40),image VARCHAR(400),PRIMARY KEY (MapId))";
 						//execute create statement
 						stmt.executeUpdate(createTableGifts);
-						
+						stmt.close();
 						/****put date in new city****/
 						prep_stmt = conn.prepareStatement(
 								"INSERT INTO "+CityName + " VALUES(?, ?, ?)");
@@ -82,15 +88,20 @@ public class City {
 						prep_stmt.setString(2, MapId);
 						prep_stmt.setString(3,path);
 						prep_stmt.executeUpdate();
-
+prep_stmt.close();
 							/****put the image in maps****/
 							prep_stmt = conn.prepareStatement(
-									"INSERT INTO Map " + " VALUES(?, ?, ?, ?)");
+									"INSERT INTO Map " + " VALUES(?, ?, ?, ?,?,?)");
 							prep_stmt.setString(1, MapId);
 							prep_stmt.setString(2,path);
 							prep_stmt.setString(3,desc);
 							prep_stmt.setInt(4,0);
+							prep_stmt.setString(5,CityId);
+							File file=new File(path);
+							FileInputStream fis=new FileInputStream(file);
+							prep_stmt.setBinaryStream(6,fis,(int)file.length());
 							prep_stmt.executeUpdate();
+							prep_stmt.close();
 							return true;
 
 					}
@@ -109,27 +120,22 @@ public class City {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			finally {
+				try {
+					if (stmt != null)
+						stmt.close();
+					if (conn != null)
+						conn.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
 		return false;
 			
 	}
 }
 	
-	/*
-	 * public String getCityName() { return CityName; } public void
-	 * setCityName(String cityName) { CityName = cityName; } public String
-	 * getCountryName() { return CountryName; } public void setCountryName(String
-	 * countryName) { CountryName = countryName; } public int getCityId() { return
-	 * CityId; } public void setCityId(int cityId) { CityId = cityId; } public
-	 * Vector<Path> getCityPaths() { return CityPaths; } public void
-	 * setCityPaths(Vector<Path> cityPaths) { CityPaths = cityPaths; } public
-	 * Vector<InterestingPlace> getCityInterestingPlace() { return
-	 * CityInterestingPlace; } public void
-	 * setCityInterestingPlace(Vector<InterestingPlace> cityInterestingPlace) {
-	 * CityInterestingPlace = cityInterestingPlace; } public Vector<Map>
-	 * getCityMaps() { return CityMaps; } public void setCityMaps(Vector<Map>
-	 * cityMaps) { CityMaps = cityMaps; }
-	 * 
-	 */
+
 	
 
 

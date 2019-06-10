@@ -14,11 +14,6 @@
             <Image url="@../../../world-map-background-copy.jpg" />
          </image>
       </ImageView>
-      <Button fx:id="outEmploeeHome" layoutX="682.0" layoutY="68.0" mnemonicParsing="false" onAction="#LogOut" text="LogOut">
-         <font>
-            <Font name="Comic Sans MS Bold Italic" size="12.0" />
-         </font>
-      </Button>
       <Button fx:id="CDchangePrice" layoutX="320.0" layoutY="303.0" mnemonicParsing="false" onAction="#CDchangePrice" prefHeight="31.0" prefWidth="196.0" text="Change Price">
          <font>
             <Font name="Comic Sans MS Bold Italic" size="14.0" />
@@ -31,5 +26,20 @@
          <font>
             <Font name="Comic Sans MS Bold Italic" size="14.0" />
          </font></Button>
+      <Button fx:id="back" layoutX="36.0" layoutY="39.0" mnemonicParsing="false" onAction="#back" text="back">
+         <font>
+            <Font name="Comic Sans MS Bold Italic" size="15.0" />
+         </font>
+      </Button>
+      <Button fx:id="outEmploeeHome" layoutX="681.0" layoutY="39.0" mnemonicParsing="false" onAction="#LogOut" prefHeight="32.0" prefWidth="72.0" text="Logout">
+         <font>
+            <Font name="Comic Sans MS Bold Italic" size="12.0" />
+         </font>
+      </Button>
+      <Text layoutX="285.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CDManegar Home Page">
+         <font>
+            <Font name="Comic Sans MS Bold Italic" size="26.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

@@ -14,28 +14,27 @@
             <Image url="@../../../world-map-background-copy.jpg" />
          </image>
       </ImageView>
-      <TextField fx:id="enterPathToPlace" layoutX="169.0" layoutY="371.0" prefHeight="31.0" prefWidth="196.0" promptText="Enter Path to new place" />
-      <TextField fx:id="enterRecomendedTime" layoutX="492.0" layoutY="314.0" prefHeight="31.0" prefWidth="196.0" promptText="Enter Recomended Time" />
-      <TextField fx:id="enterLocation" layoutX="492.0" layoutY="257.0" prefHeight="31.0" prefWidth="196.0" promptText="Enter Location" />
-      <TextField fx:id="enterDiscription" layoutX="169.0" layoutY="314.0" onAction="#enterDiscription" prefHeight="31.0" prefWidth="196.0" promptText="Enter Discription" />
-      <TextField fx:id="enterPlaceId" layoutX="492.0" layoutY="205.0" prefHeight="31.0" prefWidth="196.0" promptText="Enter Place Id" />
-      <TextField fx:id="enterCityId" layoutX="169.0" layoutY="257.0" prefHeight="31.0" prefWidth="196.0" promptText="Enter City Id" />
-      <TextField fx:id="enterPlaceName" layoutX="169.0" layoutY="205.0" prefHeight="31.0" prefWidth="196.0" promptText="Enter Place Name" />
-      <Text fontSmoothingType="LCD" layoutX="179.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Interesting Place" textAlignment="CENTER" wrappingWidth="438.13671875">
+      <TextField fx:id="enterDiscription" alignment="CENTER" layoutX="513.0" layoutY="257.0" prefHeight="31.0" prefWidth="196.0" promptText="Enter Discription" />
+      <TextField fx:id="enterPlaceId" alignment="CENTER" layoutX="143.0" layoutY="257.0" prefHeight="31.0" prefWidth="196.0" promptText="Enter Place Id" />
+      <TextField fx:id="enterMapId" alignment="CENTER" layoutX="143.0" layoutY="324.0" prefHeight="31.0" prefWidth="196.0" promptText="Enter Map Id" />
+      <TextField fx:id="enterPlaceName" alignment="CENTER" layoutX="143.0" layoutY="194.0" prefHeight="31.0" prefWidth="196.0" promptText="Enter Place Name" />
+      <Text fontSmoothingType="LCD" layoutX="210.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Interesting Place" textAlignment="CENTER" wrappingWidth="438.13671875">
          <font>
             <Font name="Comic Sans MS Bold Italic" size="40.0" />
          </font>
       </Text>
-      <Button layoutX="360.0" layoutY="437.0" mnemonicParsing="false" onAction="#Addbtn" prefHeight="31.0" prefWidth="77.0" text="Add">
+      <Button layoutX="391.0" layoutY="451.0" mnemonicParsing="false" onAction="#Addbtn" prefHeight="31.0" prefWidth="77.0" text="Add">
          <font>
             <Font name="Comic Sans MS Bold Italic" size="15.0" />
          </font>
       </Button>
-      <Button layoutX="73.0" layoutY="60.0" mnemonicParsing="false" onAction="#back" text="back">
+      <Button layoutX="35.0" layoutY="29.0" mnemonicParsing="false" onAction="#back" text="back">
          <font>
             <Font name="Comic Sans MS Bold Italic" size="15.0" />
          </font>
       </Button>
+      <TextField fx:id="path" layoutX="513.0" layoutY="351.0" prefHeight="32.0" prefWidth="196.0" promptText="map location " />
+      <Button alignment="CENTER" layoutX="513.0" layoutY="324.0" mnemonicParsing="false" onAction="#maplocation" prefHeight="32.0" prefWidth="196.0" text="Click to get path " />
+      <TextField fx:id="enterCityId" alignment="CENTER" layoutX="513.0" layoutY="194.0" prefHeight="31.0" prefWidth="196.0" promptText="Enter City Id" />
    </children>
 </AnchorPane>
-

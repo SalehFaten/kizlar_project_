@@ -12,19 +12,7 @@ import java.util.Vector;
 
 import javax.swing.JOptionPane;
 
-public class Person {
-	
-	private String FirstName;
-	private String LastName;
-	private String Tel;
-	private String Email;
-	private String visa;
-	private String cvv;
-	private String date;
-	private String id;
-	private String password;
-	private boolean Regestered;
-	
+public class Person {	
 	 /////*******databasee******////
 	static private final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
 
@@ -32,30 +20,15 @@ public class Person {
 	// website:
 	// https://remotemysql.com/
 	// in future get those hardcoede string into separated config file.
-	static private final String DB = "gVwEbvpoL3";
+	static private final String DB = "0ajpgfocAS";
 	static private final String DB_URL = "jdbc:mysql://remotemysql.com/" + DB + "?useSSL=false";
-	static private final String USER = "gVwEbvpoL3";
-	static private final String PASS = "PyIl4PPKot";
+	static private final String USER = "0ajpgfocAS";
+	static private final String PASS = "bxsdfZ2BQu";
 	/**
 	 * The default port to listen on.
 	 */
 	final public static int DEFAULT_PORT = 5555;
 	////*******************************************////
-	
-	/*
-	 * public String getFirstName() { return FirstName; } public void
-	 * setFirstName(String firstName) { FirstName = firstName; } public String
-	 * getLastName() { return LastName; } public void setLastName(String lastName) {
-	 * LastName = lastName; } public String getTel() { return Tel; } public void
-	 * setTel(String tel) { Tel = tel; } public String getEmail() { return Email; }
-	 * public void setEmail(String email) { Email = email; } public String getvisa()
-	 * { return visa; } public void setvisa(String Visa) { visa =Visa; } public
-	 * String getcvv() { return cvv; } public void setcvv(String CVV) { visa =CVV; }
-	 * public String getdate() { return date; } public void setdate(String Date) {
-	 * date =Date; } public String getid() { return visa; } public void setid(String
-	 * Id) { id =Id; } public boolean isRegestered() { return Regestered; } public
-	 * void setRegestered(boolean regestered) { Regestered = regestered; }
-	 */
 	
 	public static  boolean register(String firstname, String lastname, String tel, String email,String pass, String visa,String cvv,String date,String id){
 		Connection conn = null;
@@ -70,44 +43,13 @@ public class Person {
 			while (rs.next()) {
 				Email.add(rs.getString("Email"));
 			}
-			if (email.equals("") || pass.equals("") || firstname.equals("") || lastname.equals("")
-					|| tel.equals("") || visa.equals("") || cvv.equals("") || date.equals("")
-					|| id.equals("")) {
-				JOptionPane.showMessageDialog(null, "One or more files are empty!! ");
-				return false;
 
-			} else if (Email.contains(email)) {
-				JOptionPane.showMessageDialog(null, "You are already registed ");
-				return false;
-
-			} else if (!(email.contains("@hotmail.com")) && !(email.contains("@gmail.com"))) {
-
-				JOptionPane.showMessageDialog(null, "Please enter correct mail ");
-				return false;
-
-			} else if (tel.length() != 10 || (!tel.matches("[0-9]+"))) {
-				JOptionPane.showMessageDialog(null, "Please enter correct phone number ");
-				return false;
-
-			} else if (visa.length() != 16 || (!visa.matches("[0-9]+"))) {
-				JOptionPane.showMessageDialog(null, "Please enter correct visa number ");
-				return false;
-
-			} else if (cvv.length() != 3 || (!cvv.matches("[0-9]+"))) {
-				JOptionPane.showMessageDialog(null, "Please enter correct cvv number ");
-				return false;
-
-			} else if (id.length() != 9 || (!id.matches("[0-9]+"))) {
-				JOptionPane.showMessageDialog(null, "Please enter correct id ");
-                return false; 
-				
-			} else if (date.length() != 5 || (!date.matches("(1[0-2]|0[1-9])/(2[0-9])"))) {
-				JOptionPane.showMessageDialog(null, "Please enter correct date number ");
+			 if (Email.contains(email)) {
 				return false;
 
 			} else {
 				PreparedStatement prep_stmt = conn.prepareStatement(
-						"INSERT INTO CustomerCard " + "VALUES(?, ?, ?,?, ?, ?, ?, ?, ?, '1')");
+						"INSERT INTO CustomerCard " + "VALUES(?, ?, ?,?, ?, ?, ?, ?, ?,?)");
 				prep_stmt.setString(1, email);
 				prep_stmt.setString(2, pass);
 				prep_stmt.setString(3, firstname);
@@ -117,6 +59,7 @@ public class Person {
 				prep_stmt.setString(7, cvv);
 				prep_stmt.setString(8, date);
 				prep_stmt.setString(9, id);
+				prep_stmt.setInt(10, 0);
 				prep_stmt.executeUpdate();
 				return true;
 			
@@ -130,6 +73,16 @@ public class Person {
 			System.out.println("VendorError: " + se.getErrorCode());
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+		finally {
+			try {
+				if (stmt != null)
+					stmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+			}
 		}
 		return false;
 	}

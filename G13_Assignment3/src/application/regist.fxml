@@ -14,7 +14,7 @@
             <Image url="@../../../world-map-background-copy.jpg" />
          </image>
       </ImageView>
-      <Button layoutX="53.0" layoutY="40.0" mnemonicParsing="false" onAction="#back" text="back">
+      <Button layoutX="35.0" layoutY="29.0" mnemonicParsing="false" onAction="#back" text="back">
          <font>
             <Font name="Comic Sans MS Bold Italic" size="15.0" />
          </font></Button>

@@ -14,47 +14,40 @@
             <Image url="@../../../world-map-background-copy.jpg" />
          </image>
       </ImageView>
-      <TextField fx:id="EditRecomendedTime" layoutX="248.0" layoutY="436.0" prefHeight="31.0" prefWidth="196.0" promptText="Edit Recomended Time" />
-      <TextField fx:id="EditPath" layoutX="248.0" layoutY="382.0" prefHeight="31.0" prefWidth="196.0" promptText="Edit path to the place" />
-      <TextField fx:id="EditPlaceName" layoutX="248.0" layoutY="225.0" prefHeight="31.0" prefWidth="196.0" promptText="Edit Place Name" />
-      <TextField fx:id="EditLocation" layoutX="248.0" layoutY="275.0" prefHeight="31.0" prefWidth="196.0" promptText="Edit Location" />
-      <TextField fx:id="EditDescription" layoutX="248.0" layoutY="330.0" prefHeight="31.0" prefWidth="196.0" promptText="Edit Description" />
+      <TextField fx:id="EditPlaceName" alignment="CENTER" layoutX="248.0" layoutY="253.0" prefHeight="31.0" prefWidth="196.0" promptText="Edit Place Name" />
+      <TextField fx:id="EditplaceId" alignment="CENTER" layoutX="248.0" layoutY="307.0" prefHeight="31.0" prefWidth="196.0" promptText="Edit PlaceId" />
+      <TextField fx:id="EditDescription" alignment="CENTER" layoutX="248.0" layoutY="362.0" prefHeight="31.0" prefWidth="196.0" promptText="Edit Description" />
       <Text fontSmoothingType="LCD" layoutX="205.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit Interesting Place" textAlignment="CENTER" wrappingWidth="438.13671875">
          <font>
             <Font name="Comic Sans MS Bold Italic" size="36.0" />
          </font>
       </Text>
-      <Button layoutX="508.0" layoutY="225.0" mnemonicParsing="false" onAction="#Editname" prefHeight="31.0" prefWidth="77.0" text="Edit">
+      <Button layoutX="501.0" layoutY="252.0" mnemonicParsing="false" onAction="#Editname" prefHeight="31.0" prefWidth="77.0" text="Edit">
          <font>
             <Font name="Comic Sans MS Bold Italic" size="15.0" />
          </font>
       </Button>
-      <Button layoutX="508.0" layoutY="330.0" mnemonicParsing="false" onAction="#EditDescription" prefHeight="31.0" prefWidth="77.0" text="Edit">
+      <Button layoutX="501.0" layoutY="362.0" mnemonicParsing="false" onAction="#EditDescription" prefHeight="31.0" prefWidth="77.0" text="Edit">
          <font>
             <Font name="Comic Sans MS Bold Italic" size="15.0" />
          </font>
       </Button>
-      <Button layoutX="508.0" layoutY="382.0" mnemonicParsing="false" onAction="#EditPath" prefHeight="31.0" prefWidth="77.0" text="Edit">
+      <Button layoutX="501.0" layoutY="198.0" mnemonicParsing="false" onAction="#removeplace" prefHeight="31.0" prefWidth="77.0" text="remove">
          <font>
             <Font name="Comic Sans MS Bold Italic" size="15.0" />
          </font>
       </Button>
-      <Button layoutX="508.0" layoutY="436.0" mnemonicParsing="false" onAction="#EditRecomendedTime" prefHeight="31.0" prefWidth="77.0" text="Edit">
+      <Button layoutX="501.0" layoutY="307.0" mnemonicParsing="false" onAction="#EditId" prefHeight="31.0" prefWidth="77.0" text="Edit">
          <font>
             <Font name="Comic Sans MS Bold Italic" size="15.0" />
          </font>
       </Button>
-      <Button layoutX="508.0" layoutY="275.0" mnemonicParsing="false" onAction="#EditLocation" prefHeight="31.0" prefWidth="77.0" text="Edit">
+      <TextField fx:id="PlaceId" alignment="CENTER" layoutX="248.0" layoutY="201.0" prefHeight="31.0" prefWidth="196.0" promptText="Enter Place Id to remove or edit" />
+      <Button layoutX="35.0" layoutY="29.0" mnemonicParsing="false" onAction="#back" text="back">
          <font>
             <Font name="Comic Sans MS Bold Italic" size="15.0" />
          </font>
       </Button>
-      <Button layoutX="73.0" layoutY="60.0" mnemonicParsing="false" onAction="#back" text="back">
-         <font>
-            <Font name="Comic Sans MS Bold Italic" size="15.0" />
-         </font>
-      </Button>
-      <TextField fx:id="PlaceId" layoutX="332.0" layoutY="171.0" prefHeight="31.0" prefWidth="196.0" promptText="Enter Place Id" />
 
    </children>
 </AnchorPane>

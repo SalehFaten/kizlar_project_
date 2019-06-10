@@ -14,21 +14,26 @@
             <Image url="@../../../world-map-background-copy.jpg" />
          </image>
       </ImageView>
-      <Button fx:id="sendPriceToCompanyM" layoutX="378.0" layoutY="327.0" mnemonicParsing="false" onAction="#sendPriceToCompanyM" prefHeight="31.0" prefWidth="196.0" text="Send To Company Manager">
+      <Button fx:id="sendPriceToCompanyM" layoutX="340.0" layoutY="424.0" mnemonicParsing="false" onAction="#sendPriceToCompanyM" prefHeight="31.0" prefWidth="196.0" text="Send To Company Manager">
          <font>
             <Font name="Comic Sans MS Bold Italic" size="13.0" />
          </font></Button>
-      <TextField fx:id="enterNewPrice" alignment="CENTER" layoutX="378.0" layoutY="249.0" onAction="#enterNewPrice" prefHeight="31.0" prefWidth="196.0" promptText="Enter New Price Please">
+      <TextField fx:id="enterNewPrice" alignment="CENTER" layoutX="341.0" layoutY="369.0" prefHeight="31.0" prefWidth="196.0" promptText="Enter New Price Please">
          <font>
             <Font name="Comic Sans MS Bold Italic" size="14.0" />
          </font></TextField>
-      <TextField fx:id="enterCityId" alignment="CENTER" layoutX="378.0" layoutY="177.0" onAction="#enterCityId" prefHeight="31.0" prefWidth="196.0" promptText="Enter City Id">
+      <TextField fx:id="enterCityId" alignment="CENTER" layoutX="339.0" layoutY="248.0" prefHeight="31.0" prefWidth="196.0" promptText="Enter City Id">
          <font>
             <Font name="Comic Sans MS Bold Italic" size="14.0" />
          </font></TextField>
       <Button layoutX="73.0" layoutY="60.0" mnemonicParsing="false" onAction="#back" text="back">
          <font>
             <Font name="Comic Sans MS Bold Italic" size="15.0" />
+         </font>
+      </Button>
+      <Button layoutX="340.0" layoutY="308.0" mnemonicParsing="false" onAction="#showprice" prefHeight="29.0" prefWidth="196.0" text="Show current price">
+         <font>
+            <Font name="Comic Sans MS Bold Italic" size="13.0" />
          </font>
       </Button>
    </children>
