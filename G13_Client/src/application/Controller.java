@@ -5,6 +5,7 @@
 package application;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -14,23 +15,27 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import client .*;
 import common.ChatIF;
 import application.Connect;
-public  class Controller  {
+public  class Controller  implements Initializable{
 	 /////*******databasee******////
 	static private final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
 
@@ -59,15 +64,31 @@ public  class Controller  {
 
     @FXML // fx:id="register"
     private Button register; // Value injected by FXMLLoader
+    
+    @FXML // fx:id="image"
+    private ImageView image; // Value injected by FXMLLoader
 
 
+	  public void setimage(Image im) {
+			image.setImage(im);
+	    }
     @FXML
     void log(ActionEvent event) throws IOException {
-        Parent pane= FXMLLoader.load(getClass().getResource("login.fxml"));
-        Scene log=new Scene(pane);
-        Stage app_Stage=(Stage)((Node)event.getSource()).getScene().getWindow();
-        app_Stage.setScene(log);
-        app_Stage.show();
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+		AnchorPane root = (AnchorPane) loader.load();
+		signin sign = loader.getController();
+    	Image im= new Image("images/world-map-background-copy.jpg");
+		sign.setimage(im);
+		Scene regist = new Scene(root);
+		Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		app_stage.setScene(regist);
+		app_stage.show();
+		/*
+		 * Parent pane= FXMLLoader.load(getClass().getResource("login.fxml")); Scene
+		 * log=new Scene(pane); Stage
+		 * app_Stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+		 * app_Stage.setScene(log); app_Stage.show();
+		 */
     }
     
     
@@ -79,6 +100,8 @@ String m= search(search.getText());
 FXMLLoader loader = new FXMLLoader(getClass().getResource( "Psearch.fxml" ));
 AnchorPane root = (AnchorPane)loader.load();
        Psearch psearch1=loader.getController();
+   	Image im= new Image("images/world-map-background-copy.jpg");
+   	psearch1.setimage(im);
        if("PublicSearch".equals(result[0])) {
     	   for(int i=1;i<result.length;i++) {
     	       psearch1.set(result[i]);
@@ -95,11 +118,21 @@ AnchorPane root = (AnchorPane)loader.load();
 
     @FXML
     void regist(ActionEvent event) throws IOException {
-    Parent pane= FXMLLoader.load(getClass().getResource("regist.fxml"));
-    Scene regist=new Scene(pane);
-    Stage app_stage=(Stage)((Node)event.getSource()).getScene().getWindow();
-    app_stage.setScene(regist);
-    app_stage.show();
+    	FXMLLoader loader = new FXMLLoader(getClass().getResource("regist.fxml"));
+		AnchorPane root = (AnchorPane) loader.load();
+		regist signup = loader.getController();
+    	Image im= new Image("images/world-map-background-copy.jpg");
+		signup.setimage(im);
+		Scene regist = new Scene(root);
+		Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		app_stage.setScene(regist);
+		app_stage.show();
+		/*
+		 * Parent pane= FXMLLoader.load(getClass().getResource("regist.fxml")); Scene
+		 * regist=new Scene(pane); Stage
+		 * app_stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+		 * app_stage.setScene(regist); app_stage.show();
+		 */
     
     }
 
@@ -239,6 +272,13 @@ AnchorPane root = (AnchorPane)loader.load();
 		}
 		return null;
 
+	}
+
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		// TODO Auto-generated method stub
+		
 	}
 
  

@@ -9,11 +9,7 @@
 
 <AnchorPane prefHeight="568.0" prefWidth="858.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.signin">
    <children>
-      <ImageView fitHeight="568.0" fitWidth="919.0" layoutX="-10.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../world-map-background-copy.jpg"/>
-         </image>
-      </ImageView>
+      <ImageView fx:id="image" fitHeight="568.0" fitWidth="919.0" layoutX="-10.0" pickOnBounds="true" preserveRatio="true" />
       <TextField fx:id="email" layoutX="251.0" layoutY="239.0" prefHeight="25.0" prefWidth="343.0" promptText="Email" />
       <Text layoutX="292.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign In" textAlignment="CENTER" wrappingWidth="234.13671875">
          <font>

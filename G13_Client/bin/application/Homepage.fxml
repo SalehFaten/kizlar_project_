@@ -16,11 +16,7 @@
 
 <AnchorPane prefHeight="568.0" prefWidth="858.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
    <children>
-      <ImageView fitHeight="568.0" fitWidth="919.0" layoutX="-10.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../world-map-background-copy.jpg" />
-         </image>
-      </ImageView>
+      <ImageView fx:id="image" fitHeight="568.0" fitWidth="919.0" layoutX="-10.0" pickOnBounds="true" preserveRatio="true" />
       <Button fx:id="register" layoutX="646.0" layoutY="46.0" mnemonicParsing="false" onAction="#regist" text="Sign Up">
          <font>
             <Font name="Comic Sans MS Bold Italic" size="15.0" />
