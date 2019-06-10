@@ -137,6 +137,7 @@ public class EchoServer extends AbstractServer {
 			String path = null;
 			String PlaceName = null;
 			String PlaceId = null;
+			String PathId=null;
 			String[] detail = ((String) msg).split(",");
 			String command = detail[0];
 			switch (command) {
@@ -314,7 +315,17 @@ public class EchoServer extends AbstractServer {
 
 				}
 			case "AddPath":
-				break;
+				MapId=detail[1];
+				PathId=detail[2];
+				if (InterestingPlace.RemovePlace(PlaceId) == true) {
+					this.handleMessageFromServerUI("RemovePlace");
+					break;
+
+				} else {
+					this.handleMessageFromServerUI("NotRemovePlace");
+					break;
+
+				}
 			case "EditPath":
 				break;
 			case "EditPathdisc":

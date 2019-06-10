@@ -76,8 +76,6 @@ public class signin  implements Initializable{
 					Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 					app_stage.setScene(regist);
 					app_stage.show();
-
-					
         	}
         	else if(email.getText().contains("@mapcd.co.il"))
         	{
