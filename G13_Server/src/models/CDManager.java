@@ -1,6 +1,13 @@
 package models;
 
 public class CDManager {
+	
+	public static boolean editNewPrice(int newPrice) {
+		
+		
+		return false;
+		
+	}
 
 	/*
 	

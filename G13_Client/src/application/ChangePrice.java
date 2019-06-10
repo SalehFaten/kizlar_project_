@@ -7,6 +7,8 @@ package application;
 
 import java.io.IOException;
 
+import javax.swing.JOptionPane;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,6 +32,18 @@ public class ChangePrice {
 
     @FXML
     void sendPriceToCompanyM(ActionEvent event) {
+       	String message="sendPriceToManager,"+enterNewPrice.getText();
+        Connect.client.handleMessageFromClientUI(message);
+        if ("sendPriceToManager".equals( Connect.client.servermsg))
+        {
+			JOptionPane.showMessageDialog(null, "sending Price To Manager Done");
+
+        }
+        else  if ("NotsendPriceToManager".equals( Connect.client.servermsg))
+        {
+			JOptionPane.showMessageDialog(null, "cann't send!! ");
+
+        }
 
     }
 
@@ -44,8 +58,33 @@ public class ChangePrice {
 
     @FXML
     void showprice(ActionEvent event) {
-      	String message="showprice,"+enterCityId.getText();
-        Connect.client.handleMessageFromClientUI(message);
+    	String cityId=enterCityId.getText();
+    	String message="showPrice,"+ cityId;
+    	if(cityId==null) {
+    		JOptionPane.showMessageDialog(null, "You Must enter city id ");
+    	}
+    	else {
+    		Connect.client.handleMessageFromClientUI(message);
+    		if("dontShowPrice".equals(Connect.client.servermsg)) {
+    			JOptionPane.showMessageDialog(null, "showing price failed");
+    		}
+    		else  {
+    			JOptionPane.showMessageDialog(null, "the current price is"+ Connect.client.servermsg);
+    		}
+    	}
+    	
+    	 
+         if("SignFailed".equals(Connect.client.servermsg))
+         {
+ 			JOptionPane.showMessageDialog(null, "You are connected from another device !!");
+
+         }
+         else if ("NotFoundEmail".equals(Connect.client.servermsg)) {
+ 			JOptionPane.showMessageDialog(null, "You are not registed !!");
+
+ 		} 
+      	
+        
     }
 
 }

@@ -137,6 +137,7 @@ public class EchoServer extends AbstractServer {
 			String path = null;
 			String PlaceName = null;
 			String PlaceId = null;
+			int NewPrice=0;
 			String[] detail = ((String) msg).split(",");
 			String command = detail[0];
 			switch (command) {
@@ -318,8 +319,36 @@ public class EchoServer extends AbstractServer {
 			case "EditPath":
 				break;
 			case "EditPathdisc":
+				
 				break;
+				
+			case "showPrice":
+				CityId=detail[1];
+				int price=City.ShowPrice(CityId);
+				if(price!=-1) {
+					
+					this.handleMessageFromServerUI(Integer.toString(price));
+					break;				
+				}
+				else {
+					this.handleMessageFromServerUI("dontShowPrice");
+					break;
+				}
+                
 
+			case"sendPriceToManager":
+				NewPrice=Integer.parseInt(detail[1]);
+				if (CDManager.editNewPrice(NewPrice) == true) {
+					this.handleMessageFromServerUI("sendPriceToManager");
+
+					break;
+
+				} else {
+					this.handleMessageFromServerUI("NotsendPriceToManager");
+
+					break;
+
+				}
 			case "saveMap":
 				path = detail[1];
 				if (Client.savemap(path) == true) {
