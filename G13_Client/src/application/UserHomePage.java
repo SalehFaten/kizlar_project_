@@ -22,6 +22,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.scene.Node;
@@ -64,11 +65,21 @@ public class UserHomePage implements Initializable{
 		Connect.client.handleMessageFromClientUI(message);
 		if(Connect.client.servermsg!=null && Connect.client.servermsg.equals("userlogout")) {
 		JOptionPane.showMessageDialog(null, "You are logout ");
-		Parent pane = FXMLLoader.load(getClass().getResource("Homepage.fxml"));
-		Scene log = new Scene(pane);
-		Stage app_Stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-		app_Stage.setScene(log);
-		app_Stage.show();
+	  	FXMLLoader loader = new FXMLLoader(getClass().getResource("Homepage.fxml"));
+		AnchorPane root = (AnchorPane) loader.load();
+		Controller home = loader.getController();
+    	Image im= new Image("images/world-map-background-copy.jpg");
+		home.setimage(im);
+		Scene regist = new Scene(root);
+		Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		app_stage.setScene(regist);
+		app_stage.show();
+			/*
+			 * Parent pane = FXMLLoader.load(getClass().getResource("Homepage.fxml")); Scene
+			 * log = new Scene(pane); Stage app_Stage = (Stage) ((Node)
+			 * event.getSource()).getScene().getWindow(); app_Stage.setScene(log);
+			 * app_Stage.show();
+			 */
 		}
     }
 

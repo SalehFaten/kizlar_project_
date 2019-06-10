@@ -5,6 +5,8 @@
 package application;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
 
@@ -13,22 +15,31 @@ import common.ChatIF;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import common .*;
 
-public class signin  {
+public class signin  implements Initializable{
 
+    @FXML // fx:id="image"
+    private ImageView image; // Value injected by FXMLLoader 
+    
     @FXML // fx:id="password"
     private TextField password; // Value injected by FXMLLoader
 
     @FXML // fx:id="email"
     private TextField email; // Value injected by FXMLLoader
     
+    public void setimage(Image im) {
+		image.setImage(im);
+    }
     @FXML
     void SignIn(ActionEvent event) throws IOException {
     	
@@ -69,11 +80,21 @@ public class signin  {
         	}
         	else if(email.getText().contains("@mapcd.co.il"))
         	{
-           	 Parent pane= FXMLLoader.load(getClass().getResource("MhomePage.fxml"));
-             Scene log=new Scene(pane);
-             Stage app_Stage=(Stage)((Node)event.getSource()).getScene().getWindow();
-             app_Stage.setScene(log);
-             app_Stage.show();
+             	FXMLLoader loader = new FXMLLoader(getClass().getResource("Mhomepage.fxml"));
+        		AnchorPane root = (AnchorPane) loader.load();
+        		CDMhomePage employee = loader.getController();
+            	Image im= new Image("images/world-map-background-copy.jpg");
+        		employee.setimage(im);
+        		Scene regist = new Scene(root);
+        		Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        		app_stage.setScene(regist);
+        		app_stage.show();
+					/*
+					 * Parent pane= FXMLLoader.load(getClass().getResource("MhomePage.fxml")); Scene
+					 * log=new Scene(pane); Stage
+					 * app_Stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+					 * app_Stage.setScene(log); app_Stage.show();
+					 */
         	}
         	else if(email.getText().contains("@mapcdm.co.il"))
         	{
@@ -102,13 +123,31 @@ public class signin  {
     
     @FXML
     void back(ActionEvent event) throws IOException {
-        Parent pane= FXMLLoader.load(getClass().getResource("Homepage.fxml"));
-        Scene log=new Scene(pane);
-        Stage app_Stage=(Stage)((Node)event.getSource()).getScene().getWindow();
-        app_Stage.setScene(log);
-        app_Stage.show();
+       	FXMLLoader loader = new FXMLLoader(getClass().getResource("Homepage.fxml"));
+    			AnchorPane root = (AnchorPane) loader.load();
+    			Controller home = loader.getController();
+    	    	Image im= new Image("images/world-map-background-copy.jpg");
+    			home.setimage(im);
+    			Scene regist = new Scene(root);
+    			Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    			app_stage.setScene(regist);
+    			app_stage.show();
+		/*
+		 * Parent pane= FXMLLoader.load(getClass().getResource("Homepage.fxml")); Scene
+		 * log=new Scene(pane); Stage
+		 * app_Stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+		 * app_Stage.setScene(log); app_Stage.show();
+		 */
 
     }
+
+
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		// TODO Auto-generated method stub
+		
+	}
 
 
 }

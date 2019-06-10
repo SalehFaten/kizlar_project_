@@ -8,12 +8,14 @@ package application;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
 
@@ -23,6 +25,7 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -30,9 +33,10 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class EmployeeSeeMaps {
+public class EmployeeSeeMaps implements Initializable{
 	 /////*******databasee******////
 		static private final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
 
@@ -58,6 +62,11 @@ public class EmployeeSeeMaps {
     @FXML // fx:id="Maptext"
     private TextArea Maptext; // Value injected by FXMLLoader
 
+	  @FXML // fx:id="image"
+	    private ImageView image; // Value injected by FXMLLoader
+	 public void setimage(Image im) {
+			image.setImage(im);
+	    }
     @FXML
     void SearchMapId(ActionEvent event) {
     	
@@ -139,12 +148,31 @@ public class EmployeeSeeMaps {
 
     @FXML
     void back(ActionEvent event) throws IOException {
-    	Parent pane = FXMLLoader.load(getClass().getResource("EmployeeHomePage.fxml"));
-		Scene log = new Scene(pane);
-		Stage app_Stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-		app_Stage.setScene(log);
-		app_Stage.show();
+      	FXMLLoader loader = new FXMLLoader(getClass().getResource("EmployeeHomePage.fxml"));
+    			AnchorPane root = (AnchorPane) loader.load();
+    			employeeHomePage employee = loader.getController();
+    	    	Image im= new Image("images/world-map-background-copy.jpg");
+    			employee.setimage(im);
+    			Scene regist = new Scene(root);
+    			Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    			app_stage.setScene(regist);
+    			app_stage.show();
+		/*
+		 * Parent pane =
+		 * FXMLLoader.load(getClass().getResource("EmployeeHomePage.fxml")); Scene log =
+		 * new Scene(pane); Stage app_Stage = (Stage) ((Node)
+		 * event.getSource()).getScene().getWindow(); app_Stage.setScene(log);
+		 * app_Stage.show();
+		 */
     }
+
+
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
 
