@@ -317,19 +317,51 @@ public class EchoServer extends AbstractServer {
 			case "AddPath":
 				MapId=detail[1];
 				PathId=detail[2];
-				if (InterestingPlace.RemovePlace(PlaceId) == true) {
-					this.handleMessageFromServerUI("RemovePlace");
+				description=detail[3];
+				path=detail[4];
+				if (Path.AddPath(PathId,MapId,description,path) == true) {
+					this.handleMessageFromServerUI("addPath");
 					break;
 
 				} else {
-					this.handleMessageFromServerUI("NotRemovePlace");
+					this.handleMessageFromServerUI("NotAddPath");
 					break;
 
 				}
 			case "EditPath":
-				break;
+
+				PathId=detail[1];
+				path=detail[2];
+				if (Path.EditPath(PathId,path) == true) {
+					this.handleMessageFromServerUI("AddPath");
+					break;
+
+				} else {
+					this.handleMessageFromServerUI("NotAddPath");
+					break;
+				}
+				
 			case "EditPathdisc":
-				break;
+				PathId=detail[1];
+				description=detail[2];
+				if (Path.Editdesc(PathId,description) == true) {
+					this.handleMessageFromServerUI("editPathdisc");
+					break;
+
+				} else {
+					this.handleMessageFromServerUI("NotEditPathdisc");
+					break;
+				}
+				case "removepath":
+					PathId=detail[1];
+					if (Path.removepath(PathId) == true) {
+						this.handleMessageFromServerUI("removepath");
+						break;
+
+					} else {
+						this.handleMessageFromServerUI("Notremove");
+						break;
+					}
 
 			case "saveMap":
 				path = detail[1];
@@ -338,6 +370,37 @@ public class EchoServer extends AbstractServer {
 					break;
 				}
 				break;
+
+			case "Purchase" :
+				CityId= detail[1];
+				path=detail[2];
+				if (Client.Purchase( CityId, path) == true) {
+					this.handleMessageFromServerUI("Purchased");
+
+					break;
+				} else {
+					this.handleMessageFromServerUI("CantPurchase");
+					break;
+				}
+			case "ShowPreviousCity" :
+				if (Client.ShowPreviousCity() != null) {
+					this.handleMessageFromServerUI("ShowPreviousCity@"+ Client.ShowPreviousCity() );
+
+					break;
+				} else {
+					this.handleMessageFromServerUI("CantShowPrevoiousCity");
+					break;
+				}
+			case "ShowNextCity" :
+				if (Client.ShowNextCity() != null) {
+					this.handleMessageFromServerUI("ShowNextCity@"+  Client.ShowNextCity() );
+
+					break;
+				} else {
+					this.handleMessageFromServerUI("CantShowNextCity");
+					break;
+				}
+				
 			}
 //			System.out.println("Message received: " + msg + " from \"" + client.getInfo("loginID") + "\" " + client);
 //   this.sendToAllClients(client.getInfo("loginID") + "> " + msg);

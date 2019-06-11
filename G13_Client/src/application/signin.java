@@ -89,10 +89,6 @@ public class signin  implements Initializable{
         		app_stage.setScene(regist);
         		app_stage.show();
 					
-//					  Parent pane= FXMLLoader.load(getClass().getResource("MhomePage.fxml")); Scene
-//					  log=new Scene(pane); Stage
-//					  app_Stage=(Stage)((Node)event.getSource()).getScene().getWindow();
-//					  app_Stage.setScene(log); app_Stage.show();
 					 
         	}
         	else if(email.getText().contains("@mapcdm.co.il"))

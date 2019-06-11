@@ -8,6 +8,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -30,7 +33,7 @@ public class Client extends Person {
 		 */
 		final public static int DEFAULT_PORT = 5555;
 		////*******************************************////
-
+static int place=1;
 	public static  int SignIn(String email,String pass) {
 		Connection conn = null;
 		Statement stmt = null;
@@ -172,6 +175,7 @@ public static  boolean savemap(String pathtosave) {
 			blob=(Blob) rs.getBlob("Im");
 			b=blob.getBytes(1,(int)blob.length());
 			fos.write(b);
+			fos.close();
 			i++;
 		}
 		rs.close();
@@ -199,5 +203,239 @@ public static  boolean savemap(String pathtosave) {
 	return false;
 	
 }
+public static  String ShowPreviousCity() 
+{
+	Connection conn = null;
+	Statement stmt = null;
+	String CityId=null;
+	String TheResultText;
+	
+	try { 
+		Class.forName(JDBC_DRIVER); 
+		conn = DriverManager.getConnection(DB_URL, USER, PASS); //**whire sql here**//
+List<String> City= new ArrayList<String>();
+PreparedStatement prep_stmt = conn.prepareStatement("SELECT * FROM City");
+ResultSet rs = prep_stmt.executeQuery(); 
+while (rs.next()) { 
+	City.add(rs.getString("CityName")); 
+	} rs.close(); 
+	prep_stmt.close();
+	place--; 
+	if (place<0) 
+	{ 
+		place=0; 
+		} 
+	else
+		{ 
+			String cityName=City.get(place);
+			prep_stmt = conn.prepareStatement("SELECT * FROM ? ");
+			prep_stmt.setString(1, cityName); 
+			rs = prep_stmt.executeQuery(); 
+			List<String> MapID= new ArrayList<String>();
+			
+			while (rs.next()) 
+			{ 
+				MapID.add(rs.getString("MapId"));
+				CityId=rs.getString("CityId");
+				}
+			rs.close(); 
+			prep_stmt.close();
+			TheResultText=CityId+ "@";
+			  Iterator<String> iter = MapID.iterator();
+		      while (iter.hasNext()) {
+		    	  prep_stmt = conn.prepareStatement("SELECT * FROM Map WHERE MapId=? ");
+					prep_stmt.setString(1, (String) iter.next()); 
+				ResultSet rs1 = prep_stmt.executeQuery(); 
+				while(rs1.next())
+				{
+					TheResultText=TheResultText+rs1.getString("description")+".";
+		      }
+				rs1.close();
+			
+			}
+			prep_stmt.close();
+			rs.close();
+			conn.close(); 
+		
+			return TheResultText;
+			} 
+	} 
+	catch (SQLException se) 
+	{ 
+		se.printStackTrace();
+		System.out.println("SQLException: " + se.getMessage());
+		System.out.println("SQLState: " + se.getSQLState());
+		System.out.println("VendorError: " + se.getErrorCode()); 
+		} 
+	catch (Exception e) 
+	{ 
+		e.printStackTrace();
+		} 
+	finally { 
+		try
+		{ 
+			if (stmt != null) stmt.close();
+			if (conn != null) conn.close(); 
+			} 
+		catch (SQLException se)
+		{
+			se.printStackTrace();
+			}
+		}
+	return null;
+	
+	}
+	
+
+public static  String ShowNextCity()
+{
+	
+	Connection conn = null;
+	Statement stmt = null;
+	String CityId=null;
+	String TheResultText;
+	
+	try { 
+		Class.forName(JDBC_DRIVER); 
+		conn = DriverManager.getConnection(DB_URL, USER, PASS); //**whire sql here**//
+List<String> City= new ArrayList<String>();
+PreparedStatement prep_stmt = conn.prepareStatement("SELECT * FROM City");
+ResultSet rs = prep_stmt.executeQuery(); 
+while (rs.next()) { 
+	City.add(rs.getString("CityName")); 
+	} rs.close(); 
+	prep_stmt.close();
+	place++; 
+	if (place>City.size()-1) 
+	{ 
+		place=City.size()-1; 
+		} 
+	else
+		{ 
+			String cityName=City.get(place);
+			prep_stmt = conn.prepareStatement("SELECT * FROM ? ");
+			prep_stmt.setString(1, cityName); 
+			rs = prep_stmt.executeQuery(); 
+			List<String> MapID= new ArrayList<String>();
+			
+			while (rs.next()) 
+			{ 
+				MapID.add(rs.getString("MapId"));
+				CityId=rs.getString("CityId");
+				}
+			rs.close(); 
+			prep_stmt.close();
+			TheResultText=CityId+ "@";
+			  Iterator<String> iter = MapID.iterator();
+		      while (iter.hasNext()) {
+		    	  prep_stmt = conn.prepareStatement("SELECT * FROM Map WHERE MapId=? ");
+					prep_stmt.setString(1, (String) iter.next()); 
+				ResultSet rs1 = prep_stmt.executeQuery(); 
+				while(rs1.next())
+				{
+					TheResultText=TheResultText+rs1.getString("description")+".";
+		      }
+				rs1.close();
+			
+			}
+			prep_stmt.close();
+			rs.close();
+			conn.close(); 
+		
+			
+			} 
+	} 
+	catch (SQLException se) 
+	{ 
+		se.printStackTrace();
+		System.out.println("SQLException: " + se.getMessage());
+		System.out.println("SQLState: " + se.getSQLState());
+		System.out.println("VendorError: " + se.getErrorCode()); 
+		} 
+	catch (Exception e) 
+	{ 
+		e.printStackTrace();
+		} 
+	finally { 
+		try
+		{ 
+			if (stmt != null) stmt.close();
+			if (conn != null) conn.close(); 
+			} 
+		catch (SQLException se)
+		{
+			se.printStackTrace();
+			}
+		} 
+	return null;
+	}
+	
+	
+
+public static  boolean Purchase(String CityId, String Path) {
+	Connection conn = null;
+	Statement stmt = null;
+	String CityName= null;
+
+	///***sql***///
+	try {
+		int i=0;
+		Class.forName(JDBC_DRIVER);
+		conn = DriverManager.getConnection(DB_URL, USER, PASS);
+//**whire sql here**//
+		PreparedStatement prep_stmt = conn.prepareStatement("SELECT * FROM City WHERE CityId=?");
+		prep_stmt.setString(1, CityId);
+		ResultSet rs = prep_stmt.executeQuery();
+		while (rs.next()) {
+			CityName = rs.getString("CityName");
+		}
+		rs.close();
+		prep_stmt.close();
+		if (CityName==null)
+			return false;
+		else {
+				PreparedStatement prep_stmt1 = conn.prepareStatement("Select * From CityName= ? ");
+				prep_stmt1.setString(1, CityName);
+				ResultSet rs1 = prep_stmt.executeQuery();
+				while (rs1.next()) {
+					File file=new File(Path+"'\'"+CityName+Integer.toString(i)+".jpg");
+					FileOutputStream fos=new FileOutputStream(file);
+					byte b[];
+					Blob blob;
+					blob=(Blob) rs.getBlob("Im");
+					b=blob.getBytes(1,(int)blob.length());
+					fos.write(b);
+					i++;
+					fos.close();
+				}
+				
+				rs1.close();
+				prep_stmt.close();
+				
+				prep_stmt1.close();
+				conn.close();
+                 return true;
+				}	
+	} catch (SQLException se) {
+		se.printStackTrace();
+		System.out.println("SQLException: " + se.getMessage());
+		System.out.println("SQLState: " + se.getSQLState());
+		System.out.println("VendorError: " + se.getErrorCode());
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+	finally {
+		try {
+			if (stmt != null)
+				stmt.close();
+			if (conn != null)
+				conn.close();
+		} catch (SQLException se) {
+			se.printStackTrace();
+		}
+	}
+	return false;
+}
+
 
 }

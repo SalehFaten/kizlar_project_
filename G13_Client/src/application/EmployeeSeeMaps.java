@@ -15,6 +15,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
@@ -67,81 +69,70 @@ public class EmployeeSeeMaps implements Initializable{
 	 public void setimage(Image im) {
 			image.setImage(im);
 	    }
+	static  int place=0;
     @FXML
     void SearchMapId(ActionEvent event) {
-    	
-    		Connection conn = null;
-    	    Statement stmt = null;
-    	    Image image=null;
-    	    String desc=null;
-
-    		try {
-    			Class.forName(JDBC_DRIVER);
-    			conn = DriverManager.getConnection(DB_URL, USER, PASS);
-    	//**whire sql here**//
-    			if(SearchMapId.getText()==null)
-    			{
-    				return;
-    			}
-    			else
-    			{
-    			PreparedStatement prep_stmt = conn.prepareStatement("SELECT * FROM Map WHERE MapId=?");
-    			prep_stmt.setString(1, SearchMapId.getText());
-    			ResultSet rs = prep_stmt.executeQuery();
-    			while (rs.next()) {
-    				Blob blob = (Blob) rs.getBlob("Im");  
-    				InputStream in = blob.getBinaryStream();  
-    				BufferedImage im = ImageIO.read(in);
-    				 image =SwingFXUtils.toFXImage(im, null) ; 
-    				PreparedStatement prep_stmt1 = conn.prepareStatement("SELECT * FROM City WHERE CityId=?");
-    				prep_stmt1.setString(1, rs.getString("CityId"));
-    				ResultSet rs1 = prep_stmt1.executeQuery();
-    				String CityName=null;
-    				while (rs1.next()) {
-    					CityName=rs1.getString("CityName");
-    				}
-    				rs1.close();
-    				prep_stmt1.close();
-    			 desc= "This map is map of "+CityName+ " \n" +"This map is "+rs.getString("description")+ " map.";
-    			}
-    			prep_stmt.close();
-    			rs.close();
-    			conn.close();
-    			imageview.setImage(image);
-				Maptext.setText(desc);
-    			}
-    			
-    		} catch (SQLException se) {
-    			se.printStackTrace();
-    			System.out.println("SQLException: " + se.getMessage());
-    			System.out.println("SQLState: " + se.getSQLState());
-    			System.out.println("VendorError: " + se.getErrorCode());
-    		} catch (Exception e) {
-    			e.printStackTrace();
-    		}
-    		finally {
-    			try {
-    				if (stmt != null)
-    					stmt.close();
-    				if (conn != null)
-    					conn.close();
-    			} catch (SQLException se) {
-    				se.printStackTrace();
-    			}
-    		}
+//    	
+//    		Connection conn = null;
+//    	    Statement stmt = null;
+//    	    Image image=null;
+//    	    String desc=null;
+//
+//    		try {
+//    			Class.forName(JDBC_DRIVER);
+//    			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+//    	//**whire sql here**//
+//    			if(SearchMapId.getText()==null)
+//    			{
+//    				return;
+//    			}
+//    			else
+//    			{
+//    			PreparedStatement prep_stmt = conn.prepareStatement("SELECT * FROM Map WHERE MapId=?");
+//    			prep_stmt.setString(1, SearchMapId.getText());
+//    			ResultSet rs = prep_stmt.executeQuery();
+//    			while (rs.next()) {
+//    				Blob blob = (Blob) rs.getBlob("Im");  
+//    				InputStream in = blob.getBinaryStream();  
+//    				BufferedImage im = ImageIO.read(in);
+//    				 image =SwingFXUtils.toFXImage(im, null) ; 
+//    				PreparedStatement prep_stmt1 = conn.prepareStatement("SELECT * FROM City WHERE CityId=?");
+//    				prep_stmt1.setString(1, rs.getString("CityId"));
+//    				ResultSet rs1 = prep_stmt1.executeQuery();
+//    				String CityName=null;
+//    				while (rs1.next()) {
+//    					CityName=rs1.getString("CityName");
+//    				}
+//    				rs1.close();
+//    				prep_stmt1.close();
+//    			 desc= "This map is map of "+CityName+ " \n" +"This map is "+rs.getString("description")+ " map.";
+//    			}
+//    			prep_stmt.close();
+//    			rs.close();
+//    			conn.close();
+//    			imageview.setImage(image);
+//				Maptext.setText(desc);
+//    			}
+//    			
+//    		} catch (SQLException se) {
+//    			se.printStackTrace();
+//    			System.out.println("SQLException: " + se.getMessage());
+//    			System.out.println("SQLState: " + se.getSQLState());
+//    			System.out.println("VendorError: " + se.getErrorCode());
+//    		} catch (Exception e) {
+//    			e.printStackTrace();
+//    		}
+//    		finally {
+//    			try {
+//    				if (stmt != null)
+//    					stmt.close();
+//    				if (conn != null)
+//    					conn.close();
+//    			} catch (SQLException se) {
+//    				se.printStackTrace();
+//    			}
+//    		}
     		
-    	
-//    	String message = "EmployeeSeeMapId," + SearchMapId.getText();
-//		Connect.client.handleMessageFromClientUI(message);
-//		String[] input = Connect.client.servermsg.split("@");
-//		if ("MapPath".equals(input[0])) {
-//			if (input[1] != null) {
-//				String imagepath=input[1];
-//					Image image = new Image("file:" + imagepath);
-//					imageview.setImage(image);
-//					Maptext.setText(input[2]);
-//				}
-//			}
 		}
 
     
@@ -157,16 +148,168 @@ public class EmployeeSeeMaps implements Initializable{
     			Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
     			app_stage.setScene(regist);
     			app_stage.show();
-		/*
-		 * Parent pane =
-		 * FXMLLoader.load(getClass().getResource("EmployeeHomePage.fxml")); Scene log =
-		 * new Scene(pane); Stage app_Stage = (Stage) ((Node)
-		 * event.getSource()).getScene().getWindow(); app_Stage.setScene(log);
-		 * app_Stage.show();
-		 */
+
     }
 
+    @FXML
+    void prev(ActionEvent event) {
+    	Connection conn = null;
+	    Statement stmt = null;
+	    Image image=null;
+	    String desc=null;
 
+		try {
+			Class.forName(JDBC_DRIVER);
+			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+	//**whire sql here**//
+			List<String> MapId = new ArrayList<String>();
+			PreparedStatement prep_stmt = conn.prepareStatement("SELECT * FROM Map ");
+			ResultSet rs = prep_stmt.executeQuery();
+			while (rs.next()) {
+				MapId.add(rs.getString("MapId"));
+			}
+			rs.close();
+			prep_stmt.close();
+			place--;
+			if(place <0)
+			{
+				place=0;
+			}
+			else {
+			String Mapid=MapId.get(place);
+			 prep_stmt = conn.prepareStatement("SELECT * FROM Map WHERE MapId=?");
+			prep_stmt.setString(1, Mapid);
+			 rs = prep_stmt.executeQuery();
+			while (rs.next()) {
+				Blob blob = (Blob) rs.getBlob("Im");  
+				InputStream in = blob.getBinaryStream();  
+				BufferedImage im = ImageIO.read(in);
+				 image =SwingFXUtils.toFXImage(im, null) ; 
+				PreparedStatement prep_stmt1 = conn.prepareStatement("SELECT * FROM City WHERE CityId=?");
+				prep_stmt1.setString(1, rs.getString("CityId"));
+				ResultSet rs1 = prep_stmt1.executeQuery();
+				String CityName=null;
+				while (rs1.next()) {
+					CityName=rs1.getString("CityName");
+				}
+				rs1.close();
+				prep_stmt1.close();
+			 desc= "This map is map of "+CityName+ " \n" +"This map is "+rs.getString("description")+ " map.";
+			}
+			prep_stmt.close();
+			rs.close();
+			conn.close();
+			imageview.setImage(image);
+			Maptext.setText(desc);
+			SearchMapId.setText(MapId.get(place));
+
+			}
+			
+		} catch (SQLException se) {
+			se.printStackTrace();
+			System.out.println("SQLException: " + se.getMessage());
+			System.out.println("SQLState: " + se.getSQLState());
+			System.out.println("VendorError: " + se.getErrorCode());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if (stmt != null)
+					stmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+			}
+		}
+
+    }
+	 public void setim(Image im) {
+			imageview.setImage(im);
+	    }    
+   
+	 public void setMapId(String desc) {
+		 Maptext.setText(desc);	
+	    }    
+ 
+	 public void settext(String Map) {
+		 SearchMapId.setText(Map);
+
+	 }    
+ 
+
+    @FXML
+    void next(ActionEvent event) {
+    	Connection conn = null;
+	    Statement stmt = null;
+	    Image image=null;
+	    String desc=null;
+
+		try {
+			Class.forName(JDBC_DRIVER);
+			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+	//**whire sql here**//
+			List<String> MapId = new ArrayList<String>();
+			PreparedStatement prep_stmt = conn.prepareStatement("SELECT * FROM Map ");
+			ResultSet rs = prep_stmt.executeQuery();
+			while (rs.next()) {
+				MapId.add(rs.getString("MapId"));
+			}
+			rs.close();
+			prep_stmt.close();
+			place++;
+			if (place>MapId.size()-1)
+			{
+				place=MapId.size()-1;
+			}
+			else {
+				String Mapid=MapId.get(place);
+			 prep_stmt = conn.prepareStatement("SELECT * FROM Map WHERE MapId=?");
+			prep_stmt.setString(1, Mapid);
+			 rs = prep_stmt.executeQuery();
+			while (rs.next()) {
+				Blob blob = (Blob) rs.getBlob("Im");  
+				InputStream in = blob.getBinaryStream();  
+				BufferedImage im = ImageIO.read(in);
+				 image =SwingFXUtils.toFXImage(im, null) ; 
+				PreparedStatement prep_stmt1 = conn.prepareStatement("SELECT * FROM City WHERE CityId=?");
+				prep_stmt1.setString(1, rs.getString("CityId"));
+				ResultSet rs1 = prep_stmt1.executeQuery();
+				String CityName=null;
+				while (rs1.next()) {
+					CityName=rs1.getString("CityName");
+				}
+				rs1.close();
+				prep_stmt1.close();
+			 desc= "This map is map of "+CityName+ " \n" +"This map is "+rs.getString("description")+ " map.";
+			}
+			prep_stmt.close();
+			rs.close();
+			conn.close();
+			imageview.setImage(image);
+			Maptext.setText(desc);
+			SearchMapId.setText(MapId.get(place));
+			}
+		} catch (SQLException se) {
+			se.printStackTrace();
+			System.out.println("SQLException: " + se.getMessage());
+			System.out.println("SQLState: " + se.getSQLState());
+			System.out.println("VendorError: " + se.getErrorCode());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if (stmt != null)
+					stmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+			}
+		}
+    }
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
