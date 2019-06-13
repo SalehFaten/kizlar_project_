@@ -26,6 +26,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class AddPath implements Initializable{
+    @FXML // fx:id="image"
+    private ImageView image; // Value injected by FXMLLoader
 
     @FXML // fx:id="enterPathId"
     private TextField enterPathId; // Value injected by FXMLLoader
@@ -39,27 +41,23 @@ public class AddPath implements Initializable{
     
     @FXML // fx:id="entermapId"
     private TextField entermapId; // Value injected by FXMLLoader
-	  @FXML // fx:id="image"
-	    private ImageView image; // Value injected by FXMLLoader
+
 	 public void setimage(Image im) {
 			image.setImage(im);
 	    }
     @FXML
     void AddPathbtn(ActionEvent event) throws IOException {
-    	String message="AddPath,"+entermapId.getText()+","+enterPathId.getText()+","+enterDiscription.getText();
+    	String message="AddPath,"+entermapId.getText()+","+enterPathId.getText()+","+enterDiscription.getText()+","+enterPathToNewPath.getText();
         Connect.client.handleMessageFromClientUI(message);
-        if ("AddPath".equals(Connect.client.servermsg)) {
+        if ("addPath".equals(Connect.client.servermsg)) {
         	JOptionPane.showMessageDialog(null, "Adding Map Finished Successfully");
-         	FXMLLoader loader = new FXMLLoader(getClass().getResource("EmployeeHomePage.fxml"));
-    		AnchorPane root = (AnchorPane) loader.load();
-    		employeeHomePage employee = loader.getController();
-        	Image im= new Image("images/world-map-background-copy.jpg");
-    		employee.setimage(im);
-    		Scene regist = new Scene(root);
-    		Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    		app_stage.setScene(regist);
-    		app_stage.show();
+  
     }
+        else if ("NotAddPath".equals(Connect.client.servermsg))
+        {
+        	JOptionPane.showMessageDialog(null, "Coudn't add");
+
+        }
     }
 
     @FXML
