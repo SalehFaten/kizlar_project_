@@ -80,6 +80,16 @@ public class EditInteristingPlace implements Initializable{
     void removeplace(ActionEvent event) {
      	String message="RemovePlace,"+PlaceId.getText();
         Connect.client.handleMessageFromClientUI(message);
+        if ("Removed Place".equals( Connect.client.servermsg))
+        {
+			JOptionPane.showMessageDialog(null, "Remove Plave Finished Successfully");
+
+        }
+        else  if ("Removing Place Failed!!".equals( Connect.client.servermsg))
+        {
+			JOptionPane.showMessageDialog(null, "cann't remove !! ");
+
+        }
     }
 
     @FXML
@@ -103,7 +113,7 @@ public class EditInteristingPlace implements Initializable{
      	FXMLLoader loader = new FXMLLoader(getClass().getResource("EmployeeHomePage.fxml"));
 		AnchorPane root = (AnchorPane) loader.load();
 		employeeHomePage employee = loader.getController();
-    	Image im= new Image("images/world-map-background-copy.jpg");
+    	Image im= new Image("images/background.jpg");
 		employee.setimage(im);
 		Scene regist = new Scene(root);
 		Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

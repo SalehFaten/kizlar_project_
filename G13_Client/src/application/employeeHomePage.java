@@ -95,18 +95,13 @@ public class employeeHomePage implements Initializable {
 	 	FXMLLoader loader = new FXMLLoader(getClass().getResource("addpath.fxml"));
 		AnchorPane root = (AnchorPane) loader.load();
 		AddPath addp = loader.getController();
-    	Image im= new Image("images/world-map-background-copy.jpg");
+    	Image im= new Image("images/background.jpg");
 		addp.setimage(im);
 		Scene regist = new Scene(root);
 		Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		app_stage.setScene(regist);
 		app_stage.show();
-		/*
-		 * Parent pane = FXMLLoader.load(getClass().getResource("addpath.fxml")); Scene
-		 * log = new Scene(pane); Stage app_Stage = (Stage) ((Node)
-		 * event.getSource()).getScene().getWindow(); app_Stage.setScene(log);
-		 * app_Stage.show();
-		 */
+
 	}
 
 	@FXML
@@ -114,7 +109,7 @@ public class employeeHomePage implements Initializable {
 	 	FXMLLoader loader = new FXMLLoader(getClass().getResource("EditPath.fxml"));
 		AnchorPane root = (AnchorPane) loader.load();
 		EditPath ep = loader.getController();
-    	Image im= new Image("images/world-map-background-copy.jpg");
+    	Image im= new Image("images/background.jpg");
 		ep.setimage(im);
 		Scene regist = new Scene(root);
 		Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -133,7 +128,7 @@ public class employeeHomePage implements Initializable {
 	 	FXMLLoader loader = new FXMLLoader(getClass().getResource("AddIneristingPlace.fxml"));
 		AnchorPane root = (AnchorPane) loader.load();
 		AddIneristingPlace ap = loader.getController();
-    	Image im= new Image("images/world-map-background-copy.jpg");
+    	Image im= new Image("images/background.jpg");
 		ap.setimage(im);
 		Scene regist = new Scene(root);
 		Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -153,19 +148,13 @@ public class employeeHomePage implements Initializable {
 	 	FXMLLoader loader = new FXMLLoader(getClass().getResource("editInteristingPlace.fxml"));
 		AnchorPane root = (AnchorPane) loader.load();
 		EditInteristingPlace epl = loader.getController();
-    	Image im= new Image("images/world-map-background-copy.jpg");
+    	Image im= new Image("images/background.jpg");
 		epl.setimage(im);
 		Scene regist = new Scene(root);
 		Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		app_stage.setScene(regist);
 		app_stage.show();
-		/*
-		 * Parent pane =
-		 * FXMLLoader.load(getClass().getResource("editInteristingPlace.fxml")); Scene
-		 * log = new Scene(pane); Stage app_Stage = (Stage) ((Node)
-		 * event.getSource()).getScene().getWindow(); app_Stage.setScene(log);
-		 * app_Stage.show();
-		 */
+	
 	}
 
 	@FXML
@@ -173,18 +162,12 @@ public class employeeHomePage implements Initializable {
 	 	FXMLLoader loader = new FXMLLoader(getClass().getResource("Createcity.fxml"));
 		AnchorPane root = (AnchorPane) loader.load();
 		CreateCity CC = loader.getController();
-    	Image im= new Image("images/world-map-background-copy.jpg");
+    	Image im= new Image("images/background.jpg");
 		CC.setimage(im);
 		Scene regist = new Scene(root);
 		Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		app_stage.setScene(regist);
 		app_stage.show();
-		/*
-		 * Parent pane = FXMLLoader.load(getClass().getResource("Createcity.fxml"));
-		 * Scene log = new Scene(pane); Stage app_Stage = (Stage) ((Node)
-		 * event.getSource()).getScene().getWindow(); app_Stage.setScene(log);
-		 * app_Stage.show();
-		 */
 	}
 
 	@FXML
@@ -257,7 +240,7 @@ public class employeeHomePage implements Initializable {
 	 	FXMLLoader loader = new FXMLLoader(getClass().getResource("EmployeeSeeMaps.fxml"));
 		AnchorPane root = (AnchorPane) loader.load();
 		EmployeeSeeMaps SEE = loader.getController();
-    	Image im= new Image("images/world-map-background-copy.jpg");
+    	Image im= new Image("images/background.jpg");
 		SEE.setimage(im);
 		SEE.setMapId(desc);
 		SEE.settext(Mapid);
@@ -280,7 +263,7 @@ public class employeeHomePage implements Initializable {
 	 	FXMLLoader loader = new FXMLLoader(getClass().getResource("addMapToCity.fxml"));
 		AnchorPane root = (AnchorPane) loader.load();
 		AddMapToCity ATC = loader.getController();
-    	Image im= new Image("images/world-map-background-copy.jpg");
+    	Image im= new Image("images/background.jpg");
 		ATC.setimage(im);
 		Scene regist = new Scene(root);
 		Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -300,23 +283,18 @@ public class employeeHomePage implements Initializable {
 		
 		String message = "Employeelogout," + email.getText();
 		Connect.client.handleMessageFromClientUI(message);
-		if(Connect.client.servermsg!=null && Connect.client.servermsg.equals("Employeelogout")) {
+		if(Connect.client.servermsg!=null && "Employeelogout".equals(Connect.client.servermsg)) {
 		JOptionPane.showMessageDialog(null, "You are logout ");
 	   	FXMLLoader loader = new FXMLLoader(getClass().getResource("Homepage.fxml"));
 				AnchorPane root = (AnchorPane) loader.load();
 				Controller home = loader.getController();
-		    	Image im= new Image("images/world-map-background-copy.jpg");
+		    	Image im= new Image("images/background.jpg");
 				home.setimage(im);
 				Scene regist = new Scene(root);
 				Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 				app_stage.setScene(regist);
 				app_stage.show();
-			/*
-			 * Parent pane = FXMLLoader.load(getClass().getResource("Homepage.fxml")); Scene
-			 * log = new Scene(pane); Stage app_Stage = (Stage) ((Node)
-			 * event.getSource()).getScene().getWindow(); app_Stage.setScene(log);
-			 * app_Stage.show();
-			 */
+		
 		}
 	}
 

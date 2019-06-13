@@ -59,18 +59,12 @@ public class CompanyMhomePage implements Initializable{
      	FXMLLoader loader = new FXMLLoader(getClass().getResource("Mhomepage.fxml"));
 		AnchorPane root = (AnchorPane) loader.load();
 		CDMhomePage employee = loader.getController();
-    	Image im= new Image("images/world-map-background-copy.jpg");
+    	Image im= new Image("images/background.jpg");
 		employee.setimage(im);
 		Scene regist = new Scene(root);
 		Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		app_stage.setScene(regist);
 		app_stage.show();
-		/*
-		 * Parent pane= FXMLLoader.load(getClass().getResource("CDMhomePage.fxml"));
-		 * Scene log=new Scene(pane); Stage
-		 * app_Stage=(Stage)((Node)event.getSource()).getScene().getWindow();
-		 * app_Stage.setScene(log); app_Stage.show();
-		 */
     }
 
     @FXML
@@ -78,18 +72,13 @@ public class CompanyMhomePage implements Initializable{
        	FXMLLoader loader = new FXMLLoader(getClass().getResource("Homepage.fxml"));
     			AnchorPane root = (AnchorPane) loader.load();
     			Controller home = loader.getController();
-    	    	Image im= new Image("images/world-map-background-copy.jpg");
+    	    	Image im= new Image("images/background.jpg");
     			home.setimage(im);
     			Scene regist = new Scene(root);
     			Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
     			app_stage.setScene(regist);
     			app_stage.show();
-		/*
-		 * Parent pane= FXMLLoader.load(getClass().getResource("HomePage.fxml")); Scene
-		 * log=new Scene(pane); Stage
-		 * app_Stage=(Stage)((Node)event.getSource()).getScene().getWindow();
-		 * app_Stage.setScene(log); app_Stage.show();
-		 */
+
     }
 
 	@Override

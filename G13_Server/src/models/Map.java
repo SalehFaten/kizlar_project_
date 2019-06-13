@@ -77,13 +77,13 @@ public class Map {
 				rs1.close();
 				stmt.close();
 				if (!MapId.equals(map)) {
-					prep_stmt = conn.prepareStatement(
-							"INSERT INTO "+CityName + " VALUES(?, ?, ?)");
-					prep_stmt.setString(1, CityId);
-					prep_stmt.setString(2, MapId);
-					prep_stmt.setString(3,path);
-					prep_stmt.executeUpdate();
-					prep_stmt.close();
+//					prep_stmt = conn.prepareStatement(
+//							"INSERT INTO "+CityName + " VALUES(?, ?, ?)");
+//					prep_stmt.setString(1, CityId);
+//					prep_stmt.setString(2, MapId);
+//					prep_stmt.setString(3,path);
+//					prep_stmt.executeUpdate();
+//					prep_stmt.close();
 
 					/****put the image in maps****/
 					prep_stmt = conn.prepareStatement(

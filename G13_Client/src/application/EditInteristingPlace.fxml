@@ -9,11 +9,10 @@
 
 <AnchorPane prefHeight="568.0" prefWidth="858.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.EditInteristingPlace">
    <children>
-      <ImageView fx:id="image" fitHeight="568.0" fitWidth="919.0" layoutX="-10.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="image" fitHeight="813.0" fitWidth="900.0" layoutX="-10.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../world-map-background-copy.jpg" />
-         </image>
-      </ImageView>
+            <Image url="@../../background.jpg" />
+         </image></ImageView>
       <TextField fx:id="EditPlaceName" alignment="CENTER" layoutX="248.0" layoutY="253.0" prefHeight="31.0" prefWidth="196.0" promptText="Edit Place Name" />
       <TextField fx:id="EditplaceId" alignment="CENTER" layoutX="248.0" layoutY="307.0" prefHeight="31.0" prefWidth="196.0" promptText="Edit PlaceId" />
       <TextField fx:id="EditDescription" alignment="CENTER" layoutX="248.0" layoutY="362.0" prefHeight="31.0" prefWidth="196.0" promptText="Edit Description" />
@@ -22,30 +21,30 @@
             <Font name="Comic Sans MS Bold Italic" size="36.0" />
          </font>
       </Text>
-      <Button layoutX="501.0" layoutY="252.0" mnemonicParsing="false" onAction="#Editname" prefHeight="31.0" prefWidth="77.0" text="Edit">
+      <Button layoutX="532.0" layoutY="252.0" mnemonicParsing="false" onAction="#Editname" prefHeight="31.0" prefWidth="77.0" text="Edit">
          <font>
-            <Font name="Comic Sans MS Bold Italic" size="15.0" />
+            <Font name="Comic Sans MS" size="15.0" />
          </font>
       </Button>
-      <Button layoutX="501.0" layoutY="362.0" mnemonicParsing="false" onAction="#EditDescription" prefHeight="31.0" prefWidth="77.0" text="Edit">
+      <Button layoutX="533.0" layoutY="360.0" mnemonicParsing="false" onAction="#EditDescription" prefHeight="31.0" prefWidth="77.0" text="Edit">
          <font>
-            <Font name="Comic Sans MS Bold Italic" size="15.0" />
+            <Font name="Comic Sans MS" size="15.0" />
          </font>
       </Button>
-      <Button layoutX="501.0" layoutY="198.0" mnemonicParsing="false" onAction="#removeplace" prefHeight="31.0" prefWidth="77.0" text="remove">
+      <Button layoutX="532.0" layoutY="201.0" mnemonicParsing="false" onAction="#removeplace" prefHeight="31.0" prefWidth="77.0" text="remove">
          <font>
-            <Font name="Comic Sans MS Bold Italic" size="15.0" />
+            <Font name="Comic Sans MS" size="15.0" />
          </font>
       </Button>
-      <Button layoutX="501.0" layoutY="307.0" mnemonicParsing="false" onAction="#EditId" prefHeight="31.0" prefWidth="77.0" text="Edit">
+      <Button layoutX="532.0" layoutY="308.0" mnemonicParsing="false" onAction="#EditId" prefHeight="31.0" prefWidth="77.0" text="Edit">
          <font>
-            <Font name="Comic Sans MS Bold Italic" size="15.0" />
+            <Font name="Comic Sans MS" size="15.0" />
          </font>
       </Button>
       <TextField fx:id="PlaceId" alignment="CENTER" layoutX="248.0" layoutY="201.0" prefHeight="31.0" prefWidth="196.0" promptText="Enter Place Id to remove or edit" />
-      <Button layoutX="35.0" layoutY="29.0" mnemonicParsing="false" onAction="#back" text="back">
+      <Button layoutX="25.0" layoutY="23.0" mnemonicParsing="false" onAction="#back" text="back">
          <font>
-            <Font name="Comic Sans MS Bold Italic" size="15.0" />
+            <Font name="Comic Sans MS" size="15.0" />
          </font>
       </Button>
 
