@@ -70,19 +70,13 @@ public class AddMapToCity implements Initializable{
      	FXMLLoader loader = new FXMLLoader(getClass().getResource("EmployeeHomePage.fxml"));
 		AnchorPane root = (AnchorPane) loader.load();
 		employeeHomePage employee = loader.getController();
-    	Image im= new Image("images/world-map-background-copy.jpg");
+    	Image im= new Image("images/background.jpg");
 		employee.setimage(im);
 		Scene regist = new Scene(root);
 		Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		app_stage.setScene(regist);
 		app_stage.show();
-		/*
-		 * Parent pane =
-		 * FXMLLoader.load(getClass().getResource("EmployeeHomePage.fxml")); Scene log =
-		 * new Scene(pane); Stage app_Stage = (Stage) ((Node)
-		 * event.getSource()).getScene().getWindow(); app_Stage.setScene(log);
-		 * app_Stage.show();
-		 */
+
 	}
 
 	@FXML

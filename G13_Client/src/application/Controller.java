@@ -32,11 +32,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import client .*;
+import client.*;
 import common.ChatIF;
 import application.Connect;
-public  class Controller  implements Initializable{
-	 /////*******databasee******////
+
+public class Controller implements Initializable {
+	///// *******databasee******////
 	static private final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
 
 	// update USER, PASS and DB URL according to credentials provided by the
@@ -51,90 +52,75 @@ public  class Controller  implements Initializable{
 	 * The default port to listen on.
 	 */
 	final public static int DEFAULT_PORT = 5555;
-	////*******************************************////
+	//// *******************************************////
 
 //	  static ChatClient client=null;
 //	ServerConsole server=null;
 //	private AnchorPane rootPane;
-    @FXML // fx:id="search"
-    private TextField search; // Value injected by FXMLLoader
+	@FXML // fx:id="search"
+	private TextField search; // Value injected by FXMLLoader
 
-    @FXML // fx:id="login"
-    private Button login; // Value injected by FXMLLoader
+	@FXML // fx:id="login"
+	private Button login; // Value injected by FXMLLoader
 
-    @FXML // fx:id="register"
-    private Button register; // Value injected by FXMLLoader
-    
-    @FXML // fx:id="image"
-    private ImageView image; // Value injected by FXMLLoader
+	@FXML // fx:id="register"
+	private Button register; // Value injected by FXMLLoader
 
+	@FXML // fx:id="image"
+	private ImageView image; // Value injected by FXMLLoader
 
-	  public void setimage(Image im) {
-			image.setImage(im);
-	    }
-    @FXML
-    void log(ActionEvent event) throws IOException {
+	public void setimage(Image im) {
+		image.setImage(im);
+	}
+
+	@FXML
+	void log(ActionEvent event) throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
 		AnchorPane root = (AnchorPane) loader.load();
 		signin sign = loader.getController();
-    	Image im= new Image("images/world-map-background-copy.jpg");
+		Image im = new Image("images/background.jpg");
 		sign.setimage(im);
 		Scene regist = new Scene(root);
 		Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		app_stage.setScene(regist);
 		app_stage.show();
-		/*
-		 * Parent pane= FXMLLoader.load(getClass().getResource("login.fxml")); Scene
-		 * log=new Scene(pane); Stage
-		 * app_Stage=(Stage)((Node)event.getSource()).getScene().getWindow();
-		 * app_Stage.setScene(log); app_Stage.show();
-		 */
-    }
-    
-    
-    @FXML
-    void Search(ActionEvent event) throws IOException {
-    
-String m= search(search.getText());
-       String[] result=m.split("@");
-FXMLLoader loader = new FXMLLoader(getClass().getResource( "Psearch.fxml" ));
-AnchorPane root = (AnchorPane)loader.load();
-       Psearch psearch1=loader.getController();
-   	Image im= new Image("images/world-map-background-copy.jpg");
-   	psearch1.setimage(im);
-       if("PublicSearch".equals(result[0])) {
-    	   for(int i=1;i<result.length;i++) {
-    	       psearch1.set(result[i]);
-    	       }
-    	   
-       }
-       Scene regist=new Scene(root);
-       Stage app_stage=(Stage)((Node)event.getSource()).getScene().getWindow();
-       app_stage.setScene(regist);
-       app_stage.show();
-       }  
-       
+	}
 
+	@FXML
+	void Search(ActionEvent event) throws IOException {
 
-    @FXML
-    void regist(ActionEvent event) throws IOException {
-    	FXMLLoader loader = new FXMLLoader(getClass().getResource("regist.fxml"));
+		String m = search(search.getText());
+		String[] result = m.split("@");
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("Psearch.fxml"));
+		AnchorPane root = (AnchorPane) loader.load();
+		Psearch psearch1 = loader.getController();
+		Image im = new Image("images/background.jpg");
+		psearch1.setimage(im);
+		if ("PublicSearch".equals(result[0])) {
+			for (int i = 1; i < result.length; i++) {
+				psearch1.set(result[i]);
+			}
+
+		}
+		Scene regist = new Scene(root);
+		Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		app_stage.setScene(regist);
+		app_stage.show();
+	}
+
+	@FXML
+	void regist(ActionEvent event) throws IOException {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("regist.fxml"));
 		AnchorPane root = (AnchorPane) loader.load();
 		regist signup = loader.getController();
-    	Image im= new Image("images/world-map-background-copy.jpg");
+		Image im = new Image("images/background.jpg");
 		signup.setimage(im);
 		Scene regist = new Scene(root);
 		Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		app_stage.setScene(regist);
 		app_stage.show();
-		/*
-		 * Parent pane= FXMLLoader.load(getClass().getResource("regist.fxml")); Scene
-		 * regist=new Scene(pane); Stage
-		 * app_stage=(Stage)((Node)event.getSource()).getScene().getWindow();
-		 * app_stage.setScene(regist); app_stage.show();
-		 */
-    
-    }
+
+	}
 
 	public static String search(String searchcity) {
 		Connection conn = null;
@@ -159,10 +145,12 @@ AnchorPane root = (AnchorPane)loader.load();
 						out.add(rs.getString("CityName"));
 					}
 				}
+				rs.close();
 				sql = "SELECT * FROM Map ";
 				rs = stmt.executeQuery(sql);
 				while (rs.next()) {
-					if (rs.getString("description").toUpperCase().contains(searchcity.toUpperCase())||searchcity.toUpperCase().contains(rs.getString("description").toUpperCase())) {
+					if (rs.getString("description").toUpperCase().contains(searchcity.toUpperCase())
+							|| searchcity.toUpperCase().contains(rs.getString("description").toUpperCase())) {
 						PreparedStatement prep_stmt = conn.prepareStatement("SELECT * FROM City WHERE CityId=?");
 						prep_stmt.setString(1, rs.getString("CityId"));
 						ResultSet rs1 = prep_stmt.executeQuery();
@@ -180,7 +168,9 @@ AnchorPane root = (AnchorPane)loader.load();
 				sql = "SELECT * FROM InterstingPlace";
 				rs = stmt.executeQuery(sql);
 				while (rs.next()) {
-					if (rs.getString("description").toUpperCase().contains(searchcity.toUpperCase())||searchcity.toUpperCase().contains(rs.getString("description").toUpperCase())||searchcity.toUpperCase().contains(rs.getString("PlaceName").toUpperCase())) {
+					if (rs.getString("description").toUpperCase().contains(searchcity.toUpperCase())
+							|| searchcity.toUpperCase().contains(rs.getString("description").toUpperCase())
+							|| searchcity.toUpperCase().contains(rs.getString("PlaceName").toUpperCase())) {
 						PreparedStatement prep_stmt = conn.prepareStatement("SELECT * FROM City WHERE CityId=?");
 						prep_stmt.setString(1, rs.getString("CityId"));
 						ResultSet rs1 = prep_stmt.executeQuery();
@@ -196,9 +186,37 @@ AnchorPane root = (AnchorPane)loader.load();
 
 				}
 				rs.close();
-				String[] type = new String[100];
+				sql = "SELECT * FROM Path";
+				rs = stmt.executeQuery(sql);
+				String MapID=null;
+				while (rs.next()) {
+					if (rs.getString("description").toUpperCase().contains(searchcity.toUpperCase())
+							|| searchcity.toUpperCase().contains(rs.getString("description").toUpperCase())) {
+						MapID=rs.getString("MapId");
+					}
+					sql = "SELECT * FROM Map WHERE MapId="+MapID;
+					ResultSet rs1 = stmt1.executeQuery(sql);
+					while(rs1.next()) {
+				
+						PreparedStatement prep_stmt = conn.prepareStatement("SELECT * FROM City WHERE CityId=?");
+						prep_stmt.setString(1, rs.getString("CityId"));
+						ResultSet rs2 = prep_stmt.executeQuery();
+						while (rs2.next()) {
+							if (!out.contains(rs1.getString("CityName"))) {
+								out.add(rs1.getString("CityName"));
+							}
+						}
+						prep_stmt.close();
+						rs2.close();
+					}
+					rs1.close();
+					}
+				rs.close();
+			
+				
+//				String[] type = new String[100];
 				int j = 0;
-				String result ="PublicSearch" + "@";
+				String result = "PublicSearch" + "@";
 				if (!out.equals(null)) {
 					Iterator iterator = out.iterator();
 					while (iterator.hasNext()) {
@@ -208,42 +226,75 @@ AnchorPane root = (AnchorPane)loader.load();
 						rs = stmt.executeQuery(sql);
 						while (rs.next()) {
 							countmap++;
-
 						}
 						rs.close();
-						sql = "SELECT * FROM  " + city;
-						rs = stmt.executeQuery(sql);
-						while (rs.next()) {
-							PreparedStatement prep_stmt = conn.prepareStatement("SELECT * FROM Map WHERE MapId=?");
-							prep_stmt.setString(1, rs.getString("MapId"));
-							ResultSet rs1 = prep_stmt.executeQuery();
-							while (rs1.next()) {
-								String desc = rs1.getString("description");
-								if (type[0] == null) {
-									type[j] = desc;
-									j++;
-								} else if (type[0] != null && !type[j - 1].equals(desc)) {
-									type[j] = desc;
-									j++;
+						int countpath=0;
+						sql = "SELECT * FROM  Path";
+						ResultSet rs1= stmt.executeQuery(sql);
+						while (rs1.next()) {
+							sql = "SELECT * FROM  "+city;
+							ResultSet rs2 = stmt1.executeQuery(sql);
+							while(rs2.next()) {
+							if(rs1.getString("MapId")==rs2.getString("MapId"))
+							{
+								countpath++;
+							}
+							}
+							rs2.close();
+						}
+						rs1.close();
+						int countp = 0;
+						sql = "SELECT * FROM  InterstingPlace " ;
+						ResultSet rs3 = stmt.executeQuery(sql);
+						while (rs3.next()) {
+							sql = "SELECT * FROM  "+city;
+							ResultSet rs4 = stmt1.executeQuery(sql);
+							while(rs3.next())
+							{
+								if (rs3.getString("CityId")==rs4.getString("CityId"))
+								{
+									countp++;
 								}
 							}
-							rs1.close();
-							
+							rs4.close();
+						}
+						rs3.close();
 						
-							prep_stmt.close();
-						}
-						result =result+ "The City " + city + " has: " + countmap + " maps " + "and has many types: ";
-						for (int m = 0; m < type.length; m++) {
-							if (type[m] != null) {
-								result = result + type[m] + ",";
-							} 
-						}
-						result=result+"."+"@";
-						for (int m = 0; m < type.length; m++) {
-							type[m] = null;
-						}
-						rs.close();
+//						sql = "SELECT * FROM  " + city;
+//						rs = stmt.executeQuery(sql);
+//						while (rs.next()) {
+//							PreparedStatement prep_stmt = conn.prepareStatement("SELECT * FROM Map WHERE MapId=?");
+//							prep_stmt.setString(1, rs.getString("MapId"));
+//							ResultSet rs1 = prep_stmt.executeQuery();
+//							while (rs1.next()) {
+//								String desc = rs1.getString("description");
+//								if (type[0] == null) {
+//									type[j] = desc;
+//									j++;
+//								} else if (type[0] != null && !type[j - 1].equals(desc)) {
+//									type[j] = desc;
+//									j++;
+//								}
+//							}
+//							rs1.close();
+//
+//							prep_stmt.close();
+//						}
+						result = result + "The City " + city + " has: " + countmap + " maps " +" and: "+ countpath + " paths " + "and: " + countp + " places.";
+//						+  "and has many types: ";
+//						for (int m = 0; m < type.length; m++) {
+//							if (type[m] != null) {
+//								result = result + type[m] + ",";
+//							}
+//						}
+						result = result + "@";
+//						for (int m = 0; m < type.length; m++) {
+//							type[m] = null;
+//						}
+//						rs.close();
 					}
+					stmt.close();
+					stmt1.close();
 					out.clear();
 					return result;
 
@@ -274,15 +325,10 @@ AnchorPane root = (AnchorPane)loader.load();
 
 	}
 
-
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-		
+
 	}
-
- 
-
-
 
 }

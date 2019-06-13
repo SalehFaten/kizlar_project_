@@ -7,15 +7,7 @@ package application;
 import java.io.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-
-import javax.swing.JOptionPane;
-
-import java.util.*;
 import ocsf.server.*;
 import common.*;
 import models.*;
@@ -138,6 +130,8 @@ public class EchoServer extends AbstractServer {
 			String PlaceName = null;
 			String PlaceId = null;
 			String PathId=null;
+			String res=null;
+			String show=null;
 			String[] detail = ((String) msg).split(",");
 			String command = detail[0];
 			switch (command) {
@@ -200,10 +194,10 @@ public class EchoServer extends AbstractServer {
 
 					}
 				}
-			case "userlogout":
+			case "Userlogout":
 				email = detail[1];
 				if (Client.Signout(email) == true) {
-					this.handleMessageFromServerUI("userlogout");
+					this.handleMessageFromServerUI("Userlogout");
 					break;
 
 				}
@@ -306,11 +300,11 @@ public class EchoServer extends AbstractServer {
 			case "RemovePlace":
 				PlaceId = detail[1];
 				if (InterestingPlace.RemovePlace(PlaceId) == true) {
-					this.handleMessageFromServerUI("RemovePlace");
+					this.handleMessageFromServerUI("Removed Place");
 					break;
 
 				} else {
-					this.handleMessageFromServerUI("NotRemovePlace");
+					this.handleMessageFromServerUI("Removing Place Failed!!");
 					break;
 
 				}
@@ -352,24 +346,24 @@ public class EchoServer extends AbstractServer {
 					this.handleMessageFromServerUI("NotEditPathdisc");
 					break;
 				}
-				case "removepath":
-					PathId=detail[1];
-					if (Path.removepath(PathId) == true) {
-						this.handleMessageFromServerUI("removepath");
-						break;
+			case "RemovePath":
+				PathId=detail[1];
+				if (Path.RemovePath(PathId) == true) {
+					this.handleMessageFromServerUI("removing path done");
 
-					} else {
-						this.handleMessageFromServerUI("Notremove");
-						break;
-					}
-
-			case "saveMap":
-				path = detail[1];
-				if (Client.savemap(path) == true) {
-					JOptionPane.showMessageDialog(null, "download Finished Successfully");
+					break;
+				} else {
+					this.handleMessageFromServerUI("removing path failed!!");
 					break;
 				}
-				break;
+
+//			case "saveMap":
+//				path = detail[1];
+//				if (Client.savemap(path) == true) {
+//					JOptionPane.showMessageDialog(null, "download Finished Successfully");
+//					break;
+//				}
+//				break;
 
 			case "Purchase" :
 				CityId= detail[1];
@@ -383,8 +377,10 @@ public class EchoServer extends AbstractServer {
 					break;
 				}
 			case "ShowPreviousCity" :
-				if (Client.ShowPreviousCity() != null) {
-					this.handleMessageFromServerUI("ShowPreviousCity@"+ Client.ShowPreviousCity() );
+		 	res=Client.ShowPreviousCity();
+				if (res != null) {
+					 show="ShowPreviousCity@"+ res;
+					this.handleMessageFromServerUI(show );
 
 					break;
 				} else {
@@ -392,14 +388,28 @@ public class EchoServer extends AbstractServer {
 					break;
 				}
 			case "ShowNextCity" :
-				if (Client.ShowNextCity() != null) {
-					this.handleMessageFromServerUI("ShowNextCity@"+  Client.ShowNextCity() );
+				res=Client.ShowNextCity();
+				if (res != null) {
+					 show="ShowNextCity@"+  res;
+					this.handleMessageFromServerUI(show);
 
 					break;
 				} else {
 					this.handleMessageFromServerUI("CantShowNextCity");
 					break;
 				}
+			case "show" :
+			res=Client.ShowFirstCity();
+				if (res != null) {
+					 show="show@"+ res;
+					this.handleMessageFromServerUI(show );
+
+					break;
+				} else {
+					this.handleMessageFromServerUI("CantShowCity");
+					break;
+				}
+				
 				
 			}
 //			System.out.println("Message received: " + msg + " from \"" + client.getInfo("loginID") + "\" " + client);

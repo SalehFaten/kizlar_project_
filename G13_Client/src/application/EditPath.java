@@ -96,7 +96,7 @@ public class EditPath implements Initializable{
      	FXMLLoader loader = new FXMLLoader(getClass().getResource("EmployeeHomePage.fxml"));
 		AnchorPane root = (AnchorPane) loader.load();
 		employeeHomePage employee = loader.getController();
-    	Image im= new Image("images/world-map-background-copy.jpg");
+    	Image im= new Image("images/background.jpg");
 		employee.setimage(im);
 		Scene regist = new Scene(root);
 		Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -120,7 +120,7 @@ public class EditPath implements Initializable{
 		
 	}    @FXML
     void removepath(ActionEvent event) {
-	 	String message="removepath,"+enterPathId.getText();
+	 	String message="RemovePath,"+enterPathId.getText();
     	if(enterPathId.getText()==null )
     	{
         	JOptionPane.showMessageDialog(null, "the field path Id is empty");
@@ -128,11 +128,11 @@ public class EditPath implements Initializable{
     	}
     	else {
     	Connect.client.handleMessageFromClientUI(message);
-      if ("removepath".equals(Connect.client.servermsg)) {
+      if ("removing path done".equals(Connect.client.servermsg)) {
       	JOptionPane.showMessageDialog(null, "successfully deleted");
 
       }
-      else if ("Notremove".equals(Connect.client.servermsg)) {
+      else if ("removing path failed!!".equals(Connect.client.servermsg)) {
       	JOptionPane.showMessageDialog(null, "Coudn't remove this path ");
 
       }

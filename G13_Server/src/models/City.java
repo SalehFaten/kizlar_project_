@@ -106,7 +106,6 @@ prep_stmt.close();
 
 					}
 					else {
-						JOptionPane.showMessageDialog(null, "City exists!! ");
 						return false;
 					}
 					

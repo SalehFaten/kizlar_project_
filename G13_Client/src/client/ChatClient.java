@@ -30,8 +30,8 @@ public class ChatClient extends AbstractClient
    * The Login ID of the user.
    */
   String loginID;
- public String servermsg=null;
-  
+ public  String servermsg=null;
+//  private String servermsg=null;
   //Constructors ****************************************************
   
   /**
@@ -82,7 +82,16 @@ public class ChatClient extends AbstractClient
   public void handleMessageFromServer(Object msg) 
   {
     clientUI.display(msg.toString());
+//    setmsg(msg.toString());
     servermsg=msg.toString();
+  }
+  public void setmsg(Object msg) 
+  {
+    servermsg=msg.toString();
+  }
+  public String getmsg() 
+  {
+    return servermsg;
   }
 
    /**

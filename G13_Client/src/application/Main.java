@@ -1,16 +1,13 @@
 package application;
 	
 import java.io.IOException;
-import java.net.URL;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 
 
 public class Main extends Application {
@@ -21,7 +18,7 @@ public class Main extends Application {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("connect.fxml"));
 		AnchorPane pane = (AnchorPane) loader.load();
 		Connect connect = loader.getController();
-    	Image im= new Image("images/connection.jpg");
+    	Image im= new Image("images/background.jpg");
 		connect.setimage(im);
 		Scene scene = new Scene( pane );
 		// setting the stage

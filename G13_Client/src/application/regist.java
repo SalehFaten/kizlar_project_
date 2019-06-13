@@ -15,7 +15,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -23,14 +22,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class regist implements Initializable{
+public class regist implements Initializable {
 
 	@FXML // fx:id="MM"
 	private TextField MM; // Value injected by FXMLLoader
 
-    @FXML // fx:id="image"
-    private ImageView image; // Value injected by FXMLLoader
-    
+	@FXML // fx:id="image"
+	private ImageView image; // Value injected by FXMLLoader
+
 	@FXML // fx:id="CVV"
 	private TextField CVV; // Value injected by FXMLLoader
 
@@ -55,26 +54,21 @@ public class regist implements Initializable{
 	@FXML // fx:id="lastname"
 	private TextField lastname; // Value injected by FXMLLoader
 
-	 public void setimage(Image im) {
-			image.setImage(im);
-	    }
+	public void setimage(Image im) {
+		image.setImage(im);
+	}
+
 	@FXML
 	void back(ActionEvent event) throws IOException {
-	   	FXMLLoader loader = new FXMLLoader(getClass().getResource("Homepage.fxml"));
-			AnchorPane root = (AnchorPane) loader.load();
-			Controller home = loader.getController();
-	    	Image im= new Image("images/world-map-background-copy.jpg");
-			home.setimage(im);
-			Scene regist = new Scene(root);
-			Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-			app_stage.setScene(regist);
-			app_stage.show();
-		/*
-		 * Parent pane = FXMLLoader.load(getClass().getResource("Homepage.fxml")); Scene
-		 * log = new Scene(pane); Stage app_Stage = (Stage) ((Node)
-		 * event.getSource()).getScene().getWindow(); app_Stage.setScene(log);
-		 * app_Stage.show();
-		 */
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("Homepage.fxml"));
+		AnchorPane root = (AnchorPane) loader.load();
+		Controller home = loader.getController();
+		Image im = new Image("images/background.jpg");
+		home.setimage(im);
+		Scene regist = new Scene(root);
+		Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		app_stage.setScene(regist);
+		app_stage.show();
 	}
 
 	@FXML
@@ -92,11 +86,7 @@ public class regist implements Initializable{
 		if (Email.equals("") || pass.equals("") || firstname.equals("") || last.equals("") || tel.equals("")
 				|| Visa.equals("") || cvv.equals("") || date.equals("") || id.equals("")) {
 			JOptionPane.showMessageDialog(null, "One or more files are empty!! ");
-		}
-    	else if (Connect.client.servermsg != null && "SignUpFailed".equals(Connect.client.servermsg)) {
-			JOptionPane.showMessageDialog(null, "You are already registed ");
-		}
-		else if (!(Email.contains("@hotmail.com")) && !(Email.contains("@gmail.com"))) {
+		} else if (!(Email.contains("@hotmail.com")) && !(Email.contains("@gmail.com"))) {
 			JOptionPane.showMessageDialog(null, "Please enter correct mail ");
 		} else if (tel.length() != 10 || !(tel.matches("(05[0-9]+)"))) {
 			JOptionPane.showMessageDialog(null, "Please enter correct phone number ");
@@ -116,23 +106,22 @@ public class regist implements Initializable{
 					+ lastname.getText() + "," + mobile.getText() + "," + visa.getText() + "," + CVV.getText() + ","
 					+ MM.getText() + "," + ID.getText() + "," + "1";
 			Connect.client.handleMessageFromClientUI(message);
-			if (Connect.client.servermsg != null && Connect.client.servermsg.equals("SignUp")) {
+
+			if (Connect.client.servermsg != null && "SignUp".equals(Connect.client.servermsg)) {
 				JOptionPane.showMessageDialog(null, "You SignUp successfully ");
-			  	FXMLLoader loader = new FXMLLoader(getClass().getResource("Homepage.fxml"));
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("Homepage.fxml"));
 				AnchorPane root = (AnchorPane) loader.load();
 				Controller home = loader.getController();
-		    	Image im= new Image("images/world-map-background-copy.jpg");
+				Image im = new Image("images/background.jpg");
 				home.setimage(im);
 				Scene regist = new Scene(root);
 				Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 				app_stage.setScene(regist);
 				app_stage.show();
-				/*
-				 * Parent pane = FXMLLoader.load(getClass().getResource("Homepage.fxml")); Scene
-				 * log = new Scene(pane); Stage app_Stage = (Stage) ((Node)
-				 * event.getSource()).getScene().getWindow(); app_Stage.setScene(log);
-				 * app_Stage.show();
-				 */
+				Connect.client.servermsg = null;
+			} else if (Connect.client.servermsg != null && "SignUpFailed".equals(Connect.client.servermsg)) {
+				JOptionPane.showMessageDialog(null, " SignUp Failed ");
+				Connect.client.servermsg = null;
 
 			}
 		}
@@ -141,7 +130,7 @@ public class regist implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

@@ -15,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
@@ -53,6 +54,10 @@ public class PersonalInformatiolnPage  {
     @FXML // fx:id="BackToUserHome"
     private Button BackToUserHome; // Value injected by FXMLLoader
 
+    public void setimage(Image im)
+    {
+    	Search.setImage(im);
+    }
     @FXML
     void BackToUserHome(ActionEvent event) throws IOException {
     	Parent pane= FXMLLoader.load(getClass().getResource("UserHomePage.fxml"));

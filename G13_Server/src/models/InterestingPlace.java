@@ -77,12 +77,13 @@ public class InterestingPlace {
 				String[] split=Mapid.split(":");
 				newMapid=split[0]+":"+split[1]+":"+Integer.toString(Integer.parseInt(split[2])+1);
 				prep_stmt = conn.prepareStatement(
-						"INSERT INTO InterstingPlace" + " VALUES(?, ?, ?, ?, ?)");
+						"INSERT INTO InterstingPlace" + " VALUES(?, ?, ?, ?, ?,?)");
 				prep_stmt.setString(1, PlaceName);
 				prep_stmt.setString(2, PlaceId);
 				prep_stmt.setString(3,desc);
 				prep_stmt.setString(4,newMapid);
 				prep_stmt.setString(5,CityId);
+				prep_stmt.setInt(6, 0);
 				prep_stmt.executeUpdate();
 				prep_stmt.close();
 				/****put the map****/
@@ -336,65 +337,68 @@ public class InterestingPlace {
 		return false;
 		
 	}
-	public static boolean RemovePlace(String PlaceId)		
-	{
+		public static boolean RemovePlace(String PlaceId)		
+		{
 
-		Connection conn = null;
-	    Statement stmt = null;
-	    String placeid=null;
-	
-
-		try {
-			Class.forName(JDBC_DRIVER);
-			conn = DriverManager.getConnection(DB_URL, USER, PASS);
-			if(PlaceId==null)
-			{
+			Connection conn = null;
+		    Statement stmt = null;
+		    String placeID=null;
+		    String CityId=null;
+	        String MapId=null;
+	        String CityName=null;
+				///***sql***///
+				try {
+					Class.forName(JDBC_DRIVER);
+					conn = DriverManager.getConnection(DB_URL, USER, PASS);
+		//** sql here**//
+					PreparedStatement prep_stmt = conn.prepareStatement("SELECT * FROM InterstingPlace WHERE PlaceId=?");
+					prep_stmt.setString(1, PlaceId);
+					ResultSet rs = prep_stmt.executeQuery();
+					while (rs.next()) {
+						placeID=rs.getString("PlaceId");
+					
+					}
+					rs.close();
+					prep_stmt.close();
+					
+						if (placeID==null)
+							return false;
+						else
+						{
+							prep_stmt = conn.prepareStatement("UPDATE InterstingPlace SET remove=?  WHERE PlaceId = ?");
+							prep_stmt.setInt(1, 1);
+							prep_stmt.setString(2, placeID);
+							prep_stmt.executeUpdate();
+							prep_stmt.close();
+							return true;
+						}
+				
+						
+							}
+					catch (SQLException se) 
+					{ 
+						se.printStackTrace();
+						System.out.println("SQLException: " + se.getMessage());
+						System.out.println("SQLState: " + se.getSQLState());
+						System.out.println("VendorError: " + se.getErrorCode()); 
+						} 
+					catch (Exception e) 
+					{ 
+						e.printStackTrace();
+						} 
+					finally { 
+						try
+						{ 
+							if (stmt != null) stmt.close();
+							if (conn != null) conn.close(); 
+							} 
+						catch (SQLException se)
+						{
+							se.printStackTrace();
+							}
+						}
 				return false;
 			}
-			else
-			{
-			PreparedStatement prep_stmt = conn.prepareStatement("SELECT * FROM InterstingPlace WHERE PlaceId=?");
-			prep_stmt.setString(1,PlaceId);
-			ResultSet rs = prep_stmt.executeQuery();
-			while (rs.next()) {
-			 placeid = rs.getString("PlaceId");
-			
-			}
-			rs.close();
-			prep_stmt.close();
-			if(!PlaceId.equals(placeid))
-			{
-				JOptionPane.showMessageDialog(null, "the place deosn't exists ");
-				return false;
-			}else
-			{
-			//sql to remove place 
-				conn.close();
-				return true;
-			}
-			}
-			
-		} catch (SQLException se) {
-			se.printStackTrace();
-			System.out.println("SQLException: " + se.getMessage());
-			System.out.println("SQLState: " + se.getSQLState());
-			System.out.println("VendorError: " + se.getErrorCode());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		finally {
-			try {
-				if (stmt != null)
-					stmt.close();
-				if (conn != null)
-					conn.close();
-			} catch (SQLException se) {
-				se.printStackTrace();
-			}
-		}
-		return false;
-		
-	}
 
 }
 
