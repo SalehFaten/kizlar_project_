@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="UserHomePage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="754.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.UserHomePage">
+   <children>
+      <Button fx:id="PurchaseOfUser" layoutX="358.0" layoutY="354.0" mnemonicParsing="false" onAction="#purchase" prefHeight="46.0" prefWidth="283.0" text="Purchase" />
+      <Button fx:id="LogOut_UserHomePage" layoutX="906.0" layoutY="59.0" mnemonicParsing="false" onAction="#LogOut_UserHomePage" text="LogOut" />
+      <Button fx:id="SeeMaps" layoutX="358.0" layoutY="432.0" mnemonicParsing="false" onAction="#SeeMaps" prefHeight="46.0" prefWidth="283.0" text="See Maps" />
+      <Button fx:id="SearchForUser" layoutX="358.0" layoutY="544.0" mnemonicParsing="false" onAction="#SearchForUser" prefHeight="46.0" prefWidth="283.0" text="search" />
+      <Button layoutX="423.0" layoutY="220.0" mnemonicParsing="false" onAction="#save" text="save" />
+      <TextField fx:id="path" layoutX="368.0" layoutY="171.0" />
+      <Button layoutX="417.0" layoutY="105.0" mnemonicParsing="false" onAction="#get" text="getbpath" />
+      <TextField fx:id="MapId" layoutX="368.0" layoutY="47.0" />
+      <Label fx:id="email" layoutX="854.0" layoutY="97.0" prefHeight="17.0" prefWidth="161.0" />
+   </children>
+</AnchorPane>
