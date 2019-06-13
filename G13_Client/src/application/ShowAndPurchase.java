@@ -59,6 +59,10 @@ public class ShowAndPurchase implements Initializable{
 	 public void setimage(Image im) {
 	image.setImage(im);
 }
+	 public void setCityId(String city)
+	 {
+		 CityId=city;
+	 }
     @FXML
     void ShowPreviousCity(ActionEvent event) {
    	 String message="ShowPreviousCity,"  ;
@@ -81,7 +85,6 @@ public class ShowAndPurchase implements Initializable{
 	} 
 	else if ("CantShowPrevoiousCity".equals(TheMsg[0])) {
 		JOptionPane.showMessageDialog(null, "Showing Previous One Failed ! ");
-
 	}
 
     }
@@ -93,7 +96,7 @@ public class ShowAndPurchase implements Initializable{
       String[] TheMsg=Connect.client.servermsg.split("@");
 		if ("ShowNextCity".equals(TheMsg[0])) {
 		
-			String[] TheText=TheMsg[2].split(".");
+			String[] TheText=TheMsg[2].split("#");
 			CityId=TheMsg[1];
 			for(int i=0;i<TheText.length;i++)
 				{

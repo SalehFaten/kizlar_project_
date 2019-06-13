@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javax.swing.JOptionPane;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,94 +25,106 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class UserHomePage implements Initializable{
+public class UserHomePage implements Initializable {
 
-    @FXML // fx:id="image"
-    private ImageView image; // Value injected by FXMLLoader
+	@FXML // fx:id="image"
+	private ImageView image; // Value injected by FXMLLoader
 
-    @FXML // fx:id="ShowPurchase"
-    private Button ShowPurchase; // Value injected by FXMLLoader
+	@FXML // fx:id="ShowPurchase"
+	private Button ShowPurchase; // Value injected by FXMLLoader
 
-    @FXML // fx:id="PersonalInformation"
-    private Button PersonalInformation; // Value injected by FXMLLoader
+	@FXML // fx:id="PersonalInformation"
+	private Button PersonalInformation; // Value injected by FXMLLoader
 
+	@FXML // fx:id="Email"
+	private Label Email; // Value injected by FXMLLoader
 
-    @FXML // fx:id="Email"
-    private Label Email; // Value injected by FXMLLoader 
-    
+	@FXML // fx:id="WhatToSearch"
+	private TextField WhatToSearch; // Value injected by FXMLLoader
 
-    @FXML // fx:id="WhatToSearch"
-    private TextField WhatToSearch; // Value injected by FXMLLoader
+	@FXML // fx:id="LogOut"
+	private Button LogOut; // Value injected by FXMLLoader
 
-    @FXML // fx:id="LogOut"
-    private Button LogOut; // Value injected by FXMLLoader
+	@FXML // fx:id="Search"
+	private Button Search; // Value injected by FXMLLoader
 
-    @FXML // fx:id="Search"
-    private Button Search; // Value injected by FXMLLoader
+	public void setimage(Image im) {
+		image.setImage(im);
+	}
 
-    public void setimage(Image im)
-    {
-    	image.setImage(im);
-    }
-    
-    public void set(String text)
-    {
-    	Email.setText(text);
-    }
-    @FXML
-    void ShowPurchase(ActionEvent event) throws IOException {
-     	FXMLLoader loader = new FXMLLoader(getClass().getResource("ShowAndPurchase.fxml"));
-    		AnchorPane root = (AnchorPane) loader.load();
-    		ShowAndPurchase SHOW = loader.getController();
-        	Image im= new Image("images/background.jpg");
-    		SHOW.setimage(im);
-    		Scene regist = new Scene(root);
-    		Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    		app_stage.setScene(regist);
-    		app_stage.show();
-    }
+	public void set(String text) {
+		Email.setText(text);
+	}
 
-    @FXML
-    void Search(ActionEvent event) {
+	@FXML
+	void ShowPurchase(ActionEvent event) throws IOException {
+		String msg = "show,";
+		Connect.client.handleMessageFromClientUI(msg);
+		String[] Msg = Connect.client.servermsg.split("@");
+		if ("show".equals(Msg[0])) {
+			if ((Msg[1] == null) || (Msg[2] == null)) {
+				JOptionPane.showMessageDialog(null, "Showing  Failed ! ");
+			} else {
+				String[] res = Msg[2].split("#");
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("ShowAndPurchase.fxml"));
+				AnchorPane root = (AnchorPane) loader.load();
+				ShowAndPurchase SHOW = loader.getController();
+				for (int i = 0; i < res.length; i++) {
+					SHOW.SetText(res[i]);
+				}
+                SHOW.setCityId(Msg[1]);
+				Image im = new Image("images/background.jpg");
+				SHOW.setimage(im);
+				Scene regist = new Scene(root);
+				Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+				app_stage.setScene(regist);
+				app_stage.show();
+			}
+		} else if ("CantShowCity".equals(Msg[0])) {
+			JOptionPane.showMessageDialog(null, "Cann't show city ! ");
 
-    }
+		}
+	}
 
-    @FXML
-    void LogOut(ActionEvent event) throws IOException {
-     	FXMLLoader loader = new FXMLLoader(getClass().getResource("Homepage.fxml"));
-    		AnchorPane root = (AnchorPane) loader.load();
-    		Controller home = loader.getController();
-        	Image im= new Image("images/background.jpg");
-    		home.setimage(im);
-    		Scene regist = new Scene(root);
-    		Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    		app_stage.setScene(regist);
-    		app_stage.show();
-    }
+	@FXML
+	void Search(ActionEvent event) {
 
-    @FXML
-    void PersonalInformationChange(ActionEvent event) throws IOException {
-     	FXMLLoader loader = new FXMLLoader(getClass().getResource("PersonalInformationPage.fxml"));
-    		AnchorPane root = (AnchorPane) loader.load();
-    		PersonalInformatiolnPage PERSONAL = loader.getController();
-        	Image im= new Image("images/background.jpg");
-    		PERSONAL.setimage(im);
-    		Scene regist = new Scene(root);
-    		Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    		app_stage.setScene(regist);
-    		app_stage.show();
+	}
 
-    }
+	@FXML
+	void LogOut(ActionEvent event) throws IOException {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("Homepage.fxml"));
+		AnchorPane root = (AnchorPane) loader.load();
+		Controller home = loader.getController();
+		Image im = new Image("images/background.jpg");
+		home.setimage(im);
+		Scene regist = new Scene(root);
+		Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		app_stage.setScene(regist);
+		app_stage.show();
+	}
+
+	@FXML
+	void PersonalInformationChange(ActionEvent event) throws IOException {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("PersonalInformationPage.fxml"));
+		AnchorPane root = (AnchorPane) loader.load();
+		PersonalInformatiolnPage PERSONAL = loader.getController();
+		Image im = new Image("images/background.jpg");
+		PERSONAL.setimage(im);
+		Scene regist = new Scene(root);
+		Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		app_stage.setScene(regist);
+		app_stage.show();
+
+	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
-
-
 
 //
 //
