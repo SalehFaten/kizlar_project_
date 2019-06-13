@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -13,9 +8,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="568.0" prefWidth="858.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.UserHomePage">
+<AnchorPane prefHeight="568.0" prefWidth="858.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.UserHomePage">
    <children>
-      <ImageView fx:id="image" fitHeight="568.0" fitWidth="919.0" layoutX="-10.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="Search" fitHeight="568.0" fitWidth="919.0" layoutX="-10.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../world-map-background-copy.jpg" />
          </image>
@@ -25,10 +20,11 @@
             <Font name="Comic Sans MS Bold Italic" size="36.0" />
          </font>
       </Text>
-      <Button fx:id="ShowPurchase" layoutX="369.0" layoutY="391.0" mnemonicParsing="false" onAction="#ShowPurchase" prefHeight="25.0" prefWidth="121.0" text="Show &amp; Purchase" />
+      <Button fx:id="ShowPurchase" layoutX="282.0" layoutY="367.0" mnemonicParsing="false" onAction="#ShowPurchase" prefHeight="25.0" prefWidth="189.0" text="Show &amp; Purchase" />
       <Button fx:id="Search" layoutX="613.0" layoutY="238.0" mnemonicParsing="false" onAction="#Search" text="Search" />
       <TextField fx:id="WhatToSearch" layoutX="154.0" layoutY="238.0" prefHeight="25.0" prefWidth="459.0" />
-      <Button fx:id="LogOut" layoutX="750.0" layoutY="93.0" mnemonicParsing="false" onAction="#LogOut" text="LogOut" />
-      <Label fx:id="email" layoutX="708.0" layoutY="131.0" prefHeight="17.0" prefWidth="113.0" />
+      <Button fx:id="LogOut" layoutX="710.0" layoutY="77.0" mnemonicParsing="false" onAction="#LogOut" text="LogOut" />
+      <Button fx:id="PersonalInformation" layoutX="282.0" layoutY="429.0" mnemonicParsing="false" onAction="#PersonalInformationChange" text="Show&amp;Edit Personal Information" />
+      <Text fx:id="Email" layoutX="658.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="160.93670654296875" />
    </children>
 </AnchorPane>
