@@ -137,6 +137,8 @@ public class EchoServer extends AbstractServer {
 			String path = null;
 			String PlaceName = null;
 			String PlaceId = null;
+			String showPrice=null;
+			String resPrice=null;
 			int NewPrice=0;
 			String[] detail = ((String) msg).split(",");
 			String command = detail[0];
@@ -326,29 +328,77 @@ public class EchoServer extends AbstractServer {
 				CityId=detail[1];
 				int price=City.ShowPrice(CityId);
 				if(price!=-1) {
-					
-					this.handleMessageFromServerUI(Integer.toString(price));
+					String msgprice="showPrice@"+Integer.toString(price);
+					this.handleMessageFromServerUI(msgprice);
 					break;				
 				}
 				else {
-					this.handleMessageFromServerUI("dontShowPrice");
+					this.handleMessageFromServerUI("dontShowPrice@");
 					break;
 				}
                 
 
 			case"sendPriceToManager":
-				NewPrice=Integer.parseInt(detail[1]);
-				if (CDManager.editNewPrice(NewPrice) == true) {
+				CityId=detail[1];
+				NewPrice=Integer.parseInt(detail[2]);
+				if (City.sendPriceToManager(CityId,NewPrice) == true) {
 					this.handleMessageFromServerUI("sendPriceToManager");
-
-					break;
-
+                    break;
 				} else {
 					this.handleMessageFromServerUI("NotsendPriceToManager");
 
 					break;
 
 				}
+				
+			case"AcceptPrice":
+				resPrice=CompanyManager.showFirstPrice();
+				if(resPrice!=null) {
+					showPrice="show@"+resPrice;
+					this.handleMessageFromServerUI(showPrice);
+					break;
+					
+				} else {
+					this.handleMessageFromServerUI("Can't Show Price");
+					break;
+				}
+
+			case"ShowPreviousCityPrice":
+				resPrice=CompanyManager.ShowPreviousCity();
+					if (resPrice != null) {
+						showPrice="ShowPreviousCity@"+ resPrice;
+						this.handleMessageFromServerUI(showPrice );
+
+						break;
+					} else {
+						this.handleMessageFromServerUI("CantShowPrevoiousCity");
+						break;
+					}
+					
+			case"ShowNextCity":
+				resPrice=CompanyManager.ShowNextCity();
+				if (resPrice != null) {
+					showPrice="ShowNextCity@"+  resPrice;
+					this.handleMessageFromServerUI(showPrice);
+
+					break;
+				} else {
+					this.handleMessageFromServerUI("CantShowNextCity");
+					break;
+				}				
+					
+			case "CDacceptVersion":
+				if (CDManager.acceptVersion() == true) {
+					this.handleMessageFromServerUI("CDacceptVersion");
+                    break;
+				} else {
+					this.handleMessageFromServerUI("NotCDacceptVersion");
+
+					break;
+
+				}				
+				
+
 			case "saveMap":
 				path = detail[1];
 				if (Client.savemap(path) == true) {

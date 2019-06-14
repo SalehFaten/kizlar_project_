@@ -37,7 +37,7 @@ public class City {
 	
 	
 	public static boolean CreateCity(String CityName,String CityId,String MapId,String desc,String path) {
-					Connection conn = null;
+			Connection conn = null;
 		    Statement stmt = null;
             String CityID=null;
             String MapID=null;
@@ -152,7 +152,7 @@ prep_stmt.close();
 	          /****write sql here****/
 			if(CityId==null)
 			{
-				JOptionPane.showMessageDialog(null, "You Must Enter CityId!! ");
+				//JOptionPane.showMessageDialog(null, "You Must Enter CityId!! ");
 				return -1;
 			}
 			else
@@ -167,14 +167,13 @@ prep_stmt.close();
 				/****check if the city exist****/
 				if (CityID!=null) {
 
-						/****insert new city to city table****/
+						
 						PreparedStatement prep_stmt = conn.prepareStatement(
-							"Select Price From City WHERE CityId=?");
-					prep_stmt.setString(1, CityId);
+							"Select Price From City WHERE CityId= ?");
+					prep_stmt.setString(1, CityID);
 					ResultSet rs1 = prep_stmt.executeQuery();
 					while (rs1.next()) {
-						Price = rs1.getInt("Price");
-						
+						Price = rs1.getInt("Price");						
 					}
 					rs1.close();
 					prep_stmt.close();
@@ -183,7 +182,7 @@ prep_stmt.close();
 
 				}
 				else {
-					JOptionPane.showMessageDialog(null, "There is no such city id  ");
+					//JOptionPane.showMessageDialog(null, "There is no such city id  ");
 					return -1;
 				}
 				
@@ -211,7 +210,76 @@ prep_stmt.close();
 		return -1;
     }
     
+    
+    
+    /*******************************************************/
+    public static boolean sendPriceToManager(String CityId,int newPrice) {
+    	
 
+		Connection conn = null;
+	    Statement stmt = null;
+	    String CityID=null;
+	    int price=0;
+	    //int new_price=0;
+	
+
+		try {
+			Class.forName(JDBC_DRIVER);
+			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			if(newPrice<=0 || CityId==null)
+			{
+				return false;
+			}
+			else
+			{
+				
+				PreparedStatement prep_stmt = conn.prepareStatement( "SELECT * FROM City WHERE CityId= ?");
+				prep_stmt.setString(1, CityId);
+				ResultSet rs = prep_stmt.executeQuery();
+				while (rs.next()) {
+					CityID=rs.getString("CityId");
+				}
+				rs.close();
+				prep_stmt.close();
+				/****check if the city exist****/
+				if (CityID!=null) {
+
+					PreparedStatement prep_stmt1 = conn.prepareStatement("UPDATE City SET newprice = ? WHERE CityId=?");
+					prep_stmt1.setInt(1,newPrice);
+					prep_stmt1.setString(2, CityId);
+					prep_stmt1.executeUpdate();
+					prep_stmt1.close();
+					conn.close();
+					return true;
+
+				}
+				else {
+					return false;
+				}
+				/*********/
+			}
+		} catch (SQLException se) {
+			se.printStackTrace();
+			System.out.println("SQLException: " + se.getMessage());
+			System.out.println("SQLState: " + se.getSQLState());
+			System.out.println("VendorError: " + se.getErrorCode());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if (stmt != null)
+					stmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+			}
+		}
+		return false;
+		
+    }
+    
 }
 	
 

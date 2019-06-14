@@ -41,12 +41,32 @@ public class ChangePrice implements Initializable{
 			image.setImage(im);
 	    }
     @FXML
-    void sendPriceToCompanyM(ActionEvent event) {
-       	String message="sendPriceToManager,"+enterNewPrice.getText();
+    void sendPriceToCompanyM(ActionEvent event) throws IOException {
+    	String cityId=enterCityId.getText();
+    	String newPrice=enterNewPrice.getText();
+       	String message="sendPriceToManager,"+cityId+","+newPrice;
+    	if(newPrice==null) {
+    		JOptionPane.showMessageDialog(null, "You Must enter new price if you want to change");
+    	}
+    	else if(cityId==null) {
+    		JOptionPane.showMessageDialog(null, "You Must enter city id to change price");
+    	}
+    	else {
         Connect.client.handleMessageFromClientUI(message);
+        //String msgg=Connect.client.servermsg;
         if ("sendPriceToManager".equals( Connect.client.servermsg))
         {
 			JOptionPane.showMessageDialog(null, "sending Price To Manager Done");
+			
+	     	FXMLLoader loader = new FXMLLoader(getClass().getResource("Mhomepage.fxml"));
+			AnchorPane root = (AnchorPane) loader.load();
+			CDMhomePage employee = loader.getController();
+	    	Image im= new Image("images/world-map-background-copy.jpg");
+			employee.setimage(im);
+			Scene regist = new Scene(root);
+			Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+			app_stage.setScene(regist);
+			app_stage.show();
 
         }
         else  if ("NotsendPriceToManager".equals( Connect.client.servermsg))
@@ -54,6 +74,7 @@ public class ChangePrice implements Initializable{
 			JOptionPane.showMessageDialog(null, "cann't send!! ");
 
         }
+    	}
 
     }
 
@@ -81,30 +102,23 @@ public class ChangePrice implements Initializable{
     	String cityId=enterCityId.getText();
     	String message="showPrice,"+ cityId;
     	if(cityId==null) {
-    		JOptionPane.showMessageDialog(null, "You Must enter city id ");
+    		JOptionPane.showMessageDialog(null, "You Must enter city id to change price");
     	}
     	else {
     		Connect.client.handleMessageFromClientUI(message);
-    		if("dontShowPrice".equals(Connect.client.servermsg)) {
+    		String[] msgg=Connect.client.servermsg.split("@");
+    		if("dontShowPrice".equals(msgg[0])) {
     			JOptionPane.showMessageDialog(null, "showing price failed");
     		}
-    		else  {
-    			JOptionPane.showMessageDialog(null, "the current price is"+ Connect.client.servermsg);
+    		//else if("-2".equals(msgg)) {
+    		//	JOptionPane.showMessageDialog(null, "There is no such city id  ");
+    		//}
+    		else if ("showPrice".equals(msgg[0]))  {
+    			JOptionPane.showMessageDialog(null, "the current price is"+ msgg[1]);
     		}
     	}
     	
-    	 
-         if("SignFailed".equals(Connect.client.servermsg))
-         {
- 			JOptionPane.showMessageDialog(null, "You are connected from another device !!");
-
-         }
-         else if ("NotFoundEmail".equals(Connect.client.servermsg)) {
- 			JOptionPane.showMessageDialog(null, "You are not registed !!");
-
- 		} 
-      	
-        
+   	        
     }
 
 	@Override
