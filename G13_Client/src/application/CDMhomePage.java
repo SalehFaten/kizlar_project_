@@ -6,6 +6,8 @@ package application;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
@@ -39,6 +41,7 @@ public class CDMhomePage implements Initializable{
 
     @FXML // fx:id="outEmploeeHome"
     private Button outEmploeeHome; // Value injected by FXMLLoader
+    static List<String> users_with_new_version;
 	 public void setimage(Image im) {
 	image.setImage(im);
 }
@@ -55,8 +58,13 @@ public class CDMhomePage implements Initializable{
     void CDacceptVersion(ActionEvent event) {
     	String message="CDacceptVersion,";
     	Connect.client.handleMessageFromClientUI(message);
-        if ("CDacceptVersion".equals( Connect.client.servermsg))
+        if ("CDacceptVersion".equals( Connect.client.servermsg.split("@")[0]))
         {
+        	String[] arr = (Connect.client.servermsg.split("@")[1]).split(",");
+        	users_with_new_version = new ArrayList<String>();
+        	for(int i=0; i<arr.length;i++) {
+        		users_with_new_version.add(arr[i]);
+        	}
 			JOptionPane.showMessageDialog(null, "New Version is accepted");
         }
         else if ("CDNotacceptVersion".equals( Connect.client.servermsg))
@@ -92,6 +100,7 @@ public class CDMhomePage implements Initializable{
 		Controller home = loader.getController();
     	Image im= new Image("images/world-map-background-copy.jpg");
 		home.setimage(im);
+		home.setarrayversion(users_with_new_version);
 		Scene regist = new Scene(root);
 		Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		app_stage.setScene(regist);

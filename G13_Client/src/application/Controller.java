@@ -68,9 +68,13 @@ public  class Controller  implements Initializable{
     @FXML // fx:id="image"
     private ImageView image; // Value injected by FXMLLoader
 
-
+    static List<String> users_with_new_version;
 	  public void setimage(Image im) {
 			image.setImage(im);
+	    }
+	  public void setarrayversion(List<String> list) {
+		  users_with_new_version=list;
+			
 	    }
     @FXML
     void log(ActionEvent event) throws IOException {
@@ -79,6 +83,7 @@ public  class Controller  implements Initializable{
 		signin sign = loader.getController();
     	Image im= new Image("images/world-map-background-copy.jpg");
 		sign.setimage(im);
+		sign.setarrayversion(users_with_new_version);
 		Scene regist = new Scene(root);
 		Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		app_stage.setScene(regist);

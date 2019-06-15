@@ -11,7 +11,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
@@ -388,11 +387,21 @@ public class EchoServer extends AbstractServer {
 				}				
 					
 			case "CDacceptVersion":
-				if (CDManager.acceptVersion() == true) {
-					this.handleMessageFromServerUI("CDacceptVersion");
+				List<String> users_with_new_version = new ArrayList<String>();
+				String msgg;
+				users_with_new_version=CDManager.acceptVersion();
+				if(users_with_new_version.size()!=0) {
+				       msgg="CDacceptVersion@";
+				      Iterator<String> iterator = users_with_new_version.iterator();
+				      while(iterator.hasNext()) {
+				    	  msgg=msgg+","+iterator.next();
+				        
+				      }
+					this.handleMessageFromServerUI(msgg);
                     break;
 				} else {
-					this.handleMessageFromServerUI("NotCDacceptVersion");
+					msgg="NotCDacceptVersion";
+					this.handleMessageFromServerUI(msgg);
 
 					break;
 

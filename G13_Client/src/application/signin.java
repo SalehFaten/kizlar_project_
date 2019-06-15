@@ -6,6 +6,7 @@ package application;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
@@ -36,7 +37,11 @@ public class signin  implements Initializable{
 
     @FXML // fx:id="email"
     private TextField email; // Value injected by FXMLLoader
-    
+    static List<String> users_with_new_version;
+	  public void setarrayversion(List<String> list) {
+		  users_with_new_version=list;
+			
+	    }
     public void setimage(Image im) {
 		image.setImage(im);
     }
@@ -105,14 +110,20 @@ public class signin  implements Initializable{
              app_Stage.show();
         	}
         	else {
+        		if(users_with_new_version.contains(email.getText())){
+        			
+        			users_with_new_version=null;
         		FXMLLoader loader = new FXMLLoader(getClass().getResource("UserHomePage.fxml"));
 				AnchorPane root = (AnchorPane) loader.load();
 				UserHomePage user = loader.getController();
 				user.set(email.getText());
+				//user.setflag
 				Scene regist = new Scene(root);
 				Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 				app_stage.setScene(regist);
 				app_stage.show();
+				JOptionPane.showMessageDialog(null, "new version is launched");
+        		}
         	}
         }
  
