@@ -10,9 +10,9 @@
 
 <AnchorPane prefHeight="568.0" prefWidth="858.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PersonalInformatiolnPage">
    <children>
-      <ImageView fx:id="Search" fitHeight="568.0" fitWidth="919.0" layoutX="-10.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="Image" fitHeight="813.0" fitWidth="900.0" layoutX="-10.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../world-map-background-copy.jpg" />
+            <Image url="@../../../../../Pictures/הנדסת%20תוכנה/62407425_1152348158291416_6059452526778908672_n.jpg" />
          </image>
       </ImageView>
       <Text layoutX="203.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Personal Information" textAlignment="CENTER" wrappingWidth="418.9366912841797">
@@ -73,16 +73,18 @@
       <TextField fx:id="Password" layoutX="138.0" layoutY="379.0" />
       <TextField fx:id="CVV" layoutX="548.0" layoutY="280.0" />
       <TextField fx:id="VisaDate" layoutX="548.0" layoutY="363.0" />
-      <Button layoutX="288.0" layoutY="434.0" mnemonicParsing="false" onAction="#TelEdit" text="Edit" />
-      <Button layoutX="288.0" layoutY="379.0" mnemonicParsing="false" onAction="#PasswordEdit" text="Edit" />
-      <Button layoutX="288.0" layoutY="316.0" mnemonicParsing="false" onAction="#EmailEdit" text="Edit" />
-      <Button layoutX="288.0" layoutY="251.0" mnemonicParsing="false" onAction="#IdEdit" text="Edit" />
-      <Button layoutX="288.0" layoutY="188.0" mnemonicParsing="false" onAction="#LastNameEdit" text="Edit" />
+     
       <TextField fx:id="Email" layoutX="138.0" layoutY="316.0" />
-      <Button layoutX="288.0" layoutY="125.0" mnemonicParsing="false" onAction="#FirstNameEdit" text="Edit" />
-      <Button layoutX="697.0" layoutY="362.0" mnemonicParsing="false" onAction="#VisaDateEdit" text="Edit" />
-      <Button layoutX="697.0" layoutY="279.0" mnemonicParsing="false" onAction="#CVVEdit" text="Edit" />
-      <Button layoutX="697.0" layoutY="195.0" mnemonicParsing="false" onAction="#VisaNumEdit" text="Edit" />
-      <Button fx:id="BackToUserHome" layoutX="26.0" layoutY="520.0" mnemonicParsing="false" onAction="#BackToUserHome" text="Back" />
+    
+      <Button fx:id="BackToUserHome" layoutX="51.0" layoutY="36.0" mnemonicParsing="false" onAction="#BackToUserHome" prefHeight="32.0" prefWidth="60.0" text="Edit" />
+      <Button layoutX="297.0" layoutY="125.0" mnemonicParsing="false" onAction="#FirstNameEdit" text="Edit" />
+      <Button layoutX="295.0" layoutY="186.0" mnemonicParsing="false" onAction="#LastNameEdit" text="Edit" />
+      <Button layoutX="297.0" layoutY="250.0" mnemonicParsing="false" onAction="#IdEdit" text="Edit" />
+      <Button layoutX="297.0" layoutY="314.0" mnemonicParsing="false" onAction="#EmailEdit" text="Edit" />
+      <Button layoutX="298.0" layoutY="377.0" mnemonicParsing="false" onAction="#PasswordEdit" text="Edit" />
+      <Button layoutX="296.0" layoutY="433.0" mnemonicParsing="false" onAction="#TelEdit" text="Edit" />
+      <Button layoutX="709.0" layoutY="197.0" mnemonicParsing="false" onAction="#VisaNumEdit" text="Edit" />
+      <Button layoutX="706.0" layoutY="280.0" mnemonicParsing="false" onAction="#CVVEdit" text="Edit" />
+      <Button layoutX="706.0" layoutY="360.0" mnemonicParsing="false" onAction="#VisaDateEdit" text="Button" />
    </children>
 </AnchorPane>

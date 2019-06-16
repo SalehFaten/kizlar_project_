@@ -1,6 +1,12 @@
 
+//
+/**
+ * Sample Skeleton for 'PurchaseHistoryPage.fxml' Controller Class
+ */
+
 package application;
 
+import java.awt.TextArea;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -11,8 +17,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -23,24 +28,17 @@ public class PurchaseHistory implements Initializable {
     @FXML // fx:id="image"
     private ImageView image; // Value injected by FXMLLoader
 
-    @FXML // fx:id="PurchaseTable"
-    private TableView<?> PurchaseTable; // Value injected by FXMLLoader
+    @FXML // fx:id="TEXTAREA"
+    private TextArea TEXTAREA; // Value injected by FXMLLoader
 
-    @FXML // fx:id="CityName"
-    private TableColumn<?, ?> CityName; // Value injected by FXMLLoader
-
-    @FXML // fx:id="PurchaseType"
-    private TableColumn<?, ?> PurchaseType; // Value injected by FXMLLoader
-
-    @FXML // fx:id="PurchaseDate"
-    private TableColumn<?, ?> PurchaseDate; // Value injected by FXMLLoader
-
-    @FXML // fx:id="Validity"
-    private TableColumn<?, ?> Validity; // Value injected by FXMLLoader
-    @FXML
-    void ShowPurchaseHistory(ActionEvent event) {
+    @FXML // fx:id="email"
+    private Label email; // Value injected by FXMLLoader
+String UserEmail;
+    public void SeTEmail(String textmail)
+    {
+    	UserEmail=textmail;
+    	email.setText(UserEmail);
     }
-    String Email=null;
     public void setimage(Image im)
     {
     	image.setImage(im);
@@ -50,7 +48,7 @@ public class PurchaseHistory implements Initializable {
     	FXMLLoader loader = new FXMLLoader(getClass().getResource("UserHomePage.fxml"));
 		AnchorPane root = (AnchorPane) loader.load();
 		UserHomePage UserPage = loader.getController();
-		UserPage.set(Email);
+		UserPage.set(UserEmail);
     	Image im= new Image("images/background.jpg");
 		UserPage.setimage(im);
 		Scene regist = new Scene(root);
@@ -58,17 +56,29 @@ public class PurchaseHistory implements Initializable {
 		app_stage.setScene(regist);
 		app_stage.show();
     }
-
-    @Override
-	public void initialize(URL location, ResourceBundle resources) {
+    public void setUserInfo()
+	 {
+		 String message="GetUserInfo#"+UserEmail;
+		    Connect.client.handleMessageFromClientUI(message);
+		    String msg=Connect.client.servermsg;
+		    String [] SplitArray=msg.split("@");
+		    if("Success".equals(SplitArray[0]))
+		    {
+		    	String[] Split2=SplitArray[1].split("$");
+		        for (int i=0;i<Split2.length;i++)
+		        {
+		        	TEXTAREA.append(Split2[i]);
+		        	TEXTAREA.append("\n");
+		        }
+		    }
+		    else  if ("Failed".equals(SplitArray[0]))
+		    	TEXTAREA.setText("There are no results!");		 
+	 }	
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
 		
 	}
-     public void SeTEmail(String email)
-    {
-    	Email=email;
-    }
 
-    }
-
+}
 

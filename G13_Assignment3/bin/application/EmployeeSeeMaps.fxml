@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="568.0" prefWidth="858.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.EmployeeSeeMaps">
+   <children>
+      <ImageView fitHeight="568.0" fitWidth="919.0" layoutX="-10.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../world-map-background-copy.jpg" />
+         </image>
+      </ImageView>
+      <TextField fx:id="SearchMapId" alignment="CENTER" layoutX="337.0" layoutY="498.0" onAction="#SearchMapId" prefHeight="32.0" prefWidth="147.0" promptText="Search Map Id" />
+      <Text fontSmoothingType="LCD" layoutX="236.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Employee See Maps" textAlignment="CENTER" wrappingWidth="438.13671875">
+         <font>
+            <Font name="Comic Sans MS Bold Italic" size="36.0" />
+         </font>
+      </Text>
+      <Button layoutX="35.0" layoutY="29.0" mnemonicParsing="false" onAction="#back" text="back">
+         <font>
+            <Font name="Comic Sans MS Bold Italic" size="15.0" />
+         </font>
+      </Button>
+      <ImageView fx:id="imageview" fitHeight="319.0" fitWidth="483.0" layoutX="357.0" layoutY="151.0" pickOnBounds="true" preserveRatio="true" />
+      <ScrollPane layoutX="19.0" layoutY="151.0" prefHeight="319.0" prefWidth="304.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="487.0" prefWidth="934.0">
+               <children>
+                  <TextArea fx:id="Maptext" layoutX="-2.0" layoutY="-4.0" prefHeight="487.0" prefWidth="934.0" />
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+         </children>
+      
+      </AnchorPane>

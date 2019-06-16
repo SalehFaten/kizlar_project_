@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane fx:id="purchaseOf_page_purchase" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.purchase">
+   <children>
+      <Button fx:id="purchase" layoutX="175.0" layoutY="227.0" mnemonicParsing="false" onAction="#purchase" prefHeight="46.0" prefWidth="283.0" text="purchase" />
+      <TextField fx:id="search_map" layoutX="175.0" layoutY="161.0" onAction="#search_map" promptText="Search Map" />
+      <Button fx:id="back_purchase" layoutX="466.0" layoutY="36.0" mnemonicParsing="false" onAction="#back_purchase" prefHeight="31.0" prefWidth="74.0" text="back" />
+   </children>
+</AnchorPane>

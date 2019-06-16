@@ -8,9 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
-import javax.swing.JOptionPane;
 
 public class Person {	
 	 /////*******databasee******////
@@ -87,7 +85,52 @@ public class Person {
 		return false;
 	}
 	
-	
+	public static boolean EditPersonalInformation( String kind , String TheEmail,String MyText )
+	{
+		Connection conn = null;
+		Statement stmt = null;
+		String WhatToSet = MyText;//information
+		String WhatToEdit=kind;//kind of information
+		if (WhatToEdit != "CVV" && WhatToEdit != "Email" && WhatToEdit != "password" &&WhatToEdit != "FirstName" &&WhatToEdit != "LastName" &&WhatToEdit != "Tel" &&WhatToEdit != "VisaNum" &&WhatToEdit != "Date" &&WhatToEdit != "ID" )
+			return false;
+		try {
+			Class.forName(JDBC_DRIVER);
+			conn = DriverManager.getConnection(DB_URL, USER, PASS); // **whire sql here**//
+			stmt = conn.createStatement();
+
+			PreparedStatement prep_stmt = conn.prepareStatement("SELECT * FROM CustomerCard WHERE Email=?");
+			prep_stmt.setString(1, TheEmail);
+			ResultSet rs = prep_stmt.executeQuery();
+			while (rs.next()) {
+				PreparedStatement prep_stmt1 = conn.prepareStatement(
+						"UPDATE INTO CustomerCard " + WhatToEdit + "=?" + "WHERE Email=?");
+				prep_stmt1.setString(1, WhatToSet);
+				prep_stmt1.setString(2, TheEmail);
+				prep_stmt1.close();
+			}
+			prep_stmt.close();
+			rs.close();
+			conn.close();
+
+		} catch (SQLException se) {
+			se.printStackTrace();
+			System.out.println("SQLException: " + se.getMessage());
+			System.out.println("SQLState: " + se.getSQLState());
+			System.out.println("VendorError: " + se.getErrorCode());
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (stmt != null)
+					stmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+			}
+		}
+		return true;
+	}
 	
 	
 	

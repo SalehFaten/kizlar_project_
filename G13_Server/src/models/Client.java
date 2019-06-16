@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.swing.JOptionPane;
 
 import com.mysql.cj.jdbc.Blob;
 
@@ -99,7 +98,48 @@ public class Client extends Person {
 		return 3;
 
 	}
+	public static List<String> getuserPInfo(String Email)
+	{
+		Connection conn = null;
+		Statement stmt = null;
+		
+		List<String> ResMsg=new ArrayList<String>();
+		/// ***sql***///
+		try {
+			Class.forName(JDBC_DRIVER);
+			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+//**whire sql here**//
+			PreparedStatement prep_stmt = conn.prepareStatement("SELECT * FROM Purchase WHERE Email=?");
+			prep_stmt.setString(1, Email);
+			ResultSet rs = prep_stmt.executeQuery();
+			
+			while (rs.next()) {
+				ResMsg.add(rs.getString("CityId")+","+rs.getString("Type")+","+rs.getString("Date"));
 
+			}
+			rs.close();
+			prep_stmt.close();
+			conn.close();
+			return ResMsg;
+		} catch (SQLException se) {
+			se.printStackTrace();
+			System.out.println("SQLException: " + se.getMessage());
+			System.out.println("SQLState: " + se.getSQLState());
+			System.out.println("VendorError: " + se.getErrorCode());
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (stmt != null)
+					stmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+			}
+		}
+		return ResMsg;
+	}
 	public static boolean Signout(String email) {
 		Connection conn = null;
 		Statement stmt = null;
@@ -476,5 +516,48 @@ public class Client extends Person {
 		}
 		return false;
 	}
+	
+	public static String PersonalInformation(String MYText) {
+		Connection conn = null;
+		Statement stmt = null;
+		String Email = MYText;
+		String resultMsg = null;
 
-}
+		try {
+			Class.forName(JDBC_DRIVER);
+			conn = DriverManager.getConnection(DB_URL, USER, PASS); // **whire sql here**//
+			stmt = conn.createStatement();
+
+			PreparedStatement prep_stmt = conn.prepareStatement("SELECT * FROM CustomerCard WHERE Email=?");
+			prep_stmt.setString(1, Email);
+			ResultSet rs = prep_stmt.executeQuery();
+			while (rs.next()) {
+
+				resultMsg = rs.getString("Email") + "#" + rs.getString("password") + "#" + rs.getString("FirstName") + "#"
+						+ rs.getString("LastName") + "#" + rs.getString("Tel") + "#" + rs.getString("VisaNum") + "#"
+						+ rs.getString("CVV") + "#" + rs.getString("Date") + "#" + rs.getString("ID");
+
+			}
+			prep_stmt.close();
+			rs.close();
+			conn.close();
+
+		} catch (SQLException se) {
+			se.printStackTrace();
+			System.out.println("SQLException: " + se.getMessage());
+			System.out.println("SQLState: " + se.getSQLState());
+			System.out.println("VendorError: " + se.getErrorCode());
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (stmt != null)
+					stmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+			}
+		}
+		return resultMsg;
+	}}

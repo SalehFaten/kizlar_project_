@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="568.0" prefWidth="858.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.employeeHomePage">
+   <children>
+      <ImageView fitHeight="568.0" fitWidth="919.0" layoutX="-10.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../world-map-background-copy.jpg" />
+         </image>
+      </ImageView>
+      <Text layoutX="282.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit Settings" textAlignment="CENTER">
+         <font>
+            <Font name="Comic Sans MS Bold Italic" size="40.0" />
+         </font>
+      </Text>
+      <Button fx:id="addPath" layoutX="164.0" layoutY="338.0" mnemonicParsing="false" onAction="#addPath" prefHeight="25.0" prefWidth="189.0" text="Add Path">
+         <font>
+            <Font name="Comic Sans MS Bold Italic" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="editPath" layoutX="434.0" layoutY="211.0" mnemonicParsing="false" onAction="#editPath" prefHeight="25.0" prefWidth="189.0" text="Edit Path">
+         <font>
+            <Font name="Comic Sans MS Bold Italic" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="addInterestingPlace" layoutX="434.0" layoutY="272.0" mnemonicParsing="false" onAction="#addInterestingPlace" prefHeight="25.0" prefWidth="189.0" text="Add Interesting Place">
+         <font>
+            <Font name="Comic Sans MS Bold Italic" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="editInterestingPlace" layoutX="434.0" layoutY="338.0" mnemonicParsing="false" onAction="#editInterestingPlace" prefHeight="25.0" prefWidth="189.0" text="Edit Interesting Place">
+         <font>
+            <Font name="Comic Sans MS Bold Italic" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="createCity" layoutX="164.0" layoutY="211.0" mnemonicParsing="false" onAction="#createCity" prefHeight="25.0" prefWidth="189.0" text="Create City">
+         <font>
+            <Font name="Comic Sans MS Bold Italic" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="employeeSeeMaps" layoutX="164.0" layoutY="391.0" mnemonicParsing="false" onAction="#employeeSeeMaps" prefHeight="25.0" prefWidth="459.0" text="See Maps">
+         <font>
+            <Font name="Comic Sans MS Bold Italic" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="addMapToCity" layoutX="164.0" layoutY="272.0" mnemonicParsing="false" onAction="#addMapToCity" prefHeight="25.0" prefWidth="189.0" text="Add Map To City">
+         <font>
+            <Font name="Comic Sans MS Bold Italic" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="outEmploeeHome" layoutX="671.0" layoutY="29.0" mnemonicParsing="false" onAction="#LogOut" prefHeight="32.0" prefWidth="72.0" text="Logout">
+         <font>
+            <Font name="Comic Sans MS Bold Italic" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="back" layoutX="35.0" layoutY="29.0" mnemonicParsing="false" onAction="#back" text="back">
+         <font>
+            <Font name="Comic Sans MS Bold Italic" size="15.0" />
+         </font>
+      </Button>
+      <Label fx:id="email" layoutX="663.0" layoutY="80.0" />
+   </children>
+</AnchorPane>

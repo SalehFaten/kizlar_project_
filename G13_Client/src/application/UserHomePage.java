@@ -7,7 +7,6 @@ package application;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -55,10 +54,10 @@ public class UserHomePage implements Initializable{
     	image.setImage(im);
     }
     String TheEmail ;
-    public void set(String text)
+    public void set(String txt)
     {
-    	Email.setText(text);
-    	TheEmail=text;
+    	Email.setText(txt);
+    	TheEmail=txt;
     }
     @FXML
     void ShowPurchase(ActionEvent event) throws IOException {
@@ -94,17 +93,39 @@ public class UserHomePage implements Initializable{
 
     @FXML
     void PersonalInformationChange(ActionEvent event) throws IOException {
-     	FXMLLoader loader = new FXMLLoader(getClass().getResource("PersonalInformationPage.fxml"));
-    		AnchorPane root = (AnchorPane) loader.load();
-    		PersonalInformatiolnPage PERSONAL = loader.getController();
-    		PERSONAL.SeTEmail(TheEmail);
-        	Image im= new Image("images/background.jpg");
-    		PERSONAL.setimage(im);
-    		Scene regist = new Scene(root);
-    		Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    		app_stage.setScene(regist);
-    		app_stage.show();
-
+    	FXMLLoader loader = new FXMLLoader(getClass().getResource("PersonalInformationPage.fxml"));
+        AnchorPane root = (AnchorPane) loader.load();
+    	PersonalInformatiolnPage PERSONAL = loader.getController();
+    		String message="PersonalInformation,"+ TheEmail;
+            Connect.client.handleMessageFromClientUI(message);
+            String [] res = Connect.client.servermsg.split("<");
+            if("PersonalInformation".equals(res[0])) {
+           String [] MyInfo = res[1].split("#");
+           
+          int flag =0;
+          int i=0;
+          while(i<MyInfo.length)
+          {
+         	 if( MyInfo[i]==null)
+         		 flag=1;
+         			 i++;
+          }
+          if (flag==0)
+          {
+        	  PERSONAL.setinfo(MyInfo);
+     		PERSONAL.SeTEmail(TheEmail);
+         	Image im= new Image("images/background.jpg");
+     		PERSONAL.setimage(im);
+     		Scene regist = new Scene(root);
+     		Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+     		app_stage.setScene(regist);
+     		app_stage.show();
+           
+          
+           }
+      
+       
+            }
     		
     }
     

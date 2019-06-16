@@ -8,6 +8,9 @@ import java.io.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Iterator;
+import java.util.List;
+
 import ocsf.server.*;
 import common.*;
 import models.*;
@@ -132,6 +135,8 @@ public class EchoServer extends AbstractServer {
 			String PathId=null;
 			String res=null;
 			String show=null;
+			String InfoKind=null;
+			String toEdit=null;
 			String[] detail = ((String) msg).split(",");
 			String command = detail[0];
 			switch (command) {
@@ -409,13 +414,105 @@ public class EchoServer extends AbstractServer {
 					this.handleMessageFromServerUI("CantShowCity");
 					break;
 				}
-				
-				
+			case "PersonalInformation":
+				email=detail[1];
+				res=Client.PersonalInformation(email);
+			if(res!=null) {
+					String FINAL="PersonalInformation<"+res;
+					this.handleMessageFromServerUI(FINAL);
 			}
-//			System.out.println("Message received: " + msg + " from \"" + client.getInfo("loginID") + "\" " + client);
-//   this.sendToAllClients(client.getInfo("loginID") + "> " + msg);
-		}
-	}
+			
+			case "Edit":
+				InfoKind=detail[1];
+				email = detail[2];
+				toEdit=detail[3];
+
+				if (Person.EditPersonalInformation(InfoKind,email,toEdit) == true) {
+					this.handleMessageFromServerUI("Editing Done");
+					break;
+
+				} else {
+					this.handleMessageFromServerUI("Editing Failed!");
+					break;
+				}
+				case "GetCityInfo":
+					String d1=detail[2];
+					String d2=detail[3];
+					String CId=detail[1];
+					String result=CompanyManager.getcityReport(CId,d1,d2);
+					if (!result.equals("null")) {
+						result="Success@"+result;
+						this.handleMessageFromServerUI(result);
+						break;					
+						
+					}else {
+						result="Failed";
+						this.handleMessageFromServerUI(result);
+						break;						
+					}
+				case "GetCitiesInfo":
+					String da1=detail[1];
+					String da2=detail[2];
+					String result2=CompanyManager.getcitiesReport(da1,da2);
+					if (!result2.equals("null")) {
+						result2="Success@"+result2;
+						this.handleMessageFromServerUI(result2);
+						break;					
+						
+					}else {
+						result="Failed";
+						this.handleMessageFromServerUI(result2);
+						break;						
+					}
+					
+				case "GetUsersInfo":
+					String dat1=detail[1];
+					String dat2=detail[2];
+					List<String> result3=CompanyManager.getusersReport(dat1,dat2);
+					String InfoMsg1;
+					if (result3.size()!=0) {
+						InfoMsg1="Success@";
+						Iterator<String> iterator=result3.iterator();
+						while(iterator.hasNext()) {
+							InfoMsg1=InfoMsg1+iterator.next()+"$";
+						}
+						this.handleMessageFromServerUI(InfoMsg1);
+						break;					
+						
+					}else {
+						InfoMsg1="Failed";
+						this.handleMessageFromServerUI(InfoMsg1);
+						break;						
+					}		
+				case "GetUserInfo":
+					String UE=detail[1];
+					
+					List<String> result4=Client.getuserPInfo(UE);
+					String InfoMsg;
+					if (result4.size()!=0) {
+						InfoMsg="Success@";
+						Iterator<String> iterator=result4.iterator();
+						while(iterator.hasNext()) {
+							InfoMsg=InfoMsg+iterator.next()+"$";
+						}
+						this.handleMessageFromServerUI(InfoMsg);
+						break;					
+						
+					}else {
+						InfoMsg="Failed";
+						this.handleMessageFromServerUI(InfoMsg);
+						break;						
+					}					
+					
+					
+			}
+		}}
+				
+			
+				
+			
+
+	
 
 	/**
 	 * This method handles all data coming from the UI
