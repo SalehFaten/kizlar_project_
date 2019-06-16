@@ -16,25 +16,19 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import client.*;
-import common.ChatIF;
-import application.Connect;
+
 
 public class Controller implements Initializable {
 	///// *******databasee******////
@@ -68,7 +62,12 @@ public class Controller implements Initializable {
 
 	@FXML // fx:id="image"
 	private ImageView image; // Value injected by FXMLLoader
-
+	static List<String> users_with_new_version;
+	
+	public void setarrayversion(List<String> list) {
+		  users_with_new_version=list;
+			
+	    }
 	public void setimage(Image im) {
 		image.setImage(im);
 	}
@@ -80,6 +79,7 @@ public class Controller implements Initializable {
 		signin sign = loader.getController();
 		Image im = new Image("images/background.jpg");
 		sign.setimage(im);
+		sign.setarrayversion(users_with_new_version);
 		Scene regist = new Scene(root);
 		Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		app_stage.setScene(regist);

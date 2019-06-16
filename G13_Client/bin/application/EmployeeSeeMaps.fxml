@@ -30,14 +30,19 @@
             <TextArea fx:id="Maptext" prefHeight="848.0" prefWidth="350.0" />
          </content>
       </ScrollPane>
-      <Button layoutX="577.0" layoutY="469.0" mnemonicParsing="false" onAction="#prev" prefHeight="25.0" prefWidth="41.0" text="prev">
+      <Button layoutX="627.0" layoutY="469.0" mnemonicParsing="false" onAction="#prev" prefHeight="25.0" prefWidth="41.0" text="prev">
          <font>
             <Font name="Comic Sans MS" size="12.0" />
          </font></Button>
-      <Button layoutX="513.0" layoutY="470.0" mnemonicParsing="false" onAction="#next" text="Next">
+      <Button layoutX="462.0" layoutY="469.0" mnemonicParsing="false" onAction="#next" text="Next">
          <font>
             <Font name="Comic Sans MS" size="12.0" />
          </font></Button>
+      <Button layoutX="541.0" layoutY="470.0" mnemonicParsing="false" onAction="#showmap" text="show">
+         <font>
+            <Font name="Comic Sans MS" size="12.0" />
+         </font>
+      </Button>
          </children>
       
       </AnchorPane>

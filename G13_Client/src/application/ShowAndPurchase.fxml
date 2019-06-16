@@ -28,15 +28,6 @@
          </font>
       </Text>
       <TextArea fx:id="InformationView" layoutX="141.0" layoutY="105.0" prefHeight="386.0" prefWidth="574.0" />
-      <MenuButton layoutX="141.0" layoutY="518.0" mnemonicParsing="false" text="Select Purchase Type">
-        <items>
-          <MenuItem mnemonicParsing="false" text="Subscription" />
-          <MenuItem mnemonicParsing="false" text="One-Time" />
-        </items>
-         <font>
-            <Font name="Comic Sans MS" size="12.0" />
-         </font>
-      </MenuButton>
       <Button fx:id="ShowPreviousCity" layoutX="6.0" layoutY="285.0" mnemonicParsing="false" onAction="#ShowPreviousCity" prefHeight="25.0" prefWidth="122.0" text="Show Previous City">
          <font>
             <Font name="Comic Sans MS" size="12.0" />
@@ -45,7 +36,7 @@
          <font>
             <Font name="Comic Sans MS" size="12.0" />
          </font></Button>
-      <Button fx:id="Purchase" layoutX="651.0" layoutY="518.0" mnemonicParsing="false" onAction="#Purchase" text="Purchase">
+      <Button fx:id="Purchase" layoutX="697.0" layoutY="518.0" mnemonicParsing="false" onAction="#Purchase" text="Purchase">
          <font>
             <Font name="Comic Sans MS" size="12.0" />
          </font></Button>
@@ -59,5 +50,21 @@
             <Font name="Comic Sans MS" size="15.0" />
          </font>
       </Button>
+      <Button layoutX="426.0" layoutY="560.0" mnemonicParsing="false" onAction="#download" prefHeight="26.0" prefWidth="69.0" text="download" />
+      <CheckBox fx:id="onetime" layoutX="149.0" layoutY="552.0" mnemonicParsing="false" text="One Time">
+         <font>
+            <Font name="Comic Sans MS" size="12.0" />
+         </font>
+      </CheckBox>
+      <CheckBox fx:id="sub" layoutX="35.0" layoutY="552.0" mnemonicParsing="false" text="Subscription">
+         <font>
+            <Font name="Comic Sans MS" size="12.0" />
+         </font>
+      </CheckBox>
+      <Text layoutX="33.0" layoutY="525.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Purchase Type">
+         <font>
+            <Font name="Comic Sans MS Bold" size="18.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

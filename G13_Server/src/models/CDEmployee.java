@@ -1,13 +1,28 @@
 package models;
 
+import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
+
+import com.mysql.cj.jdbc.Blob;
+
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.Image;
 
 public class CDEmployee extends Employee{
 
@@ -143,6 +158,94 @@ public static  boolean Signout(String email) {
 	
 }
 
+// Function to convert an Input Stream to String in Java
+public static String getString(InputStream in) throws IOException
+{
+	Reader reader = new InputStreamReader(in, StandardCharsets.UTF_8);
+	BufferedReader br = new BufferedReader(reader);
+
+	StringBuilder sb = new StringBuilder();
+	String line;
+
+	while ((line = br.readLine()) != null) {
+		sb.append(line);
+		sb.append('\n');
+	}
+	br.close();
+
+	return sb.toString();
+}
+public static String showfirstmap()
+{
+	Connection conn = null;
+	Statement stmt = null;
+	Image image = null;
+	String desc = null;
+	String Mapid = null;
+	String res=null;
+
+	try {
+		Class.forName(JDBC_DRIVER);
+		conn = DriverManager.getConnection(DB_URL, USER, PASS);
+		// **whire sql here**//
+		List<String> MapId = new ArrayList<String>();
+		PreparedStatement prep_stmt = conn.prepareStatement("SELECT * FROM Map ");
+		ResultSet rs = prep_stmt.executeQuery();
+		while (rs.next()) {
+			MapId.add(rs.getString("MapId"));
+		}
+		rs.close();
+		prep_stmt.close();
+		if (MapId.isEmpty() == false) {
+
+			Mapid = MapId.get(0);
+			prep_stmt = conn.prepareStatement("SELECT * FROM Map WHERE MapId=?");
+			prep_stmt.setString(1, Mapid);
+			rs = prep_stmt.executeQuery();
+			while (rs.next()) {
+				Blob blob = (Blob) rs.getBlob("Im");
+				InputStream in = blob.getBinaryStream();
+				res=getString(in);
+//			
+//				BufferedImage im = ImageIO.read(in);
+//				image = SwingFXUtils.toFXImage(im, null);
+				PreparedStatement prep_stmt1 = conn.prepareStatement("SELECT * FROM City WHERE CityId=?");
+				prep_stmt1.setString(1, rs.getString("CityId"));
+				ResultSet rs1 = prep_stmt1.executeQuery();
+				String CityName = null;
+				while (rs1.next()) {
+					CityName = rs1.getString("CityName");
+				}
+				rs1.close();
+				prep_stmt1.close();
+				desc = "This map is map of " + CityName + " \n" + "This map is " + rs.getString("description")
+						+ " map.";
+			}
+			prep_stmt.close();
+			rs.close();
+			conn.close();
+
+		}
+
+	} catch (SQLException se) {
+		se.printStackTrace();
+		System.out.println("SQLException: " + se.getMessage());
+		System.out.println("SQLState: " + se.getSQLState());
+		System.out.println("VendorError: " + se.getErrorCode());
+	} catch (Exception e) {
+		e.printStackTrace();
+	} finally {
+		try {
+			if (stmt != null)
+				stmt.close();
+			if (conn != null)
+				conn.close();
+		} catch (SQLException se) {
+			se.printStackTrace();
+		}
+}
+	return null;
+}
 }
 
 

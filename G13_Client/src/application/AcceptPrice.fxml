@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="568.0" prefWidth="858.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AcceptPrice">
+   <children>
+      <ImageView fx:id="image" fitHeight="813.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../background.jpg" />
+         </image></ImageView>
+      <TextField fx:id="cityName" layoutX="301.0" layoutY="216.0" promptText="CityName">
+         <font>
+            <Font name="Comic Sans MS" size="14.0" />
+         </font></TextField>
+      <TextField fx:id="currentPrice" layoutX="301.0" layoutY="275.0" promptText="CurrentPrice">
+         <font>
+            <Font name="Comic Sans MS" size="14.0" />
+         </font></TextField>
+      <TextField fx:id="newPrice" layoutX="301.0" layoutY="343.0" promptText="NewPrice">
+         <font>
+            <Font name="Comic Sans MS" size="14.0" />
+         </font></TextField>
+      <Text layoutX="88.0" layoutY="377.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New Price :">
+         <font>
+            <Font name="Comic Sans MS" size="22.0" />
+         </font>
+      </Text>
+      <Text layoutX="88.0" layoutY="309.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Price :">
+         <font>
+            <Font name="Comic Sans MS" size="22.0" />
+         </font>
+      </Text>
+      <Text layoutX="88.0" layoutY="244.0" strokeType="OUTSIDE" strokeWidth="0.0" text="City Name :">
+         <font>
+            <Font name="Comic Sans MS" size="22.0" />
+         </font>
+      </Text>
+      <Text layoutX="134.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Accept New Price">
+         <font>
+            <Font name="Comic Sans MS" size="37.0" />
+         </font>
+      </Text>
+      <CheckBox fx:id="dontAcceptPrice" layoutX="390.0" layoutY="434.0" mnemonicParsing="false" text="Don't Accept">
+         <font>
+            <Font name="Comic Sans MS Bold" size="18.0" />
+         </font>
+      </CheckBox>
+      <CheckBox fx:id="acceptPrice" layoutX="154.0" layoutY="434.0" mnemonicParsing="false" text="Accept">
+         <font>
+            <Font name="Comic Sans MS Bold" size="18.0" />
+         </font>
+      </CheckBox>
+      <Button layoutX="68.0" layoutY="530.0" mnemonicParsing="false" onAction="#prevCityPrice" text="PrevCity">
+         <font>
+            <Font name="Comic Sans MS" size="13.0" />
+         </font></Button>
+      <Button layoutX="421.0" layoutY="530.0" mnemonicParsing="false" onAction="#nextCityPrice" text="NextCity">
+         <font>
+            <Font name="Comic Sans MS" size="12.0" />
+         </font></Button>
+      <Button layoutX="239.0" layoutY="543.0" mnemonicParsing="false" onAction="#finishAcceptPrice" text="finish">
+         <font>
+            <Font name="Comic Sans MS" size="13.0" />
+         </font></Button>
+      <Button layoutX="35.0" layoutY="33.0" mnemonicParsing="false" onAction="#back" text="back">
+         <font>
+            <Font name="Comic Sans MS" size="15.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
