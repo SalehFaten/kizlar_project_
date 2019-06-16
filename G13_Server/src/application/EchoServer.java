@@ -8,6 +8,10 @@ import java.io.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import ocsf.server.*;
 import common.*;
 import models.*;
@@ -132,7 +136,9 @@ public class EchoServer extends AbstractServer {
 			String PathId=null;
 			String res=null;
 			String show=null;
-			String[] detail = ((String) msg).split(",");
+			String[] detail = ((String) msg).split("#");
+//			String[] search = ((String) msg).split("%");
+
 			String command = detail[0];
 			switch (command) {
 			case "SignUp":
@@ -367,8 +373,9 @@ public class EchoServer extends AbstractServer {
 
 			case "Purchase" :
 				CityId= detail[1];
-				path=detail[2];
-				if (Client.Purchase( CityId, path) == true) {
+				email=detail[2];
+				 String type=detail[3];
+				if (Client.Purchase( CityId,email, type) == true) {
 					this.handleMessageFromServerUI("Purchased");
 
 					break;
@@ -410,10 +417,173 @@ public class EchoServer extends AbstractServer {
 					break;
 				}
 				
-				
+			case"download":
+				CityId=detail[1];
+				path=detail[2];
+		      email=detail[3];
+		      int result=Client.download(CityId,path,email);
+			if (result==2) {
+				 String down="download";
+				this.handleMessageFromServerUI(down);
+
+				break;
 			}
-//			System.out.println("Message received: " + msg + " from \"" + client.getInfo("loginID") + "\" " + client);
-//   this.sendToAllClients(client.getInfo("loginID") + "> " + msg);
+			else if (result==1) {
+				 String down="onetimedownloadFaild";
+				this.handleMessageFromServerUI(down);
+
+				break;
+			}else {
+				this.handleMessageFromServerUI("Cantdownload");
+				break;
+			}
+			case "PersonalInformation":
+				email=detail[1];
+				res=Client.PersonalInformation(email);
+			if(res!=null) {
+					String FINAL="PersonalInformation<"+res;
+					this.handleMessageFromServerUI(FINAL);
+					break;
+			}
+			break;
+			case "showsearch":
+	        String s=detail[1];
+	        res=Client.search(s);
+	    	if(res!=null) {
+				this.handleMessageFromServerUI(res);
+				break;
+		}
+		break;
+			case "Edit":
+			String	InfoKind=detail[1];
+			email = detail[2];
+        	 String	toEdit=detail[3];
+				if (Client.EditPersonalInformation(InfoKind,email,toEdit) == true) {
+					this.handleMessageFromServerUI("Editing Done");
+					break;
+				} else {
+					this.handleMessageFromServerUI("Editing Failed!");
+					break;
+				}
+			case "GetName":
+				email = detail[1];
+				String Result="GetName#"+Client.getname(email);
+						this.handleMessageFromServerUI(Result);
+						break;
+			
+		case "showPrice":
+			CityId=detail[1];
+			int price=City.ShowPrice(CityId);
+			if(price!=-1) {
+				String msgprice="showPrice@"+Integer.toString(price);
+				this.handleMessageFromServerUI(msgprice);
+				break;				
+			}
+			else {
+				this.handleMessageFromServerUI("dontShowPrice@");
+				break;
+			}
+			
+		case "finishAcceptPrice":
+			
+			String [] cityIdsToChange=detail[1].split(",");
+			if(cityIdsToChange.length!=0) {
+				if (City.acceptPriceManager(cityIdsToChange) == true) {
+					this.handleMessageFromServerUI("acceptPriceFromManager");
+	                break;
+				} else {
+					this.handleMessageFromServerUI("NotacceptPriceFromManager");
+
+					break;
+
+				}				
+			}
+            
+
+		case"sendPriceToManager":
+			CityId=detail[1];
+			int NewPrice=Integer.parseInt(detail[2]);
+			if (City.sendPriceToManager(CityId,NewPrice) == true) {
+				this.handleMessageFromServerUI("sendPriceToManager");
+                break;
+			} else {
+				this.handleMessageFromServerUI("NotsendPriceToManager");
+
+				break;
+
+			}
+			
+		case "AcceptPrice":
+			String resPrice=CompanyManager.showFirstPrice();
+			if(resPrice!=null) {
+				String showPrice="show@"+resPrice;
+				this.handleMessageFromServerUI(showPrice);
+				break;
+				
+			} else {
+				this.handleMessageFromServerUI("Can't Show Price");
+				break;
+			}
+
+		case "ShowPreviousCityPrice":
+			resPrice=CompanyManager.ShowPreviousCity();
+				if (resPrice != null) {
+				String 	showPrice="ShowPreviousCity@"+ resPrice;
+					this.handleMessageFromServerUI(showPrice );
+
+					break;
+				} else {
+					this.handleMessageFromServerUI("CantShowPrevoiousCity");
+					break;
+				}
+				
+		case "ShowNextCityPrice":
+			resPrice=CompanyManager.ShowNextCity();
+			if (resPrice != null) {
+				String showPrice="ShowNextCityPrice@"+  resPrice;
+				this.handleMessageFromServerUI(showPrice);
+
+				break;
+			} else {
+				this.handleMessageFromServerUI("CantShowNextCity");
+				break;
+			}
+			
+		case "CDacceptVersion":
+			List<String> users_with_new_version = new ArrayList<String>();
+			String msgg;
+			users_with_new_version=CDManager.acceptVersion();
+			if(users_with_new_version.size()!=0) {
+			       msgg="CDacceptVersion@";
+			      Iterator<String> iterator = users_with_new_version.iterator();
+			      while(iterator.hasNext()) {
+			    	  msgg=msgg+iterator.next()+",";
+			        
+			      }
+				this.handleMessageFromServerUI(msgg);
+                break;
+			} else {
+				msgg="NotCDacceptVersion";
+				this.handleMessageFromServerUI(msgg);
+
+				break;
+
+			}
+		case "sub":
+			email=detail[1];
+			String check=Client.checktime(email);
+			
+			if (check!=null) {
+				String ms="Expired@"+check;
+				this.handleMessageFromServerUI(ms);
+
+				break;
+			} else {
+				this.handleMessageFromServerUI("NotExpired@");
+				break;
+			}
+
+		}
 		}
 	}
 

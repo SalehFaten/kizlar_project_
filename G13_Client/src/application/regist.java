@@ -102,9 +102,9 @@ public class regist implements Initializable {
 			JOptionPane.showMessageDialog(null, "Please enter correct date number ");
 
 		} else {
-			String message = "SignUp," + email.getText() + "," + password.getText() + "," + Fistname.getText() + ","
-					+ lastname.getText() + "," + mobile.getText() + "," + visa.getText() + "," + CVV.getText() + ","
-					+ MM.getText() + "," + ID.getText() + "," + "1";
+			String message = "SignUp#" + email.getText() + "#" + password.getText() + "#" + Fistname.getText() + "#"
+					+ lastname.getText() + "#" + mobile.getText() + "#" + visa.getText() + "#" + CVV.getText() + "#"
+					+ MM.getText() + "#" + ID.getText() + "#" + "1";
 			Connect.client.handleMessageFromClientUI(message);
 
 			if (Connect.client.servermsg != null && "SignUp".equals(Connect.client.servermsg)) {

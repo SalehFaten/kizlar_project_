@@ -17,17 +17,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-public class AddMapToCity implements Initializable{
+public class AddMapToCity implements Initializable {
 	@FXML // fx:id="Path"
 	private Button Path; // Value injected by FXMLLoader
 
@@ -46,15 +44,23 @@ public class AddMapToCity implements Initializable{
 	@FXML // fx:id="MapId"
 	private TextField MapId; // Value injected by FXMLLoader
 
-	  @FXML // fx:id="image"
-	    private ImageView image; // Value injected by FXMLLoader
-	  
-	 public void setimage(Image im) {
-			image.setImage(im);
-	    }
+	@FXML // fx:id="image"
+	private ImageView image; // Value injected by FXMLLoader
+
+	public void setimage(Image im) {
+		image.setImage(im);
+	}
+
+	String MyEmail = null;
+
+	public void SeTEmail(String theEmail) {
+		// TODO Auto-generated method stub
+		MyEmail = theEmail;
+	}
+
 	@FXML
 	void add(ActionEvent event) throws IOException {
-		String message = "AddMap," + CityId.getText() + "," + MapId.getText() + "," + description.getText() + ","
+		String message = "AddMap#" + CityId.getText() + "#" + MapId.getText() + "#" + description.getText() + "#"
 				+ path.getText();
 		Connect.client.handleMessageFromClientUI(message);
 		if ("AddMap".equals(Connect.client.servermsg)) {
@@ -67,11 +73,12 @@ public class AddMapToCity implements Initializable{
 
 	@FXML
 	void back(ActionEvent event) throws IOException {
-     	FXMLLoader loader = new FXMLLoader(getClass().getResource("EmployeeHomePage.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("EmployeeHomePage.fxml"));
 		AnchorPane root = (AnchorPane) loader.load();
 		employeeHomePage employee = loader.getController();
-    	Image im= new Image("images/background.jpg");
+		Image im = new Image("images/background.jpg");
 		employee.setimage(im);
+		employee.set(MyEmail);
 		Scene regist = new Scene(root);
 		Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		app_stage.setScene(regist);
@@ -88,26 +95,12 @@ public class AddMapToCity implements Initializable{
 		if (filename != null) {
 			path.setText(filename);
 		}
-
-//FileChooser filechooser=new FileChooser();
-//filechooser.setTitle("Open File Dialog");
-//Stage app_Stage=(Stage)((Node)event.getSource()).getScene().getWindow();
-//filechooser.showOpenDialog(app_Stage);
-//if(filechooser !=null)
-//{
-//	 JFileChooser chooser=new JFileChooser();
-//	 File f =chooser.getSelectedFile();
-//	 String filename=f.getAbsolutePath();
-//	path.setText(filename);
-//
-//
-//    }
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

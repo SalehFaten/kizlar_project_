@@ -25,71 +25,76 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class AddPath implements Initializable{
-    @FXML // fx:id="image"
-    private ImageView image; // Value injected by FXMLLoader
+public class AddPath implements Initializable {
+	@FXML // fx:id="image"
+	private ImageView image; // Value injected by FXMLLoader
 
-    @FXML // fx:id="enterPathId"
-    private TextField enterPathId; // Value injected by FXMLLoader
+	@FXML // fx:id="enterPathId"
+	private TextField enterPathId; // Value injected by FXMLLoader
 
+	@FXML // fx:id="enterDiscription"
+	private TextField enterDiscription; // Value injected by FXMLLoader
 
-    @FXML // fx:id="enterDiscription"
-    private TextField enterDiscription; // Value injected by FXMLLoader
+	@FXML // fx:id="enterPathToNewPath"
+	private TextField enterPathToNewPath; // Value injected by FXMLLoader
 
-    @FXML // fx:id="enterPathToNewPath"
-    private TextField enterPathToNewPath; // Value injected by FXMLLoader
-    
-    @FXML // fx:id="entermapId"
-    private TextField entermapId; // Value injected by FXMLLoader
+	@FXML // fx:id="entermapId"
+	private TextField entermapId; // Value injected by FXMLLoader
 
-	 public void setimage(Image im) {
-			image.setImage(im);
-	    }
-    @FXML
-    void AddPathbtn(ActionEvent event) throws IOException {
-    	String message="AddPath,"+entermapId.getText()+","+enterPathId.getText()+","+enterDiscription.getText()+","+enterPathToNewPath.getText();
-        Connect.client.handleMessageFromClientUI(message);
-        if ("addPath".equals(Connect.client.servermsg)) {
-        	JOptionPane.showMessageDialog(null, "Adding Map Finished Successfully");
-  
-    }
-        else if ("NotAddPath".equals(Connect.client.servermsg))
-        {
-        	JOptionPane.showMessageDialog(null, "Coudn't add");
+	public void setimage(Image im) {
+		image.setImage(im);
+	}
 
-        }
-    }
+	String MyEmail = null;
 
-    @FXML
-    void back(ActionEvent event) throws IOException {
-     	FXMLLoader loader = new FXMLLoader(getClass().getResource("EmployeeHomePage.fxml"));
+	public void SeTEmail(String theEmail) {
+		// TODO Auto-generated method stub
+		MyEmail = theEmail;
+	}
+
+	@FXML
+	void AddPathbtn(ActionEvent event) throws IOException {
+		String message = "AddPath#" + entermapId.getText() + "#" + enterPathId.getText() + "#"
+				+ enterDiscription.getText() + "#" + enterPathToNewPath.getText();
+		Connect.client.handleMessageFromClientUI(message);
+		if ("addPath".equals(Connect.client.servermsg)) {
+			JOptionPane.showMessageDialog(null, "Adding Map Finished Successfully");
+
+		} else if ("NotAddPath".equals(Connect.client.servermsg)) {
+			JOptionPane.showMessageDialog(null, "Coudn't add");
+
+		}
+	}
+
+	@FXML
+	void back(ActionEvent event) throws IOException {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("EmployeeHomePage.fxml"));
 		AnchorPane root = (AnchorPane) loader.load();
 		employeeHomePage employee = loader.getController();
-    	Image im= new Image("images/background.jpg");
+		Image im = new Image("images/background.jpg");
 		employee.setimage(im);
+		employee.set(MyEmail);
 		Scene regist = new Scene(root);
 		Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		app_stage.setScene(regist);
 		app_stage.show();
-    }
+	}
 
-    @FXML
-    void maplocation(ActionEvent event) {
-   	 JFileChooser chooser=new JFileChooser();
-   	 chooser.showOpenDialog(null);
-   	 File f =chooser.getSelectedFile();
-   	 String filename=f.getAbsolutePath();
-   	 if(filename!=null) {
-    enterPathToNewPath.setText(filename);
-    }
-    }
+	@FXML
+	void maplocation(ActionEvent event) {
+		JFileChooser chooser = new JFileChooser();
+		chooser.showOpenDialog(null);
+		File f = chooser.getSelectedFile();
+		String filename = f.getAbsolutePath();
+		if (filename != null) {
+			enterPathToNewPath.setText(filename);
+		}
+	}
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
-
-
-

@@ -132,6 +132,204 @@ prep_stmt.close();
 		return false;
 			
 	}
+
+	public static int ShowPrice(String CityId) {
+    	Connection conn = null;
+    	Statement stmt = null;
+    	String CityID = null;
+    	int Price=0;
+    	//int NewPrice=0;
+    	
+		try {
+			Class.forName(JDBC_DRIVER);
+			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			stmt = conn.createStatement();
+
+	          /****write sql here****/
+			if(CityId==null)
+			{
+				//JOptionPane.showMessageDialog(null, "You Must Enter CityId!! ");
+				return -1;
+			}
+			else
+			{
+				String sql = "SELECT * FROM City WHERE CityId="+CityId;
+				ResultSet rs = stmt.executeQuery(sql);
+				while (rs.next()) {
+					CityID=rs.getString("CityId");
+				}
+				rs.close();
+				stmt.close();
+				/****check if the city exist****/
+				if (CityID!=null) {
+
+						
+						PreparedStatement prep_stmt = conn.prepareStatement(
+							"Select Price From City WHERE CityId= ?");
+					prep_stmt.setString(1, CityID);
+					ResultSet rs1 = prep_stmt.executeQuery();
+					while (rs1.next()) {
+						Price = rs1.getInt("Price");						
+					}
+					rs1.close();
+					prep_stmt.close();
+					return Price;
+
+
+				}
+				else {
+					//JOptionPane.showMessageDialog(null, "There is no such city id  ");
+					return -1;
+				}
+				
+				
+			}
+			
+		}catch (SQLException se) {
+			se.printStackTrace();
+			System.out.println("SQLException: " + se.getMessage());
+			System.out.println("SQLState: " + se.getSQLState());
+			System.out.println("VendorError: " + se.getErrorCode());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if (stmt != null)
+					stmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+			}
+		}
+		return -1;
+    }
+    
+    
+    
+    /*******************************************************/
+    public static boolean sendPriceToManager(String CityId,int newPrice) {
+    	
+
+		Connection conn = null;
+	    Statement stmt = null;
+	    String CityID=null;
+	    int price=0;
+	    //int new_price=0;
+	
+
+		try {
+			Class.forName(JDBC_DRIVER);
+			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			if(newPrice<=0 || CityId==null)
+			{
+				return false;
+			}
+			else
+			{
+				
+				PreparedStatement prep_stmt = conn.prepareStatement( "SELECT * FROM City WHERE CityId= ?");
+				prep_stmt.setString(1, CityId);
+				ResultSet rs = prep_stmt.executeQuery();
+				while (rs.next()) {
+					CityID=rs.getString("CityId");
+				}
+				rs.close();
+				prep_stmt.close();
+				/****check if the city exist****/
+				if (CityID!=null) {
+
+					PreparedStatement prep_stmt1 = conn.prepareStatement("UPDATE City SET newprice = ? WHERE CityId=?");
+					prep_stmt1.setInt(1,newPrice);
+					prep_stmt1.setString(2, CityId);
+					prep_stmt1.executeUpdate();
+					prep_stmt1.close();
+					conn.close();
+					return true;
+
+				}
+				else {
+					return false;
+				}
+				/*********/
+			}
+		} catch (SQLException se) {
+			se.printStackTrace();
+			System.out.println("SQLException: " + se.getMessage());
+			System.out.println("SQLState: " + se.getSQLState());
+			System.out.println("VendorError: " + se.getErrorCode());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if (stmt != null)
+					stmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+			}
+		}
+		return false;
+		
+    }
+    
+    public static boolean acceptPriceManager(String[] cityIdsChange) {
+    	Connection conn = null;
+	    Statement stmt = null;
+	    String CityID=null;
+	    int price=0;
+	    //int new_price=0;
+	
+
+		try {
+			Class.forName(JDBC_DRIVER);
+			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+		
+				/****check if the city exist****/
+for(int i=0;i<cityIdsChange.length;i++)
+{
+	PreparedStatement prep_stmt2 = conn.prepareStatement("SELECT newprice FROM City WHERE CityId=?");
+	prep_stmt2.setString(1,cityIdsChange[i]);
+	ResultSet rs=prep_stmt2.executeQuery();
+	while(rs.next()) {
+					PreparedStatement prep_stmt1 = conn.prepareStatement("UPDATE City SET price = ? WHERE CityId=?");
+					prep_stmt1.setString(1,rs.getString("newprice"));
+					prep_stmt1.setString(2,cityIdsChange[i]);
+					prep_stmt1.executeUpdate();
+					prep_stmt1.close();
+	}
+	rs.close();
+	prep_stmt2.close();
+}
+					conn.close();
+					return true;
+		} catch (SQLException se) {
+			se.printStackTrace();
+			System.out.println("SQLException: " + se.getMessage());
+			System.out.println("SQLState: " + se.getSQLState());
+			System.out.println("VendorError: " + se.getErrorCode());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if (stmt != null)
+					stmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+			}
+		}
+		return false;
+    	
+    	
+    }
+
+
 }
 	
 
